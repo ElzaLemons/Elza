@@ -36,6 +36,8 @@
                 <li><a href="sugestao" class="px-3 py-2 rounded-lg hover:bg-black hover:text-white">Sugestões</a></li>
 
                 <li><a href="criador" class="px-3 py-2 rounded-lg hover:bg-black hover:text-white">Criador</a></li>
+                
+                <li><a href="eventos" class="px-3 py-2 rounded-lg hover:bg-black hover:text-white">Eventos</a></li>
 
                 <li class=" ml-auto"><a href="admin" class="px-3 py-2 rounded-lg hover:bg-black hover:text-white">Administrador</a></li>
             </ul>
@@ -43,7 +45,7 @@
     </nav>
 
     <main class="max-w-6xl mx-auto my-8">
-        <!-- Seção de apresentação do Site, Mecher nele somente se mudar o Nome ou quiser mudar a descrição, Ela Apresenta o Site-->
+        <!-- Seção 1: apresentação do Site, Mecher nele somente se mudar o Nome ou quiser mudar a descrição, Ela Apresenta o Site-->
         <section>
             <h1 class="text-4xl font-bold text-gray-800 text-center mb-6 font-['Plus_Jakarta_Sans']">Bem vindo ao Site de noticias do Elza</h1>
             
@@ -56,10 +58,12 @@
         <!-- Seção 2: notícias principas > Nessa seção ficará os cards com as noticias em destaque-->
         <section>
             <h2 class="text-3xl font-bold text-gray-800 text-center mb-6 font-['Plus_Jakarta_Sans'] m-12">Noticias em destaque</h2>
-            <p><strong>Acompanhe as principais noticias em destaque</strong></p>
+            <p class="text-lg text-black font-serif">Acompanhe as principais noticias em destaque</p>
 
             <!-- IMPORTANTE: Cards tem que ficar dentro da Div para não da conflito visual no site, novas imagens com descrições manuais todas dentro da Div-->
-            <div class="bg-white rounded-2xl shadow-lg p-6 my-10 grid md:grid-cols-2 ">
+            <div class="bg-white rounded-2xl shadow-lg p-6 my-10 grid md:grid-cols-3 ">
+
+                <h3 class="text-2xl text-center font['Plus_Jakarta_Sans'] col-span-full p-4">Principais notícias</h3>
 
                 <!-- card 1 -->
                 <figure class="">
@@ -87,9 +91,64 @@
             </div>
 
         </section>
+
+        <!-- Mural de avisos-->
+        <section>
+
+            <h2 class="text-2xl text-center text-gray-800 font['Plus_Jakarta_Sans'] mb-6">Mural de Avisos</h2>
+
+            <p class="text-xl text-black font-serif">Aqui você encontra alguns avisos rápidos Sobre a Escola</p>
+
+            <div class="bg-white rounded-2xl shadow-lg p-6 my-10 md:grid-cols-4">
+
+                <h3 class="text-2xl text-center font['Plus_Jakarta_Sans'] col-span-full m-4">Avisos importantes</h3>
+            </div>
+
+        </section>
+
+        <!-- Agenda de eventos-->
+        <section>
+            <h2 class="text-3xl text-center text-gray-800 font['Plus_Jakarta_Sans'] m-6">Agenda de Eventos</h2>
+            <p>Aqui você encontra rapidamente alguns dos eventos importantes na escola</p>
+
+            <p>Caso queria ver todos os eventos clique <a href="evetos">Aqui</a></p>
+
+            <div class="bg-white rounded-2xl shadow-lg p-6 my-10 grid md:grid-cols-3">
+                <h3 class="text-center text-3xl text-gray-800 font-['Plus_Jakarta_Sans'] col-span-full ">Acompanhe aqui os eventos mais próximos e importantes</h3>
+
+
+            </div>
+        </section>
     
     
     </main>
+
+    <foote class="bg-slate-900 text-white grid md:grid-cols-4">
+
+        <!-- Card sobre-->
+        <div>
+            <h3 class="text-center text-white mt-2">Sobre</h3>
+            <p class="text-center text-white mt-1 p-4">Portal de noticias da escola Elza, criado por alunos para mante toda a comunidade escolar informada sobre eventos, projetos e novidades.</p>
+        </div>
+
+        <!-- Card navegação -->
+        <div>
+            <h3 class="text-center text-white mt-2">navegação</h3>
+            <p class="text-center text-white mt-1 p-4">Links para navegação</p>
+        </div>
+
+        <!-- card Contato-->
+        <div>
+            <h3 class="text-center text-white mt-2">Contato</h3>
+            <p class="text-center text-white mt-1 p-4">Informações para contato da escola</p>
+        </div>
+
+        <!-- card Redes sociais-->
+        <div>
+            <h3 class="text-center text-white mt-3">Rede sociais</h3>
+            <p class="text-center text-white mt-1 p-4">Redes sociais da escola</p>
+        </div>
+    </footer>
     
 </body>
 </html>
