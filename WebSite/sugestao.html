@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sugestões</title>
+    
+    <!--importação do tailwindcss-->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Importação de fontes do google fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <nav>
+        <header class="bg-white shadow-md">
+            <ul class="flex gap-8 items-center rounded-xl p-4">
+
+                <li><a href="index.html" class="px-3 py-2 rounded-lg hover:bg-black hover:text-white">Principal</a></li>
+
+                <li><a href="noticia" class="px-3 py-2 rounded-lg hover:bg-black hover:text-white">Noticias</a></li>
+
+                <li><a href="onu" class="px-3 py-2 rounded-lg hover:bg-black hover:text-white">Ser Onu</a></li>
+
+                <li><a href="vozes_negras" class="px-3 py-2 rounded-lg hover:bg-black hover:text-white">Vozes Negras</a></li>
+
+                <li><a href="neaonnim" class="px-3 py-2 rounded-lg hover:bg-black hover:text-white">NeaOnnim</a></li>
+
+                <li><a href="eletiva" class="px-3 py-2 rounded-lg hover:bg-black hover:text-white">Eletivas</a></li>
+
+                <li><a href="sugestao" class="px-3 py-2 rounded-lg hover:bg-black hover:text-white">Sugestões</a></li>
+
+                <li><a href="criador" class="px-3 py-2 rounded-lg hover:bg-black hover:text-white">Criador</a></li>
+                
+                <li><a href="eventos" class="px-3 py-2 rounded-lg hover:bg-black hover:text-white">Eventos</a></li>
+
+                <li class=" ml-auto"><a href="admin" class="px-3 py-2 rounded-lg hover:bg-black hover:text-white">Administrador</a></li>
+            </ul>
+        </header>
+    </nav>
+
+    <main>
+        <!-- Seção de Apresentação -->
+        <section>
+            <h1>Seção de Sugestões</h1>
+            <p>Deixe a sugestão de como podemos melhorar abaixo, sua opininão ela é importante para nós</p>
+        </section>
+
+        <!-- seção aonde vai o formulário -->
+        <section>
+            <!-- Criação do formulário -->
+            <form>
+                <label for="nome">Nome</label>
+                <input type="text" id="nome" placeholder="Digite seu nome">
+
+                <label for="email">E-mail</label>
+                <input type="email" id="email" placeholder="Digite seu E-mail">
+
+                <label for="tema">Categoria</label>
+                <input type="text" id="tema" placeholder="Digite a categoria da sua avalição (sugestão, elogios, críticas)">
+
+                <label for="perfil">Perfil</label>
+                <input type="text" id="perfil" placeholder="Digite o perfil (aluno, professor, estudante)">
+
+                <label for="assunto">Assunto</label>
+                <input type="text" id="assunto" placeholder="Digite o Assunto da sua avalição">
+
+                <label for="sugestao">Sugestão</label>
+                <textarea id="sugestao" placeholder="Digite aqui a sua sugestão"></textarea>
+
+                <button type="submit">enviar sua avalição</button>
+            </form>
+
+        </section>
+    </main>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <footer class="bg-slate-900 text-white grid md:grid-cols-4">
+
+        <!-- Card sobre-->
+        <div>
+            <h3 class="text-center text-white mt-2">Sobre</h3>
+            <p class="text-center text-white mt-1 p-4">Portal de noticias da escola Elza, criado por alunos para mante toda a comunidade escolar informada sobre eventos, projetos e novidades.</p>
+        </div>
+
+        <!-- Card navegação -->
+        <div>
+            <h3 class="text-center text-white mt-2">navegação</h3>
+            <p class="text-center text-white mt-1 p-4">Links para navegação</p>
+        </div>
+
+        <!-- card Contato-->
+        <div>
+            <h3 class="text-center text-white mt-2">Contato</h3>
+            <p class="text-center text-white mt-1 p-4">Informações para contato da escola</p>
+        </div>
+
+        <!-- card Redes sociais-->
+        <div>
+            <h3 class="text-center text-white mt-3">Rede sociais</h3>
+            <p class="text-center text-white mt-1 p-4">Redes sociais da escola</p>
+        </div>
+    </footer>
+
+</body>
+</html>
