@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sugestões</title>
-    
+    <title>Área de Publicação</title>
+
     <!--importação do tailwindcss-->
     <script src="https://cdn.tailwindcss.com"></script>
 
@@ -12,8 +12,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
+
 </head>
-<body class="bg-blue-100 px-7">
+<body class="bg-blue-100">
 
     <nav>
         <header class="bg-white shadow-md">
@@ -31,9 +32,9 @@
 
                 <li><a href="eletiva" class="px-3 py-2 rounded-lg hover:bg-black hover:text-white">Eletivas</a></li>
 
-                <li><a href="#sugestao" class="px-3 py-2 rounded-lg hover:bg-black hover:text-white">Sugestões</a></li>
+                <li><a href="sugestao.html" class="px-3 py-2 rounded-lg hover:bg-black hover:text-white">Sugestões</a></li>
 
-                <li><a href="publicacao.html" class="px-3 py-2 rounded-lg hover:bg-black hover:text-white">Publicação</a></li>
+                <li><a href="#publicacao" class="px-3 py-2 rounded-lg hover:bg-black hover:text-white">publicação</a></li>
                 
                 <li><a href="eventos" class="px-3 py-2 rounded-lg hover:bg-black hover:text-white">Eventos</a></li>
 
@@ -43,56 +44,67 @@
     </nav>
 
     <main>
-        <!-- Seção de Apresentação -->
+        
+        <!-- Apresentação da área de publicação-->
         <section>
-            <h1 class="text-center text-3xl text-gray-800 font['Plus_Jakarta_Sans'] mb-6">Seção de Sugestões</h1>
-            <p class="text-lg text-center text-black font-serif">Deixe a sugestão de como podemos melhorar abaixo, sua opininão ela é importante para nós</p>
+            
+            <h1>Área de publicação</h1>
+            <p>Bem-vindo a área de publicações. Poste, noticie e relate tudo o que puder para postar em nosso site
+                fique a vontade para fazer a sua publicação.
+            </p>
+            
         </section>
 
-        <!-- seção aonde vai o formulário -->
-        <section class="">
+        <!-- aréa com os campos da publicação-->
+        <section>
 
-            <!-- Criação do formulário -->
-            <form class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-2xl mx-auto p-6 bg-white rounded-lg shadow-md  border border-black m-6">
+            
+            <form>
 
-                <div class="col-span-2">
-                <label class="bg-gray-200" for="nome">Nome</label>
-                <input class="border border-black rounded-md p-2 w-full" type="text" id="nome" placeholder="Digite seu nome" name="nome">
+                <div>
+                    <label for="titulo">Título</label>
+                    <input type="text" id="titulo" placeholder="Informe o título da matéria" name="titulo">
                 </div>
 
-                <div class="col-span-2">
-                <label class="bg-gray-200" for="email">E-mail</label>
-                <input class="border border-black rounded-md p-2 w-full" type="email" id="email" placeholder="Digite seu E-mail" name="email">
+                <div>
+                    <label for="autor">Autor</label>
+                    <input type="text" id="autor" placeholder="Informe seu nome" name="autor">
                 </div>
 
-                <div class="col-span-2">
-                <label class="bg-gray-200" for="tema">Categoria</label>
-                <input class="border border-black rounded-md p-2 w-full" type="text" id="tema" placeholder="Digite a categoria da sua avalição (sugestão, elogios, críticas)" name="categoria">
+                <div>
+                    <label for="imagem">Imagem</label>
+                    <input type="file" id="imagem" placeholder="Faça upload da sua imagem" name="imagem" accept="image/*">
                 </div>
 
-                <div class="col-span-2">
-                <label class="bg-gray-200" for="perfil">Perfil</label>
-                <input class="border border-black rounded-md p-2 w-full" type="text" id="perfil" placeholder="Digite o perfil (aluno, professor, estudante)" name="perfil">
+                <div>
+                    <label for="legenda">Legenda da Imagem</label>
+                    <input type="text" id="legenda" placeholder="Adicione legenda a imagem" name="legenda">
                 </div>
 
-                <div class="col-span-2">
-                <label class="bg-gray-200" for="assunto">Assunto</label>
-                <input class="border border-black rounded-md p-2 w-full" type="text" id="assunto" placeholder="Digite o Assunto da sua avalição" name="assunto">
+                <div>
+                    <label for="conteudo">Conteúdo da matéria</label>
+                    <textarea id="conteudo" placeholder="insira o conteúdo de sua matéria/postaem" name="conteudo"></textarea>
                 </div>
 
-                <div class="col-span-2">
-                    <label class="bg-gray-200" for="sugestao">Sugestão</label>
-                    <textarea class="border border-black rounded-md p-2 w-full" id="sugestao" placeholder="Digite aqui a sua sugestão" name="sugestao"></textarea>
+                <div>
+                    <label for="fonte">Fontes</label>
+                    <input type="text" id="fonte" placeholder="Informe a fonte de sua matéria caso haja" name="fonte">
                 </div>
 
+                <div>
+                    <label for="categoria">Categoria</label>
+                    <input type="text" id="categoria" placeholder="selecione a categoria da sua matéria" name="categoria">
+                </div>
 
-                <button class="border bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 w-full md:col-span-2" type="submit">enviar sua avalição</button>
+                    
+                <button type="submit">Publicar matéria</button>    
+            
             </form>
 
         </section>
+
+
     </main>
-
-
 
     <footer class="bg-slate-900 text-white grid md:grid-cols-4">
 
@@ -120,6 +132,6 @@
             <p class="text-center text-white mt-1 p-4">Redes sociais da escola</p>
         </div>
     </footer>
-
+    
 </body>
 </html>
