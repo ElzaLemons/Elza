@@ -7,12 +7,20 @@
     
     <!--importação do tailwindcss-->
     <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Importação de fontes do google fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
+
+
 </head>
 <body class="bg-blue-100 px-7">
     <!-- Criação da Nabar do site-->
     <nav>
         <header class="bg-white shadow-md">
             <ul class="flex gap-8 items-center rounded-xl p-4">
+
                 <li><a href="#Home" class="px-3 py-2 rounded-lg hover:bg-black hover:text-white">Principal</a></li>
 
                 <li><a href="noticia" class="px-3 py-2 rounded-lg hover:bg-black hover:text-white">Noticias</a></li>
@@ -33,6 +41,55 @@
             </ul>
         </header>
     </nav>
+
+    <main class="max-w-6xl mx-auto my-8">
+        <!-- Seção de apresentação do Site, Mecher nele somente se mudar o Nome ou quiser mudar a descrição, Ela Apresenta o Site-->
+        <section>
+            <h1 class="text-4xl font-bold text-gray-800 text-center mb-6 font-['Plus_Jakarta_Sans']">Bem vindo ao Site de noticias do Elza</h1>
+            
+            <p class="text-center text-2xl text-black font-serif">
+                Aqui você encontra as mais novas noticias de nossa escola.
+                Perfeito para se manter atualizado sempre de tudo que acontece na escola
+            </p>
+        </section>
+
+        <!-- Seção 2: notícias principas > Nessa seção ficará os cards com as noticias em destaque-->
+        <section>
+            <h2 class="text-3xl font-bold text-gray-800 text-center mb-6 font-['Plus_Jakarta_Sans'] m-12">Noticias em destaque</h2>
+            <p><strong>Acompanhe as principais noticias em destaque</strong></p>
+
+            <!-- IMPORTANTE: Cards tem que ficar dentro da Div para não da conflito visual no site, novas imagens com descrições manuais todas dentro da Div-->
+            <div class="bg-white rounded-2xl shadow-lg p-6 my-10 grid md:grid-cols-2 ">
+
+                <!-- card 1 -->
+                <figure class="">
+                    <h3 class="text-2xl font-bold text-gray-800 mb-6 font-['Plus_Jakarta_Sans']">Sistemas de energia</h3>
+                    <img src="https://idec.org.br/arquivos/suaconta/sistema_eletrico_2021.png" alt="Sistema de energia">
+                    <figcaption>Imagem aleatoria e ilustrativa de um sistema de energia</figcaption>
+
+                    <p class=" text-lg text-black font-serif p-6">Matéria-prima invisível do mundo moderno, a energia elétrica atravessa uma das transformações mais profundas de sua história. 
+                        O avanço das fontes renováveis, a expansão das redes inteligentes e a busca incessante por eficiência energética 
+                        deixaram de ser pautas exclusivamente ambientais para se tornarem pilares estratégicos de economia, tecnologia e segurança global.
+                    </p>
+                </figure>
+
+                <!-- Card 2-->
+                <figure>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-6 font-['Plus_Jakarta_Sans']">O Pix Sem Fronteiras: A Revolução dos Pagamentos Globais</h3>
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT97eWtIFVAKUk3ajHTHm5HwZd-4Soxg6c1bJ5smZEZng&s=10" alt="imagem de um globo">
+                    <figcaption>Imagem aleatorio representando a internacionalização</figcaption>
+
+                    <p class="text-lg text-black font-serif p-6">O sistema de pagamento instantâneo que transformou a rotina dos brasileiros prepara seu próximo grande salto: a internacionalização. 
+                        A expansão do Pix para além das fronteiras promete simplificar compras no exterior, 
+                        reduzir custos de remessas e conectar o mercado financeiro do Brasil a uma rede global de transferências rápidas e acessíveis.
+                    </p>
+                </figure>
+            </div>
+
+        </section>
+    
+    
+    </main>
     
 </body>
 </html>
