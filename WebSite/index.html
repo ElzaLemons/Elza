@@ -3,152 +3,147 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Página Príncipal</title>
+    <title>Portal Escolar Elza - Principal</title>
     
-    <!--importação do tailwindcss-->
+    <!-- Importação do Tailwind CSS via CDN para estilização ágil -->
     <script src="https://cdn.tailwindcss.com"></script>
 
-    <!-- Importação de fontes do google fonts -->
+    <!-- Google Fonts: Fonte Plus Jakarta Sans usada nos títulos do projeto -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
-
-
 </head>
-<body class="bg-blue-100 px-7">
-    <!-- Criação da Nabar do site-->
-    <nav>
-        <header class="bg-white shadow-md">
-            <ul class="flex gap-8 items-center rounded-xl p-4">
+<body class="bg-blue-100 px-4 md:px-7 font-sans">
 
-                <li><a href="#Home" class="px-3 py-2 rounded-lg hover:bg-black hover:text-white">Principal</a></li>
-
-                <li><a href="noticia" class="px-3 py-2 rounded-lg hover:bg-black hover:text-white">Noticias</a></li>
-
-                <li><a href="onu" class="px-3 py-2 rounded-lg hover:bg-black hover:text-white">Ser Onu</a></li>
-
-                <li><a href="vozes_negras" class="px-3 py-2 rounded-lg hover:bg-black hover:text-white">Vozes Negras</a></li>
-
-                <li><a href="neaonnim" class="px-3 py-2 rounded-lg hover:bg-black hover:text-white">NeaOnnim</a></li>
-
-                <li><a href="eletiva" class="px-3 py-2 rounded-lg hover:bg-black hover:text-white">Eletivas</a></li>
-
-                <li><a href="sugestao.html" class="px-3 py-2 rounded-lg hover:bg-black hover:text-white">Sugestões</a></li>
-
-                <li><a href="publicacao.html" class="px-3 py-2 rounded-lg hover:bg-black hover:text-white">publicação</a></li>
-                
-                <li><a href="eventos" class="px-3 py-2 rounded-lg hover:bg-black hover:text-white">Eventos</a></li>
-
-                <li class=" ml-auto"><a href="admin" class="px-3 py-2 rounded-lg hover:bg-black hover:text-white">Administrador</a></li>
+    <!-- MENU DE NAVEGAÇÃO PRINCIPAL -->
+    <!-- Adicionado 'overflow-x-auto' e 'whitespace-nowrap' para o menu rolar horizontalmente em telas pequenas sem quebrar o layout -->
+    <nav class="my-4">
+        <header class="bg-white shadow-md rounded-xl">
+            <ul class="flex gap-4 items-center p-4 overflow-x-auto whitespace-nowrap text-sm md:text-base">
+                <li><a href="index.html" class="px-3 py-2 rounded-lg bg-black text-white">Principal</a></li>
+                <li><a href="noticia.html" class="px-3 py-2 rounded-lg hover:bg-black hover:text-white transition">Notícias</a></li>
+                <li><a href="onu.html" class="px-3 py-2 rounded-lg hover:bg-black hover:text-white transition">Ser ONU</a></li>
+                <li><a href="vozes_negras.html" class="px-3 py-2 rounded-lg hover:bg-black hover:text-white transition">Vozes Negras</a></li>
+                <li><a href="neaonnim.html" class="px-3 py-2 rounded-lg hover:bg-black hover:text-white transition">NeaOnnim</a></li>
+                <li><a href="eletiva.html" class="px-3 py-2 rounded-lg hover:bg-black hover:text-white transition">Eletivas</a></li>
+                <li><a href="sugestao.html" class="px-3 py-2 rounded-lg hover:bg-black hover:text-white transition">Sugestões</a></li>
+                <li><a href="publicacao.html" class="px-3 py-2 rounded-lg hover:bg-black hover:text-white transition">Publicação</a></li>
+                <li><a href="eventos.html" class="px-3 py-2 rounded-lg hover:bg-black hover:text-white transition">Eventos</a></li>
+                <!-- Botão destacado do Administrador alinhado à direita -->
+                <li class="ml-auto"><a href="admin.html" class="px-3 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-800 transition">Administrador</a></li>
             </ul>
         </header>
     </nav>
 
+    <!-- CONTEÚDO PRINCIPAL DA HOME -->
     <main class="max-w-6xl mx-auto my-8">
-        <!-- Seção 1: apresentação do Site, Mecher nele somente se mudar o Nome ou quiser mudar a descrição, Ela Apresenta o Site-->
-        <section>
-            <h1 class="text-4xl font-bold text-gray-800 text-center mb-6 font-['Plus_Jakarta_Sans']">Bem vindo ao Site de noticias do Elza</h1>
-            
-            <p class="text-center text-2xl text-black font-serif">
-                Aqui você encontra as mais novas noticias de nossa escola.
-                Perfeito para se manter atualizado sempre de tudo que acontece na escola
+        
+        <!-- Apresentação do Portal -->
+        <section class="text-center my-8">
+            <h1 class="text-4xl font-bold text-gray-800 mb-4 font-['Plus_Jakarta_Sans']">Bem-vindo ao Portal Elza</h1>
+            <p class="text-xl text-gray-700 font-serif max-w-2xl mx-auto">
+                Aqui você encontra as notícias mais recentes da nossa escola.
+                Fique por dentro de todos os projetos, eletivas e eventos!
             </p>
         </section>
 
-        <!-- Seção 2: notícias principas > Nessa seção ficará os cards com as noticias em destaque-->
-        <section>
-            <h2 class="text-3xl font-bold text-gray-800 text-center mb-6 font-['Plus_Jakarta_Sans'] m-12">Noticias em destaque</h2>
-            <p class="text-lg text-black font-serif">Acompanhe as principais noticias em destaque</p>
+        <!-- Seção: Notícias em Destaque -->
+        <!-- No Back-end Node.js, esta seção será renderizada dinamicamente consumindo a tabela 'noticias' do banco -->
+        <section class="my-12">
+            <h2 class="text-3xl font-bold text-gray-800 text-center mb-2 font-['Plus_Jakarta_Sans']">Notícias em Destaque</h2>
+            <p class="text-center text-gray-600 font-serif mb-6">Acompanhe as principais manchetes da comunidade escolar</p>
 
-            <!-- IMPORTANTE: Cards tem que ficar dentro da Div para não da conflito visual no site, novas imagens com descrições manuais todas dentro da Div-->
-            <div class="bg-white rounded-2xl shadow-lg p-6 my-10 grid md:grid-cols-3 ">
+            <!-- Grid responsivo: 1 coluna no celular, 3 colunas em computadores -->
+            <div class="bg-white rounded-2xl shadow-lg p-6 grid grid-cols-1 md:grid-cols-3 gap-6">
 
-                <h3 class="text-2xl text-center font['Plus_Jakarta_Sans'] col-span-full p-4">Principais notícias</h3>
+                <!-- Card 1 (Exemplo estático que será substituído por dados do SQLite) -->
+                <article class="border rounded-xl p-4 flex flex-col justify-between hover:shadow-md transition">
+                    <div>
+                        <img src="https://idec.org.br/arquivos/suaconta/sistema_eletrico_2021.png" alt="Sistemas de energia" class="w-full h-48 object-cover rounded-lg mb-4">
+                        <h3 class="text-xl font-bold text-gray-800 mb-2 font-['Plus_Jakarta_Sans']">Sistemas de Energia</h3>
+                        <p class="text-sm text-gray-600 font-serif line-clamp-3">
+                            A transição energética e o avanço das redes inteligentes deixaram de ser pautas exclusivamente ambientais para se tornarem pilares da tecnologia.
+                        </p>
+                    </div>
+                    <a href="noticia.html?id=1" class="mt-4 inline-block text-blue-600 font-bold hover:underline">Ler matéria completa →</a>
+                </article>
 
-                <!-- card 1 -->
-                <figure class="">
-                    <h3 class="text-2xl font-bold text-gray-800 mb-6 font-['Plus_Jakarta_Sans']">Sistemas de energia</h3>
-                    <img src="https://idec.org.br/arquivos/suaconta/sistema_eletrico_2021.png" alt="Sistema de energia">
-                    <figcaption>Imagem aleatoria e ilustrativa de um sistema de energia</figcaption>
+                <!-- Card 2 -->
+                <article class="border rounded-xl p-4 flex flex-col justify-between hover:shadow-md transition">
+                    <div>
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT97eWtIFVAKUk3ajHTHm5HwZd-4Soxg6c1bJ5smZEZng&s=10" alt="Globo conectividade" class="w-full h-48 object-cover rounded-lg mb-4">
+                        <h3 class="text-xl font-bold text-gray-800 mb-2 font-['Plus_Jakarta_Sans']">Internacionalização e Tecnologia</h3>
+                        <p class="text-sm text-gray-600 font-serif line-clamp-3">
+                            A expansão das redes globais de comunicação promete simplificar trocas de informações e conectar projetos escolares a iniciativas mundiais.
+                        </p>
+                    </div>
+                    <a href="noticia.html?id=2" class="mt-4 inline-block text-blue-600 font-bold hover:underline">Ler matéria completa →</a>
+                </article>
 
-                    <p class=" text-lg text-black font-serif p-6">Matéria-prima invisível do mundo moderno, a energia elétrica atravessa uma das transformações mais profundas de sua história. 
-                        O avanço das fontes renováveis, a expansão das redes inteligentes e a busca incessante por eficiência energética 
-                        deixaram de ser pautas exclusivamente ambientais para se tornarem pilares estratégicos de economia, tecnologia e segurança global.
+            </div>
+        </section>
+
+        <!-- Seção: Mural de Avisos Rápidos -->
+        <section class="my-12">
+            <h2 class="text-2xl font-bold text-center text-gray-800 font-['Plus_Jakarta_Sans'] mb-2">Mural de Avisos</h2>
+            <p class="text-center text-gray-600 font-serif mb-6">Informaçoes rápidas para alunos e responsáveis</p>
+
+            <div class="bg-white rounded-2xl shadow-lg p-6 grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="p-4 bg-yellow-50 border-l-4 border-yellow-400 rounded">
+                    <p class="font-bold text-yellow-800">Feira de Ciências Elza
+                        Tema: Mulheres na ciência
                     </p>
-                </figure>
-
-                <!-- Card 2-->
-                <figure>
-                    <h3 class="text-2xl font-bold text-gray-800 mb-6 font-['Plus_Jakarta_Sans']">O Pix Sem Fronteiras: A Revolução dos Pagamentos Globais</h3>
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT97eWtIFVAKUk3ajHTHm5HwZd-4Soxg6c1bJ5smZEZng&s=10" alt="imagem de um globo">
-                    <figcaption>Imagem aleatorio representando a internacionalização</figcaption>
-
-                    <p class="text-lg text-black font-serif p-6">O sistema de pagamento instantâneo que transformou a rotina dos brasileiros prepara seu próximo grande salto: a internacionalização. 
-                        A expansão do Pix para além das fronteiras promete simplificar compras no exterior, 
-                        reduzir custos de remessas e conectar o mercado financeiro do Brasil a uma rede global de transferências rápidas e acessíveis.
-                    </p>
-                </figure>
-            </div>
-
-        </section>
-
-        <!-- Mural de avisos-->
-        <section>
-
-            <h2 class="text-2xl text-center text-gray-800 font['Plus_Jakarta_Sans'] mb-6">Mural de Avisos</h2>
-
-            <p class="text-xl text-black font-serif">Aqui você encontra alguns avisos rápidos Sobre a Escola</p>
-
-            <div class="bg-white rounded-2xl shadow-lg p-6 my-10 md:grid-cols-4">
-
-                <h3 class="text-2xl text-center font['Plus_Jakarta_Sans'] col-span-full m-4">Avisos importantes</h3>
-            </div>
-
-        </section>
-
-        <!-- Agenda de eventos-->
-        <section>
-            <h2 class="text-3xl text-center text-gray-800 font['Plus_Jakarta_Sans'] m-6">Agenda de Eventos</h2>
-            <p>Aqui você encontra rapidamente alguns dos eventos importantes na escola</p>
-
-            <p>Caso queria ver todos os eventos clique <a href="evetos">Aqui</a></p>
-
-            <div class="bg-white rounded-2xl shadow-lg p-6 my-10 grid md:grid-cols-3">
-                <h3 class="text-center text-3xl text-gray-800 font-['Plus_Jakarta_Sans'] col-span-full ">Acompanhe aqui os eventos mais próximos e importantes</h3>
-
-
+                    <p class="text-sm text-yellow-700">Venha acompanhar a nossa feira de ciências com o tema mulheres na ciências, no auditório.</p>
+                </div>
+                <div class="p-4 bg-blue-50 border-l-4 border-blue-400 rounded">
+                    <p class="font-bold text-blue-800"></p>
+                    <p class="text-sm text-blue-700"></p>
+                </div>
             </div>
         </section>
-    
-    
+
+        <!-- Seção: Agenda de Eventos -->
+        <section class="my-12">
+            <h2 class="text-2xl font-bold text-center text-gray-800 font-['Plus_Jakarta_Sans'] mb-2">Agenda de Eventos</h2>
+            <p class="text-center text-gray-600 font-serif mb-4">Confira as próximas datas do calendário acadêmico</p>
+            <p class="text-center text-sm mb-6">Para ver o calendário completo, <a href="eventos.html" class="text-blue-600 underline font-bold">clique aqui</a>.</p>
+
+            <div class="bg-white rounded-2xl shadow-lg p-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="border p-4 rounded-lg flex items-center justify-between">
+                    <div>
+                        <span class="text-xs bg-blue-100 text-blue-800 font-bold px-2 py-1 rounded"></span>
+                        <h4 class="font-bold text-gray-800 mt-2"></h4>
+                    </div>
+                </div>
+            </div>
+        </section>
+
     </main>
 
-    <footer class="bg-slate-900 text-white grid md:grid-cols-4">
-
-        <!-- Card sobre-->
+    <!-- RODAPÉ DO SITE (Mantido padrão em todas as páginas) -->
+    <footer class="bg-slate-900 text-white rounded-t-xl p-8 grid grid-cols-1 md:grid-cols-4 gap-6 mt-12 text-sm">
         <div>
-            <h3 class="text-center text-white mt-2">Sobre</h3>
-            <p class="text-center text-white mt-1 p-4">Portal de noticias da escola Elza, criado por alunos para mante toda a comunidade escolar informada sobre eventos, projetos e novidades.</p>
+            <h3 class="font-bold text-lg mb-2 border-b border-gray-700 pb-1">Sobre</h3>
+            <p class="text-gray-400">Portal de notícias da Escola Elza, criado por alunos para manter a comunidade escolar informada sobre projetos e eventos.</p>
         </div>
-
-        <!-- Card navegação -->
         <div>
-            <h3 class="text-center text-white mt-2">navegação</h3>
-            <p class="text-center text-white mt-1 p-4">Links para navegação</p>
+            <h3 class="font-bold text-lg mb-2 border-b border-gray-700 pb-1">Navegação</h3>
+            <ul class="space-y-1 text-gray-400">
+                <li><a href="index.html" class="hover:text-white">Início</a></li>
+                <li><a href="noticia.html" class="hover:text-white">Notícias</a></li>
+                <li><a href="eletiva.html" class="hover:text-white">Inscrição de Eletivas</a></li>
+            </ul>
         </div>
-
-        <!-- card Contato-->
         <div>
-            <h3 class="text-center text-white mt-2">Contato</h3>
-            <p class="text-center text-white mt-1 p-4">Informações para contato da escola</p>
+            <h3 class="font-bold text-lg mb-2 border-b border-gray-700 pb-1">Contato</h3>
+            <p class="text-gray-400">Email: contato@escolaelza.edu.br</p>
+            <p class="text-gray-400">Telefone: (00) 0000-0000</p>
         </div>
-
-        <!-- card Redes sociais-->
         <div>
-            <h3 class="text-center text-white mt-3">Rede sociais</h3>
-            <p class="text-center text-white mt-1 p-4">Redes sociais da escola</p>
+            <h3 class="font-bold text-lg mb-2 border-b border-gray-700 pb-1">Redes Sociais</h3>
+            <p class="text-gray-400">Siga nosso perfil oficial para acompanhar as fotos dos eventos da escola.</p>
         </div>
     </footer>
-    
+
 </body>
 </html>

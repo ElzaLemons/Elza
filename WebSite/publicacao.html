@@ -3,133 +3,112 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Área de Publicação</title>
-
-    <!--importação do tailwindcss-->
+    <title>Criar Publicação - Portal Elza</title>
+    
     <script src="https://cdn.tailwindcss.com"></script>
-
-    <!-- Importação de fontes do google fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
-
 </head>
-<body class="bg-blue-100">
+<body class="bg-blue-100 px-4 md:px-7 font-sans">
 
-    <nav>
-        <header class="bg-white shadow-md">
-            <ul class="flex gap-8 items-center rounded-xl p-4">
-
-                <li><a href="index.html" class="px-3 py-2 rounded-lg hover:bg-black hover:text-white">Principal</a></li>
-
-                <li><a href="noticia" class="px-3 py-2 rounded-lg hover:bg-black hover:text-white">Noticias</a></li>
-
-                <li><a href="onu" class="px-3 py-2 rounded-lg hover:bg-black hover:text-white">Ser Onu</a></li>
-
-                <li><a href="vozes_negras" class="px-3 py-2 rounded-lg hover:bg-black hover:text-white">Vozes Negras</a></li>
-
-                <li><a href="neaonnim" class="px-3 py-2 rounded-lg hover:bg-black hover:text-white">NeaOnnim</a></li>
-
-                <li><a href="eletiva" class="px-3 py-2 rounded-lg hover:bg-black hover:text-white">Eletivas</a></li>
-
-                <li><a href="sugestao.html" class="px-3 py-2 rounded-lg hover:bg-black hover:text-white">Sugestões</a></li>
-
-                <li><a href="#publicacao" class="px-3 py-2 rounded-lg hover:bg-black hover:text-white">publicação</a></li>
-                
-                <li><a href="eventos" class="px-3 py-2 rounded-lg hover:bg-black hover:text-white">Eventos</a></li>
-
-                <li class=" ml-auto"><a href="admin" class="px-3 py-2 rounded-lg hover:bg-black hover:text-white">Administrador</a></li>
+    <!-- MENU DE NAVEGAÇÃO -->
+    <nav class="my-4">
+        <header class="bg-white shadow-md rounded-xl">
+            <ul class="flex gap-4 items-center p-4 overflow-x-auto whitespace-nowrap text-sm md:text-base">
+                <li><a href="index.html" class="px-3 py-2 rounded-lg hover:bg-black hover:text-white transition">Principal</a></li>
+                <li><a href="noticia.html" class="px-3 py-2 rounded-lg hover:bg-black hover:text-white transition">Notícias</a></li>
+                <li><a href="onu.html" class="px-3 py-2 rounded-lg hover:bg-black hover:text-white transition">Ser ONU</a></li>
+                <li><a href="vozes_negras.html" class="px-3 py-2 rounded-lg hover:bg-black hover:text-white transition">Vozes Negras</a></li>
+                <li><a href="neaonnim.html" class="px-3 py-2 rounded-lg hover:bg-black hover:text-white transition">NeaOnnim</a></li>
+                <li><a href="eletiva.html" class="px-3 py-2 rounded-lg hover:bg-black hover:text-white transition">Eletivas</a></li>
+                <li><a href="sugestao.html" class="px-3 py-2 rounded-lg hover:bg-black hover:text-white transition">Sugestões</a></li>
+                <li><a href="publicacao.html" class="px-3 py-2 rounded-lg bg-black text-white">Publicação</a></li>
+                <li><a href="eventos.html" class="px-3 py-2 rounded-lg hover:bg-black hover:text-white transition">Eventos</a></li>
+                <li class="ml-auto"><a href="admin.html" class="px-3 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-800 transition">Administrador</a></li>
             </ul>
         </header>
     </nav>
 
-    <main>
+    <main class="max-w-4xl mx-auto my-8">
         
-        <!-- Apresentação da área de publicação-->
-        <section>
-            
-            <h1>Área de publicação</h1>
-            <p>Bem-vindo a área de publicações. Poste, noticie e relate tudo o que puder para postar em nosso site
-                fique a vontade para fazer a sua publicação.
-            </p>
-            
+        <section class="text-center mb-8">
+            <h1 class="text-3xl font-bold text-gray-800 mb-2 font-['Plus_Jakarta_Sans']">Painel de Publicação</h1>
+            <p class="text-gray-700 font-serif">Área destinada aos professores e alunos autorizados para cadastro de notícias.</p>
         </section>
 
-        <!-- aréa com os campos da publicação-->
+        <!-- FORMULÁRIO DE CADASTRO -->
+        <!-- Importante para o Back-end: 
+             - 'action="/api/noticias"' define a rota do Express que receberá a requisição.
+             - 'method="POST"' é o verbo HTTP para gravação.
+             - 'enctype="multipart/form-data"' é OBRIGATÓRIO quando enviamos arquivos (imagens) no formulário. -->
         <section>
+            <form action="/api/noticias" method="POST" enctype="multipart/form-data" class="grid grid-cols-1 md:grid-cols-2 gap-6 p-6 md:p-8 bg-white rounded-2xl shadow-lg border border-gray-200">
 
-            
-            <form>
-
-                <div>
-                    <label for="titulo">Título</label>
-                    <input type="text" id="titulo" placeholder="Informe o título da matéria" name="titulo">
+                <!-- Campo: Título (Gravado na coluna 'titulo' da tabela 'noticias') -->
+                <div class="col-span-2">
+                    <label for="titulo" class="block font-bold text-gray-700 mb-1">Título da Matéria</label>
+                    <input class="border border-gray-300 rounded-lg p-2.5 w-full focus:ring-2 focus:ring-blue-500 outline-none" type="text" id="titulo" name="titulo" placeholder="Ex: Alunos ganham olimpíada de robótica" required>
                 </div>
 
+                <!-- Campo Categoria: Usado para filtrar nos painéis temáticos (Ser ONU, Vozes Negras, etc.) -->
                 <div>
-                    <label for="autor">Autor</label>
-                    <input type="text" id="autor" placeholder="Informe seu nome" name="autor">
+                    <label for="categoria" class="block font-bold text-gray-700 mb-1">Categoria/Painel</label>
+                    <select class="border border-gray-300 rounded-lg p-2.5 w-full focus:ring-2 focus:ring-blue-500 outline-none" id="categoria" name="categoria" required>
+                        <option value="Geral">Notícias Gerais</option>
+                        <option value="Ser ONU">Ser ONU</option>
+                        <option value="Vozes Negras">Vozes Negras</option>
+                        <option value="NeaOnnim">NeaOnnim</option>
+                    </select>
                 </div>
 
+                <!-- Campo: Autor (Relaciona com a tabela 'usuarios' através do 'autor_id') -->
                 <div>
-                    <label for="imagem">Imagem</label>
-                    <input type="file" id="imagem" placeholder="Faça upload da sua imagem" name="imagem" accept="image/*">
+                    <label for="autor_id" class="block font-bold text-gray-700 mb-1">ID do Autor</label>
+                    <input class="border border-gray-300 rounded-lg p-2.5 w-full bg-gray-50 focus:ring-2 focus:ring-blue-500 outline-none" type="text" id="autor_id" name="autor_id" placeholder="ID do Usuário Logado" required>
                 </div>
 
-                <div>
-                    <label for="legenda">Legenda da Imagem</label>
-                    <input type="text" id="legenda" placeholder="Adicione legenda a imagem" name="legenda">
+                <!-- Upload de Mídia (Enviado para o Firebase Storage -> Salva a URL na coluna 'midia_url') -->
+                <div class="col-span-2">
+                    <label for="midia" class="block font-bold text-gray-700 mb-1">Imagem / Banner da Matéria</label>
+                    <input class="border border-gray-300 rounded-lg p-2 w-full file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100" type="file" id="midia" name="midia" accept="image/*" required>
                 </div>
 
-                <div>
-                    <label for="conteudo">Conteúdo da matéria</label>
-                    <textarea id="conteudo" placeholder="insira o conteúdo de sua matéria/postaem" name="conteudo"></textarea>
+                <!-- Conteúdo Completo (Gravado na coluna 'conteudo') -->
+                <div class="col-span-2">
+                    <label for="conteudo" class="block font-bold text-gray-700 mb-1">Conteúdo Completo</label>
+                    <textarea class="border border-gray-300 rounded-lg p-2.5 w-full h-40 focus:ring-2 focus:ring-blue-500 outline-none" id="conteudo" name="conteudo" placeholder="Escreva a notícia detalhada aqui..." required></textarea>
                 </div>
 
-                <div>
-                    <label for="fonte">Fontes</label>
-                    <input type="text" id="fonte" placeholder="Informe a fonte de sua matéria caso haja" name="fonte">
-                </div>
-
-                <div>
-                    <label for="categoria">Categoria</label>
-                    <input type="text" id="categoria" placeholder="selecione a categoria da sua matéria" name="categoria">
-                </div>
-
-                    
-                <button type="submit">Publicar matéria</button>    
+                <!-- Botão de Envio -->
+                <button class="col-span-2 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg transition shadow-md" type="submit">Publicar Notícia</button>    
             
             </form>
-
         </section>
-
 
     </main>
 
-    <footer class="bg-slate-900 text-white grid md:grid-cols-4">
-
-        <!-- Card sobre-->
+    <footer class="bg-slate-900 text-white rounded-t-xl p-8 grid grid-cols-1 md:grid-cols-4 gap-6 mt-12 text-sm">
         <div>
-            <h3 class="text-center text-white mt-2">Sobre</h3>
-            <p class="text-center text-white mt-1 p-4">Portal de noticias da escola Elza, criado por alunos para mante toda a comunidade escolar informada sobre eventos, projetos e novidades.</p>
+            <h3 class="font-bold text-lg mb-2 border-b border-gray-700 pb-1">Sobre</h3>
+            <p class="text-gray-400">Portal de notícias da Escola Elza, criado por alunos para manter a comunidade escolar informada sobre projetos e eventos.</p>
         </div>
-
-        <!-- Card navegação -->
         <div>
-            <h3 class="text-center text-white mt-2">navegação</h3>
-            <p class="text-center text-white mt-1 p-4">Links para navegação</p>
+            <h3 class="font-bold text-lg mb-2 border-b border-gray-700 pb-1">Navegação</h3>
+            <ul class="space-y-1 text-gray-400">
+                <li><a href="index.html" class="hover:text-white">Início</a></li>
+                <li><a href="noticia.html" class="hover:text-white">Notícias</a></li>
+                <li><a href="eletiva.html" class="hover:text-white">Inscrição de Eletivas</a></li>
+            </ul>
         </div>
-
-        <!-- card Contato-->
         <div>
-            <h3 class="text-center text-white mt-2">Contato</h3>
-            <p class="text-center text-white mt-1 p-4">Informações para contato da escola</p>
+            <h3 class="font-bold text-lg mb-2 border-b border-gray-700 pb-1">Contato</h3>
+            <p class="text-gray-400">Email: contato@escolaelza.edu.br</p>
+            <p class="text-gray-400">Telefone: (00) 0000-0000</p>
         </div>
-
-        <!-- card Redes sociais-->
         <div>
-            <h3 class="text-center text-white mt-3">Rede sociais</h3>
-            <p class="text-center text-white mt-1 p-4">Redes sociais da escola</p>
+            <h3 class="font-bold text-lg mb-2 border-b border-gray-700 pb-1">Redes Sociais</h3>
+            <p class="text-gray-400">Siga nosso perfil oficial para acompanhar as fotos dos eventos da escola.</p>
         </div>
     </footer>
     
