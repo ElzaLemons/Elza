@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel do Administrador - Portal Elza</title>
+</head>
+<body>
+
+    <!-- MENU DE NAVEGAÇÃO PRINCIPAL -->
+    <nav>
+        <header>
+            <ul>
+                <li><a href="index.html">Principal</a></li>
+                <li><a href="noticia.html">Notícias</a></li>
+                <li><a href="onu.html">Ser ONU</a></li>
+                <li><a href="vozes_negras.html">Vozes Negras</a></li>
+                <li><a href="neaonnim.html">NeaOnnim</a></li>
+                <li><a href="eletiva.html">Eletivas</a></li>
+                <li><a href="sugestao.html">Sugestões</a></li>
+                <li><a href="publicacao.html">Publicação</a></li>
+                <li><a href="eventos.html">Eventos</a></li>
+                <li><a href="admin.html">Administrador</a></li>
+            </ul>
+        </header>
+    </nav>
+
+    <!-- CONTEÚDO PRINCIPAL DO PAINEL -->
+    <main>
+        
+        <!-- Apresentação da página -->
+        <section>
+            <h1>Painel de Controle Administrativo</h1>
+            <p>Área restrita para gestão de notícias, permissões de usuários e leitura de sugestões.</p>
+        </section>
+
+        <!-- Métricas gerais (Consultas rápidas no banco) -->
+        <section>
+            <div>
+                <h3>Total de Notícias</h3>
+                <p>12</p>
+            </div>
+            <div>
+                <h3>Usuários Cadastrados</h3>
+                <p>48</p>
+            </div>
+            <div>
+                <h3>Sugestões Recebidas</h3>
+                <p>5</p>
+            </div>
+        </section>
+
+        <!-- Tabela 1: Gerenciamento de Notícias -->
+        <section>
+            <h2>Gerenciamento de Notícias</h2>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Título</th>
+                        <th>Autor</th>
+                        <th>Data</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>#1</td>
+                        <td>Sistemas de energia e sustentabilidade</td>
+                        <td>Prof. Carlos</td>
+                        <td>09/08/2026</td>
+                        <td>
+                            <a href="noticia.html?id=1">Ver</a>
+                            <button type="button">Excluir</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>#2</td>
+                        <td>O Pix Sem Fronteiras na economia global</td>
+                        <td>Aluno João (3º B)</td>
+                        <td>08/08/2026</td>
+                        <td>
+                            <a href="noticia.html?id=2">Ver</a>
+                            <button type="button">Excluir</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Tabela 2: Controle de Usuários e Permissões -->
+        <section>
+            <h2>Controle de Usuários e Permissões</h2>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID (Firebase)</th>
+                        <th>Nome</th>
+                        <th>E-mail</th>
+                        <th>Cargo Atual</th>
+                        <th>Alterar Cargo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>usr_fb_9981a</td>
+                        <td>Ana Maria Santos</td>
+                        <td>ana.santos@escola.com</td>
+                        <td>Coordenadora</td>
+                        <td>
+                            <!-- Formulário para envio de atualização de cargo ao backend -->
+                            <form action="/api/usuarios/cargo" method="POST">
+                                <input type="hidden" name="usuario_id" value="usr_fb_9981a">
+                                <select name="cargo_id">
+                                    <option value="1">Administrador</option>
+                                    <option value="2">Professor/Autor</option>
+                                    <option value="3">Leitor/Aluno</option>
+                                </select>
+                                <button type="submit">Salvar</button>
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Lista de Sugestões dos Alunos -->
+        <section>
+            <h2>Últimas Sugestões Recebidas</h2>
+
+            <article>
+                <header>
+                    <strong>Mariana Lima (Aluna)</strong>
+                    <span>Sugestão</span>
+                </header>
+                <p>"Poderíamos ter uma aba dedicada aos campeonatos de educação física da escola."</p>
+                <button type="button">Marcar como Lida</button>
+            </article>
+        </section>
+
+    </main>
+
+    <!-- RODAPÉ DO SITE -->
+    <footer>
+        <div>
+            <h3>Sobre</h3>
+            <p>Portal de notícias da Escola Elza, criado por alunos para manter a comunidade escolar informada sobre projetos e eventos.</p>
+        </div>
+        <div>
+            <h3>Navegação</h3>
+            <ul>
+                <li><a href="index.html">Início</a></li>
+                <li><a href="noticia.html">Notícias</a></li>
+                <li><a href="eletiva.html">Inscrição de Eletivas</a></li>
+            </ul>
+        </div>
+        <div>
+            <h3>Contato</h3>
+            <p>Email: contato@escolaelza.edu.br</p>
+            <p>Telefone: (00) 0000-0000</p>
+        </div>
+        <div>
+            <h3>Redes Sociais</h3>
+            <p>Siga nosso perfil oficial para acompanhar as fotos dos eventos da escola.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
