@@ -8,8 +8,7 @@
     <!-- Importação do Tailwind CSS via CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
 
-    <!-- CONFIGURAÇÃO DA PALETA DE CORES DA ESCOLA
-         Para trocar as cores do site inteiro depois, basta alterar os códigos hexadecimais abaixo (#...) -->
+    <!-- CONFIGURAÇÃO DA PALETA DE CORES DA ESCOLA -->
     <script>
         tailwind.config = {
             theme: {
@@ -33,7 +32,6 @@
 <body class="bg-escola-fundo px-4 md:px-7 font-sans text-gray-800">
 
     <!-- MENU DE NAVEGAÇÃO PRINCIPAL -->
-    <!-- 'overflow-x-auto' garante que o menu não quebre em celulares -->
     <nav class="my-4">
         <header class="bg-escola-card shadow-md rounded-xl">
             <ul class="flex gap-4 items-center p-4 overflow-x-auto whitespace-nowrap text-sm md:text-base">
@@ -52,19 +50,23 @@
     </nav>
 
     <!-- CONTEÚDO PRINCIPAL DO PAINEL -->
-    <main class="max-w-6xl mx-auto my-8">
+    <main class="max-w-6xl mx-auto my-8 space-y-10">
         
         <!-- Apresentação da página -->
-        <section class="text-center mb-8">
+        <section class="text-center">
             <h1 class="text-3xl font-bold mb-2 font-['Plus_Jakarta_Sans']">Painel de Controle Administrativo</h1>
-            <p class="text-gray-700 font-serif">Área restrita para gestão de notícias, permissões de usuários e leitura de sugestões.</p>
+            <p class="text-gray-700 font-serif">Área restrita à coordenação para gestão de eletivas, notícias, permissões e sugestões.</p>
         </section>
 
         <!-- MÉTRICAS GERAIS (Cartões de consulta rápida no SQLite) -->
-        <section class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+        <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             <div class="bg-escola-card p-6 rounded-2xl shadow-md border-l-4 border-escola-primaria">
                 <h3 class="text-xs font-bold text-gray-500 uppercase">Total de Notícias</h3>
                 <p class="text-3xl font-bold mt-2">12</p>
+            </div>
+            <div class="bg-escola-card p-6 rounded-2xl shadow-md border-l-4 border-purple-600">
+                <h3 class="text-xs font-bold text-gray-500 uppercase">Eletivas Ativas</h3>
+                <p class="text-3xl font-bold mt-2">4</p>
             </div>
             <div class="bg-escola-card p-6 rounded-2xl shadow-md border-l-4 border-green-600">
                 <h3 class="text-xs font-bold text-gray-500 uppercase">Usuários Cadastrados</h3>
@@ -76,8 +78,89 @@
             </div>
         </section>
 
+        <!-- NOVO: SEÇÃO DE GERENCIAMENTO DE ELETIVAS -->
+        <section class="bg-escola-card rounded-2xl shadow-lg p-6 border border-gray-200">
+            <h2 class="text-2xl font-bold mb-6 font-['Plus_Jakarta_Sans'] text-escola-secundaria">Gestão de Eletivas e Turmas</h2>
+
+            <!-- Formulário para Criar Nova Eletiva -->
+            <div class="bg-gray-50 p-5 rounded-xl border border-gray-200 mb-8">
+                <h3 class="text-lg font-bold mb-4 font-['Plus_Jakarta_Sans'] text-gray-800">➕ Cadastrar Nova Eletiva</h3>
+                <form action="/api/admin/eletivas/criar" method="POST" class="space-y-4">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label for="eletiva_nome" class="block text-xs font-bold text-gray-700 uppercase mb-1">Nome da Eletiva</label>
+                            <input type="text" id="eletiva_nome" name="nome" required placeholder="Ex: Vôlei de Quadra" class="w-full p-2.5 rounded-lg border border-gray-300 text-sm focus:outline-none focus:ring-2 focus:ring-escola-primaria">
+                        </div>
+
+                        <div>
+                            <label for="eletiva_vagas" class="block text-xs font-bold text-gray-700 uppercase mb-1">Total de Vagas</label>
+                            <input type="number" id="eletiva_vagas" name="vagas" required placeholder="Ex: 30" class="w-full p-2.5 rounded-lg border border-gray-300 text-sm focus:outline-none focus:ring-2 focus:ring-escola-primaria">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label for="eletiva_turmas" class="block text-xs font-bold text-gray-700 uppercase mb-1">Turmas Autorizadas (separadas por vírgula)</label>
+                        <input type="text" id="eletiva_turmas" name="turmas_permitidas" required placeholder="Ex: 3M1ESP, 3M2ESP (ou digite TODAS)" class="w-full p-2.5 rounded-lg border border-gray-300 text-sm focus:outline-none focus:ring-2 focus:ring-escola-primaria">
+                        <p class="text-xs text-gray-500 mt-1">Apenas os alunos vinculados a estas turmas poderão selecionar esta eletiva no formulário.</p>
+                    </div>
+
+                    <div>
+                        <label for="eletiva_descricao" class="block text-xs font-bold text-gray-700 uppercase mb-1">Descrição Breve</label>
+                        <textarea id="eletiva_descricao" name="descricao" rows="2" required placeholder="Breve resumo da proposta da eletiva..." class="w-full p-2.5 rounded-lg border border-gray-300 text-sm focus:outline-none focus:ring-2 focus:ring-escola-primaria"></textarea>
+                    </div>
+
+                    <button type="submit" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-5 py-2.5 rounded-lg text-sm transition">Salvar Eletiva</button>
+                </form>
+            </div>
+
+            <!-- Tabela de Eletivas Ativas -->
+            <h3 class="text-lg font-bold mb-3 font-['Plus_Jakarta_Sans'] text-gray-800">Eletivas Cadastradas</h3>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-gray-100 text-gray-700 uppercase text-xs">
+                            <th class="p-3 border-b">Eletiva</th>
+                            <th class="p-3 border-b">Descrição</th>
+                            <th class="p-3 border-b">Turmas Autorizadas</th>
+                            <th class="p-3 border-b">Vagas (Inscritos/Total)</th>
+                            <th class="p-3 border-b text-center">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-sm">
+                        <tr class="border-b hover:bg-gray-50">
+                            <td class="p-3 font-bold">Vôlei Esportivo</td>
+                            <td class="p-3 text-xs text-gray-600">Fundamentos do esporte e trabalho em equipe.</td>
+                            <td class="p-3"><span class="bg-blue-100 text-blue-800 font-mono text-xs px-2 py-1 rounded">3M1ESP, 2M1ESP</span></td>
+                            <td class="p-3 font-semibold">20 / 30</td>
+                            <td class="p-3 text-center">
+                                <button type="button" class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 text-xs" onclick="confirm('Deseja excluir esta eletiva?')">Excluir</button>
+                            </td>
+                        </tr>
+                        <tr class="border-b hover:bg-gray-50">
+                            <td class="p-3 font-bold">Ser ONU</td>
+                            <td class="p-3 text-xs text-gray-600">Simulações diplomáticas e geopolítica.</td>
+                            <td class="p-3"><span class="bg-gray-200 text-gray-800 font-mono text-xs px-2 py-1 rounded">TODAS</span></td>
+                            <td class="p-3 font-semibold">25 / 40</td>
+                            <td class="p-3 text-center">
+                                <button type="button" class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 text-xs" onclick="confirm('Deseja excluir esta eletiva?')">Excluir</button>
+                            </td>
+                        </tr>
+                        <tr class="border-b hover:bg-gray-50">
+                            <td class="p-3 font-bold">NeaOnnim</td>
+                            <td class="p-3 text-xs text-gray-600">Iniciação científica e robótica.</td>
+                            <td class="p-3"><span class="bg-blue-100 text-blue-800 font-mono text-xs px-2 py-1 rounded">3M1ESP, 3M1ADM</span></td>
+                            <td class="p-3 font-semibold">17 / 25</td>
+                            <td class="p-3 text-center">
+                                <button type="button" class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 text-xs" onclick="confirm('Deseja excluir esta eletiva?')">Excluir</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
         <!-- TABELA 1: GERENCIAMENTO DE NOTÍCIAS -->
-        <section class="bg-escola-card rounded-2xl shadow-lg p-6 mb-10 border border-gray-200">
+        <section class="bg-escola-card rounded-2xl shadow-lg p-6 border border-gray-200">
             <h2 class="text-2xl font-bold mb-4 font-['Plus_Jakarta_Sans']">Gerenciamento de Notícias</h2>
             
             <div class="overflow-x-auto">
@@ -118,7 +201,7 @@
         </section>
 
         <!-- TABELA 2: CONTROLE DE USUÁRIOS E PERMISSÕES -->
-        <section class="bg-escola-card rounded-2xl shadow-lg p-6 mb-10 border border-gray-200">
+        <section class="bg-escola-card rounded-2xl shadow-lg p-6 border border-gray-200">
             <h2 class="text-2xl font-bold mb-4 font-['Plus_Jakarta_Sans']">Controle de Usuários e Permissões</h2>
 
             <div class="overflow-x-auto">
@@ -139,7 +222,6 @@
                             <td class="p-3">ana.santos@escola.com</td>
                             <td class="p-3"><span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs font-bold">Coordenadora</span></td>
                             <td class="p-3 text-center">
-                                <!-- Formulário de alteração de permissão -->
                                 <form action="/api/usuarios/cargo" method="POST" class="inline-flex gap-2">
                                     <input type="hidden" name="usuario_id" value="usr_fb_9981a">
                                     <select name="cargo_id" class="border border-gray-300 rounded text-xs p-1 outline-none">
