@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ser ONU - Portal Elza</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'escola-primaria': '#2563eb',   
+                        'escola-secundaria': '#0f172a', 
+                        'escola-fundo': '#dbeafe',      
+                        'escola-card': '#ffffff',       
+                    }
+                }
+            }
+        }
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
+</head>
+<body class="bg-escola-fundo px-4 md:px-7 font-sans text-gray-800">
+
+    <!-- MENU DE NAVEGAÇÃO PRINCIPAL -->
+    <nav class="my-4">
+        <header class="bg-escola-card shadow-md rounded-xl">
+            <ul class="flex gap-4 items-center p-4 overflow-x-auto whitespace-nowrap text-sm md:text-base">
+                <li><a href="index.html" class="px-3 py-2 rounded-lg hover:bg-escola-secundaria hover:text-white transition">Principal</a></li>
+                <li><a href="noticia.html" class="px-3 py-2 rounded-lg hover:bg-escola-secundaria hover:text-white transition">Notícias</a></li>
+                <li><a href="onu.html" class="px-3 py-2 rounded-lg bg-escola-secundaria text-white">Ser ONU</a></li>
+                <li><a href="vozes_negras.html" class="px-3 py-2 rounded-lg hover:bg-escola-secundaria hover:text-white transition">Vozes Negras</a></li>
+                <li><a href="neaonnim.html" class="px-3 py-2 rounded-lg hover:bg-escola-secundaria hover:text-white transition">NeaOnnim</a></li>
+                <li><a href="eletiva.html" class="px-3 py-2 rounded-lg hover:bg-escola-secundaria hover:text-white transition">Eletivas</a></li>
+                <li><a href="sugestao.html" class="px-3 py-2 rounded-lg hover:bg-escola-secundaria hover:text-white transition">Sugestões</a></li>
+                <li><a href="publicacao.html" class="px-3 py-2 rounded-lg hover:bg-escola-secundaria hover:text-white transition">Publicação</a></li>
+                <li><a href="eventos.html" class="px-3 py-2 rounded-lg hover:bg-escola-secundaria hover:text-white transition">Eventos</a></li>
+                <li class="ml-auto"><a href="admin.html" class="px-3 py-2 bg-escola-primaria text-white font-bold rounded-lg hover:opacity-90 transition">Administrador</a></li>
+            </ul>
+        </header>
+    </nav>
+
+    <main class="max-w-6xl mx-auto my-8">
+        
+        <!-- APRESENTAÇÃO DO PROJETO -->
+        <section class="bg-escola-card p-8 rounded-2xl shadow-lg border-l-8 border-escola-primaria mb-10">
+            <span class="bg-blue-100 text-escola-primaria text-xs font-bold px-3 py-1 rounded-full uppercase">Eletiva de Diplomacia</span>
+            <h1 class="text-3xl md:text-5xl font-bold mt-3 mb-3 font-['Plus_Jakarta_Sans']">Projeto Ser ONU</h1>
+            <p class="text-gray-600 font-serif text-lg max-w-3xl">Simulações diplomáticas, debates internacionais e desenvolvimento do pensamento crítico dos estudantes da Escola Elza.</p>
+        </section>
+
+        <!-- SOBRE A ELETIVA -->
+        <section class="bg-escola-card p-6 md:p-8 rounded-2xl shadow-md mb-10 border border-gray-200">
+            <h2 class="text-2xl font-bold mb-3 font-['Plus_Jakarta_Sans']">Sobre o Projeto</h2>
+            <p class="text-gray-700 leading-relaxed font-serif">O projeto Ser ONU busca recriar a dinâmica das reuniões e comitês das Nações Unidas. Os estudantes assumem o papel de diplomatas representantes de diversos países para debater resoluções, crises geopolíticas e propor soluções reais para desafios globais.</p>
+        </section>
+
+        <!-- REDAÇÕES E ARTIGOS DOS ALUNOS -->
+        <section class="mb-10">
+            <h2 class="text-2xl font-bold mb-6 font-['Plus_Jakarta_Sans']">Artigos e Redações dos Alunos</h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Redação 1 -->
+                <article class="bg-escola-card p-6 rounded-2xl shadow-md border border-gray-200 flex flex-col justify-between hover:shadow-lg transition">
+                    <div>
+                        <h3 class="text-xl font-bold mb-2 font-['Plus_Jakarta_Sans']">A Diplomacia Jovem e a Crise Climática Global</h3>
+                        <p class="text-xs text-gray-500 mb-4">Por <strong>Beatriz Silva (3º B)</strong> — Orientação: Profª Maria</p>
+                        <p class="text-gray-600 font-serif text-sm leading-relaxed mb-4">"A atuação dos países emergentes nos acordos climáticos exige um olhar atento da juventude sobre o futuro sustentável..."</p>
+                    </div>
+                    <a href="noticia-detalhe.html?id=10" class="text-escola-primaria font-bold text-sm hover:underline">Ler redação completa →</a>
+                </article>
+
+                <!-- Redação 2 -->
+                <article class="bg-escola-card p-6 rounded-2xl shadow-md border border-gray-200 flex flex-col justify-between hover:shadow-lg transition">
+                    <div>
+                        <h3 class="text-xl font-bold mb-2 font-['Plus_Jakarta_Sans']">A Reconstrução Econômica em Regiões de Conflito</h3>
+                        <p class="text-xs text-gray-500 mb-4">Por <strong>Gabriel Costa (2º A)</strong> — Orientação: Profª Maria</p>
+                        <p class="text-gray-600 font-serif text-sm leading-relaxed mb-4">"Análise diplomática sobre o papel do Conselho de Segurança da ONU na mediação de acordos de paz..."</p>
+                    </div>
+                    <a href="noticia-detalhe.html?id=11" class="text-escola-primaria font-bold text-sm hover:underline">Ler redação completa →</a>
+                </article>
+            </div>
+        </section>
+
+        <!-- GALERIA DE SIMULAÇÕES -->
+        <section class="mb-10">
+            <h2 class="text-2xl font-bold mb-6 font-['Plus_Jakarta_Sans']">Simulações Recentes</h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <article class="bg-escola-card rounded-2xl shadow-md overflow-hidden border border-gray-200">
+                    <img src="https://via.placeholder.com/600x300" alt="Conselho de Segurança" class="w-full h-48 object-cover">
+                    <div class="p-5">
+                        <h3 class="font-bold text-lg mb-1 font-['Plus_Jakarta_Sans']">I Simulação do Conselho de Segurança</h3>
+                        <p class="text-sm text-gray-600 font-serif">Discussão sobre segurança alimentar global e libertação de rotas de comércio.</p>
+                    </div>
+                </article>
+
+                <article class="bg-escola-card rounded-2xl shadow-md overflow-hidden border border-gray-200">
+                    <img src="https://via.placeholder.com/600x300" alt="Comitê de Direitos Humanos" class="w-full h-48 object-cover">
+                    <div class="p-5">
+                        <h3 class="font-bold text-lg mb-1 font-['Plus_Jakarta_Sans']">Comitê de Direitos Humanos</h3>
+                        <p class="text-sm text-gray-600 font-serif">Debate focado na inclusão de refugiados e acolhimento escolar.</p>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- MATERIAIS E GUIAS -->
+        <section class="bg-escola-card p-6 rounded-2xl shadow-md border border-gray-200">
+            <h2 class="text-xl font-bold mb-3 font-['Plus_Jakarta_Sans']">Materiais e Guias do Delegado</h2>
+            <ul class="space-y-2 text-sm font-semibold text-escola-primaria">
+                <li><a href="#" class="hover:underline flex items-center gap-2">📄 Guia de Regras de Debate da Simulação (PDF)</a></li>
+                <li><a href="#" class="hover:underline flex items-center gap-2">📝 Modelo de Documento de Posição Oficial - DPO (Word)</a></li>
+            </ul>
+        </section>
+
+    </main>
+
+    <!-- RODAPÉ -->
+    <footer class="bg-escola-secundaria text-white rounded-t-xl p-8 grid grid-cols-1 md:grid-cols-4 gap-6 mt-12 text-sm">
+        <div>
+            <h3 class="font-bold text-lg mb-2 border-b border-gray-700 pb-1">Sobre</h3>
+            <p class="text-gray-400">Portal de notícias da Escola Elza, criado por alunos para manter a comunidade escolar informada sobre projetos e eventos.</p>
+        </div>
+        <div>
+            <h3 class="font-bold text-lg mb-2 border-b border-gray-700 pb-1">Navegação</h3>
+            <ul class="space-y-1 text-gray-400">
+                <li><a href="index.html" class="hover:text-white">Início</a></li>
+                <li><a href="noticia.html" class="hover:text-white">Notícias</a></li>
+                <li><a href="eletiva.html" class="hover:text-white">Inscrição de Eletivas</a></li>
+            </ul>
+        </div>
+        <div>
+            <h3 class="font-bold text-lg mb-2 border-b border-gray-700 pb-1">Contato</h3>
+            <p class="text-gray-400">Email: contato@escolaelza.edu.br</p>
+            <p class="text-gray-400">Telefone: (00) 0000-0000</p>
+        </div>
+        <div>
+            <h3 class="font-bold text-lg mb-2 border-b border-gray-700 pb-1">Redes Sociais</h3>
+            <p class="text-gray-400">Siga nosso perfil oficial para acompanhar as fotos dos eventos da escola.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
