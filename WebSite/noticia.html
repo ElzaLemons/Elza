@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- O título muda dinamicamente pelo Node.js conforme a categoria -->
+    <title>Notícias e Eletivas - Portal Elza</title>
+</head>
+<body>
+
+    <!-- MENU DE NAVEGAÇÃO PRINCIPAL -->
+    <nav>
+        <header>
+            <ul>
+                <li><a href="index.html">Principal</a></li>
+                <li><a href="noticia.html">Notícias</a></li>
+                <li><a href="onu.html">Ser ONU</a></li>
+                <li><a href="vozes_negras.html">Vozes Negras</a></li>
+                <li><a href="neaonnim.html">NeaOnnim</a></li>
+                <li><a href="eletiva.html">Eletivas</a></li>
+                <li><a href="sugestao.html">Sugestões</a></li>
+                <li><a href="publicacao.html">Publicação</a></li>
+                <li><a href="eventos.html">Eventos</a></li>
+                <li><a href="admin.html">Administrador</a></li>
+            </ul>
+        </header>
+    </nav>
+
+    <!-- CONTEÚDO PRINCIPAL DO FEED DE NOTÍCIAS -->
+    <main>
+        
+        <!-- Cabeçalho Dinâmico da Categoria -->
+        <section>
+            <!-- Este título será alterado pelo back-end (Ex: "Feed Geral de Notícias", "Eletiva Ser ONU", etc.) -->
+            <h1 id="categoria-titulo">Todas as Notícias e Projetos</h1>
+            <p id="categoria-descricao">Acompanhe as últimas matérias, coberturas de eventos e publicações da nossa comunidade escolar.</p>
+        </section>
+
+        <!-- Barra de Busca e Filtros Rápidos -->
+        <section>
+            <form action="/noticias" method="GET">
+                <input type="text" name="busca" placeholder="Buscar notícia por título...">
+                <button type="submit">Pesquisar</button>
+            </form>
+
+            <!-- Links para navegação rápida entre subcategorias -->
+            <div>
+                <strong>Filtrar por:</strong>
+                <a href="noticia.html">Todas</a> |
+                <a href="onu.html">Ser ONU</a> |
+                <a href="vozes_negras.html">Vozes Negras</a> |
+                <a href="neaonnim.html">NeaOnnim</a>
+            </div>
+        </section>
+
+        <!-- DESTAQUE PRINCIPAL DA PÁGINA (Última notícia cadastrada) -->
+        <section>
+            <h2>Destaque Principal</h2>
+            <article>
+                <header>
+                    <span>Ser ONU</span> <!-- Etiqueta da categoria -->
+                    <h3>Simulação da ONU reúne estudantes do 3º ano no auditório</h3>
+                    <p>Publicado por <strong>Profª Maria</strong> em 08/08/2026</p>
+                </header>
+                <img src="https://via.placeholder.com/800x400" alt="Imagem do destaque principal">
+                <p>Estudantes debateram temas globais e diplomacia em um evento de dois dias com cobertura completa dos alunos da eletiva...</p>
+                <a href="noticia-detalhe.html?id=1">Ler matéria completa →</a>
+            </article>
+        </section>
+
+        <!-- GRID DE NOTÍCIAS (Lista dinâmica que vem do SQLite) -->
+        <section>
+            <h2>Mural de Publicações</h2>
+
+            <!-- Card 1: Exemplo de notícia da subcategoria Vozes Negras -->
+            <article>
+                <header>
+                    <span>Vozes Negras</span>
+                    <h3>Projeto de Literatura Afro-brasileira expõe obras na biblioteca</h3>
+                    <p>Por <strong>Aluno Lucas (3º A)</strong> - 07/08/2026</p>
+                </header>
+                <img src="https://via.placeholder.com/400x250" alt="Imagem da matéria">
+                <p>A exposição conta com resenhas e cartazes produzidos pelos próprios estudantes durante as aulas do projeto...</p>
+                <a href="noticia-detalhe.html?id=2">Ler notícia →</a>
+            </article>
+
+            <!-- Card 2: Exemplo de notícia da subcategoria NeaOnnim -->
+            <article>
+                <header>
+                    <span>NeaOnnim</span>
+                    <h3>Oficina de Ciência e Tecnologia apresenta novos protótipos</h3>
+                    <p>Por <strong>Prof. Carlos</strong> - 05/08/2026</p>
+                </header>
+                <img src="https://via.placeholder.com/400x250" alt="Imagem da matéria">
+                <p>Projetos de automação e robótica voltados para soluções sustentáveis na escola foram o destaque do encontro...</p>
+                <a href="noticia-detalhe.html?id=3">Ler notícia →</a>
+            </article>
+
+            <!-- Card 3: Exemplo de notícia Geral -->
+            <article>
+                <header>
+                    <span>Geral</span>
+                    <h3>Avisos sobre o calendário de provas do 3º trimestre</h3>
+                    <p>Por <strong>Coordenação</strong> - 01/08/2026</p>
+                </header>
+                <img src="https://via.placeholder.com/400x250" alt="Imagem da matéria">
+                <p>Confira o cronograma completo de avaliações e os horários de plantão de dúvidas...</p>
+                <a href="noticia-detalhe.html?id=4">Ler notícia →</a>
+            </article>
+        </section>
+
+    </main>
+
+    <!-- RODAPÉ PADRONIZADO -->
+    <footer>
+        <div>
+            <h3>Sobre</h3>
+            <p>Portal de notícias da Escola Elza, criado por alunos para manter a comunidade escolar informada sobre projetos e eventos.</p>
+        </div>
+        <div>
+            <h3>Navegação</h3>
+            <ul>
+                <li><a href="index.html">Início</a></li>
+                <li><a href="noticia.html">Notícias</a></li>
+                <li><a href="eletiva.html">Inscrição de Eletivas</a></li>
+            </ul>
+        </div>
+        <div>
+            <h3>Contato</h3>
+            <p>Email: contato@escolaelza.edu.br</p>
+            <p>Telefone: (00) 0000-0000</p>
+        </div>
+        <div>
+            <h3>Redes Sociais</h3>
+            <p>Siga nosso perfil oficial para acompanhar as fotos dos eventos da escola.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
