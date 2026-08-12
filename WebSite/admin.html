@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel do Administrador - Portal Elza</title>
+
+    <!-- Importação do Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- CONFIGURAÇÃO DA PALETA DE CORES DA ESCOLA -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'escola-primaria': '#2563eb',   /* Cor principal (botões, destaques, bordas ativas) */
+                        'escola-secundaria': '#0f172a', /* Cor secundária (rodapé, textos escuros, navegação) */
+                        'escola-fundo': '#dbeafe',      /* Cor de fundo padrão da página */
+                        'escola-card': '#ffffff',       /* Cor de fundo dos cartões, tabelas e formulários */
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Importação de fonte do Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
+</head>
+<body class="bg-escola-fundo px-4 md:px-7 font-sans text-gray-800">
+
+    <!-- MENU DE NAVEGAÇÃO PRINCIPAL -->
+    <nav class="my-4">
+        <header class="bg-escola-card shadow-md rounded-xl">
+            <ul class="flex gap-4 items-center p-4 overflow-x-auto whitespace-nowrap text-sm md:text-base">
+                <li><a href="index.html" class="px-3 py-2 rounded-lg hover:bg-escola-secundaria hover:text-white transition">Principal</a></li>
+                <li><a href="noticia.html" class="px-3 py-2 rounded-lg hover:bg-escola-secundaria hover:text-white transition">Notícias</a></li>
+                <li><a href="onu.html" class="px-3 py-2 rounded-lg hover:bg-escola-secundaria hover:text-white transition">Ser ONU</a></li>
+                <li><a href="vozes_negras.html" class="px-3 py-2 rounded-lg hover:bg-escola-secundaria hover:text-white transition">Vozes Negras</a></li>
+                <li><a href="neaonnim.html" class="px-3 py-2 rounded-lg hover:bg-escola-secundaria hover:text-white transition">NeaOnnim</a></li>
+                <li><a href="eletiva.html" class="px-3 py-2 rounded-lg hover:bg-escola-secundaria hover:text-white transition">Eletivas</a></li>
+                <li><a href="sugestao.html" class="px-3 py-2 rounded-lg hover:bg-escola-secundaria hover:text-white transition">Sugestões</a></li>
+                <li><a href="publicacao.html" class="px-3 py-2 rounded-lg hover:bg-escola-secundaria hover:text-white transition">Publicação</a></li>
+                <li><a href="eventos.html" class="px-3 py-2 rounded-lg hover:bg-escola-secundaria hover:text-white transition">Eventos</a></li>
+                <li class="ml-auto"><a href="admin.html" class="px-3 py-2 bg-escola-primaria text-white font-bold rounded-lg hover:opacity-90 transition">Administrador</a></li>
+            </ul>
+        </header>
+    </nav>
+
+    <!-- CONTEÚDO PRINCIPAL DO PAINEL -->
+    <main class="max-w-6xl mx-auto my-8 space-y-10">
+        
+        <!-- Apresentação da página -->
+        <section class="text-center">
+            <h1 class="text-3xl font-bold mb-2 font-['Plus_Jakarta_Sans']">Painel de Controle Administrativo</h1>
+            <p class="text-gray-700 font-serif">Área restrita à coordenação para gestão de eletivas, notícias, permissões e sugestões.</p>
+        </section>
+
+        <!-- MÉTRICAS GERAIS (Cartões de consulta rápida no SQLite) -->
+        <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div class="bg-escola-card p-6 rounded-2xl shadow-md border-l-4 border-escola-primaria">
+                <h3 class="text-xs font-bold text-gray-500 uppercase">Total de Notícias</h3>
+                <p class="text-3xl font-bold mt-2">12</p>
+            </div>
+            <div class="bg-escola-card p-6 rounded-2xl shadow-md border-l-4 border-purple-600">
+                <h3 class="text-xs font-bold text-gray-500 uppercase">Eletivas Ativas</h3>
+                <p class="text-3xl font-bold mt-2">4</p>
+            </div>
+            <div class="bg-escola-card p-6 rounded-2xl shadow-md border-l-4 border-green-600">
+                <h3 class="text-xs font-bold text-gray-500 uppercase">Usuários Cadastrados</h3>
+                <p class="text-3xl font-bold mt-2">48</p>
+            </div>
+            <div class="bg-escola-card p-6 rounded-2xl shadow-md border-l-4 border-yellow-500">
+                <h3 class="text-xs font-bold text-gray-500 uppercase">Sugestões Recebidas</h3>
+                <p class="text-3xl font-bold mt-2">5</p>
+            </div>
+        </section>
+
+        <!-- NOVO: SEÇÃO DE GERENCIAMENTO DE ELETIVAS -->
+        <section class="bg-escola-card rounded-2xl shadow-lg p-6 border border-gray-200">
+            <h2 class="text-2xl font-bold mb-6 font-['Plus_Jakarta_Sans'] text-escola-secundaria">Gestão de Eletivas e Turmas</h2>
+
+            <!-- Formulário para Criar Nova Eletiva -->
+            <div class="bg-gray-50 p-5 rounded-xl border border-gray-200 mb-8">
+                <h3 class="text-lg font-bold mb-4 font-['Plus_Jakarta_Sans'] text-gray-800">➕ Cadastrar Nova Eletiva</h3>
+                <form action="/api/admin/eletivas/criar" method="POST" class="space-y-4">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label for="eletiva_nome" class="block text-xs font-bold text-gray-700 uppercase mb-1">Nome da Eletiva</label>
+                            <input type="text" id="eletiva_nome" name="nome" required placeholder="Ex: Vôlei de Quadra" class="w-full p-2.5 rounded-lg border border-gray-300 text-sm focus:outline-none focus:ring-2 focus:ring-escola-primaria">
+                        </div>
+
+                        <div>
+                            <label for="eletiva_vagas" class="block text-xs font-bold text-gray-700 uppercase mb-1">Total de Vagas</label>
+                            <input type="number" id="eletiva_vagas" name="vagas" required placeholder="Ex: 30" class="w-full p-2.5 rounded-lg border border-gray-300 text-sm focus:outline-none focus:ring-2 focus:ring-escola-primaria">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label for="eletiva_turmas" class="block text-xs font-bold text-gray-700 uppercase mb-1">Turmas Autorizadas (separadas por vírgula)</label>
+                        <input type="text" id="eletiva_turmas" name="turmas_permitidas" required placeholder="Ex: 3M1ESP, 3M2ESP (ou digite TODAS)" class="w-full p-2.5 rounded-lg border border-gray-300 text-sm focus:outline-none focus:ring-2 focus:ring-escola-primaria">
+                        <p class="text-xs text-gray-500 mt-1">Apenas os alunos vinculados a estas turmas poderão selecionar esta eletiva no formulário.</p>
+                    </div>
+
+                    <div>
+                        <label for="eletiva_descricao" class="block text-xs font-bold text-gray-700 uppercase mb-1">Descrição Breve</label>
+                        <textarea id="eletiva_descricao" name="descricao" rows="2" required placeholder="Breve resumo da proposta da eletiva..." class="w-full p-2.5 rounded-lg border border-gray-300 text-sm focus:outline-none focus:ring-2 focus:ring-escola-primaria"></textarea>
+                    </div>
+
+                    <button type="submit" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-5 py-2.5 rounded-lg text-sm transition">Salvar Eletiva</button>
+                </form>
+            </div>
+
+            <!-- Tabela de Eletivas Ativas -->
+            <h3 class="text-lg font-bold mb-3 font-['Plus_Jakarta_Sans'] text-gray-800">Eletivas Cadastradas</h3>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-gray-100 text-gray-700 uppercase text-xs">
+                            <th class="p-3 border-b">Eletiva</th>
+                            <th class="p-3 border-b">Descrição</th>
+                            <th class="p-3 border-b">Turmas Autorizadas</th>
+                            <th class="p-3 border-b">Vagas (Inscritos/Total)</th>
+                            <th class="p-3 border-b text-center">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-sm">
+                        <tr class="border-b hover:bg-gray-50">
+                            <td class="p-3 font-bold">Vôlei Esportivo</td>
+                            <td class="p-3 text-xs text-gray-600">Fundamentos do esporte e trabalho em equipe.</td>
+                            <td class="p-3"><span class="bg-blue-100 text-blue-800 font-mono text-xs px-2 py-1 rounded">3M1ESP, 2M1ESP</span></td>
+                            <td class="p-3 font-semibold">20 / 30</td>
+                            <td class="p-3 text-center">
+                                <button type="button" class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 text-xs" onclick="confirm('Deseja excluir esta eletiva?')">Excluir</button>
+                            </td>
+                        </tr>
+                        <tr class="border-b hover:bg-gray-50">
+                            <td class="p-3 font-bold">Ser ONU</td>
+                            <td class="p-3 text-xs text-gray-600">Simulações diplomáticas e geopolítica.</td>
+                            <td class="p-3"><span class="bg-gray-200 text-gray-800 font-mono text-xs px-2 py-1 rounded">TODAS</span></td>
+                            <td class="p-3 font-semibold">25 / 40</td>
+                            <td class="p-3 text-center">
+                                <button type="button" class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 text-xs" onclick="confirm('Deseja excluir esta eletiva?')">Excluir</button>
+                            </td>
+                        </tr>
+                        <tr class="border-b hover:bg-gray-50">
+                            <td class="p-3 font-bold">NeaOnnim</td>
+                            <td class="p-3 text-xs text-gray-600">Iniciação científica e robótica.</td>
+                            <td class="p-3"><span class="bg-blue-100 text-blue-800 font-mono text-xs px-2 py-1 rounded">3M1ESP, 3M1ADM</span></td>
+                            <td class="p-3 font-semibold">17 / 25</td>
+                            <td class="p-3 text-center">
+                                <button type="button" class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 text-xs" onclick="confirm('Deseja excluir esta eletiva?')">Excluir</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- TABELA 1: GERENCIAMENTO DE NOTÍCIAS -->
+        <section class="bg-escola-card rounded-2xl shadow-lg p-6 border border-gray-200">
+            <h2 class="text-2xl font-bold mb-4 font-['Plus_Jakarta_Sans']">Gerenciamento de Notícias</h2>
+            
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-gray-100 text-gray-700 uppercase text-xs">
+                            <th class="p-3 border-b">ID</th>
+                            <th class="p-3 border-b">Título</th>
+                            <th class="p-3 border-b">Autor</th>
+                            <th class="p-3 border-b">Data</th>
+                            <th class="p-3 border-b text-center">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-sm">
+                        <tr class="border-b hover:bg-gray-50">
+                            <td class="p-3 font-bold">#1</td>
+                            <td class="p-3">Sistemas de energia e sustentabilidade</td>
+                            <td class="p-3">Prof. Carlos</td>
+                            <td class="p-3">09/08/2026</td>
+                            <td class="p-3 text-center space-x-2">
+                                <a href="noticia.html?id=1" class="bg-escola-primaria text-white px-3 py-1 rounded hover:opacity-90 text-xs inline-block">Ver</a>
+                                <button type="button" class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 text-xs" onclick="confirm('Deseja excluir esta notícia?')">Excluir</button>
+                            </td>
+                        </tr>
+                        <tr class="border-b hover:bg-gray-50">
+                            <td class="p-3 font-bold">#2</td>
+                            <td class="p-3">O Pix Sem Fronteiras na economia global</td>
+                            <td class="p-3">Aluno João (3º B)</td>
+                            <td class="p-3">08/08/2026</td>
+                            <td class="p-3 text-center space-x-2">
+                                <a href="noticia.html?id=2" class="bg-escola-primaria text-white px-3 py-1 rounded hover:opacity-90 text-xs inline-block">Ver</a>
+                                <button type="button" class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 text-xs" onclick="confirm('Deseja excluir esta notícia?')">Excluir</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- TABELA 2: CONTROLE DE USUÁRIOS E PERMISSÕES -->
+        <section class="bg-escola-card rounded-2xl shadow-lg p-6 border border-gray-200">
+            <h2 class="text-2xl font-bold mb-4 font-['Plus_Jakarta_Sans']">Controle de Usuários e Permissões</h2>
+
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-gray-100 text-gray-700 uppercase text-xs">
+                            <th class="p-3 border-b">ID (Firebase)</th>
+                            <th class="p-3 border-b">Nome</th>
+                            <th class="p-3 border-b">E-mail</th>
+                            <th class="p-3 border-b">Cargo Atual</th>
+                            <th class="p-3 border-b text-center">Alterar Cargo</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-sm">
+                        <tr class="border-b hover:bg-gray-50">
+                            <td class="p-3 text-xs font-mono">usr_fb_9981a</td>
+                            <td class="p-3 font-bold">Ana Maria Santos</td>
+                            <td class="p-3">ana.santos@escola.com</td>
+                            <td class="p-3"><span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs font-bold">Coordenadora</span></td>
+                            <td class="p-3 text-center">
+                                <form action="/api/usuarios/cargo" method="POST" class="inline-flex gap-2">
+                                    <input type="hidden" name="usuario_id" value="usr_fb_9981a">
+                                    <select name="cargo_id" class="border border-gray-300 rounded text-xs p-1 outline-none">
+                                        <option value="1">Administrador</option>
+                                        <option value="2">Professor/Autor</option>
+                                        <option value="3">Leitor/Aluno</option>
+                                    </select>
+                                    <button type="submit" class="bg-escola-secundaria text-white px-2 py-1 rounded text-xs hover:opacity-90">Salvar</button>
+                                </form>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- LISTA DE SUGESTÕES DOS ALUNOS -->
+        <section class="bg-escola-card rounded-2xl shadow-lg p-6 border border-gray-200">
+            <h2 class="text-2xl font-bold mb-4 font-['Plus_Jakarta_Sans']">Últimas Sugestões Recebidas</h2>
+
+            <div class="space-y-4">
+                <article class="p-4 bg-gray-50 border rounded-xl flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                    <div>
+                        <div class="flex gap-2 items-center mb-1">
+                            <strong class="text-gray-800">Mariana Lima (Aluna)</strong>
+                            <span class="bg-blue-100 text-blue-800 text-xs px-2 py-0.5 rounded font-bold">Sugestão</span>
+                        </div>
+                        <p class="text-sm text-gray-600">"Poderíamos ter uma aba dedicada aos campeonatos de educação física da escola."</p>
+                    </div>
+                    <button type="button" class="text-xs text-red-600 hover:underline">Marcar como Lida</button>
+                </article>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- RODAPÉ DO SITE -->
+    <footer class="bg-escola-secundaria text-white rounded-t-xl p-8 grid grid-cols-1 md:grid-cols-4 gap-6 mt-12 text-sm">
+        <div>
+            <h3 class="font-bold text-lg mb-2 border-b border-gray-700 pb-1">Sobre</h3>
+            <p class="text-gray-400">Portal de notícias da Escola Elza, criado por alunos para manter a comunidade escolar informada sobre projetos e eventos.</p>
+        </div>
+        <div>
+            <h3 class="font-bold text-lg mb-2 border-b border-gray-700 pb-1">Navegação</h3>
+            <ul class="space-y-1 text-gray-400">
+                <li><a href="index.html" class="hover:text-white">Início</a></li>
+                <li><a href="noticia.html" class="hover:text-white">Notícias</a></li>
+                <li><a href="eletiva.html" class="hover:text-white">Inscrição de Eletivas</a></li>
+            </ul>
+        </div>
+        <div>
+            <h3 class="font-bold text-lg mb-2 border-b border-gray-700 pb-1">Contato</h3>
+            <p class="text-gray-400">Email: contato@escolaelza.edu.br</p>
+            <p class="text-gray-400">Telefone: (00) 0000-0000</p>
+        </div>
+        <div>
+            <h3 class="font-bold text-lg mb-2 border-b border-gray-700 pb-1">Redes Sociais</h3>
+            <p class="text-gray-400">Siga nosso perfil oficial para acompanhar as fotos dos eventos da escola.</p>
+        </div>
+    </footer>
+
+</body>
+</html>

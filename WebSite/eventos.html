@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agenda de Eventos - Portal Elza</title>
+
+    <!-- Importação do Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- CONFIGURAÇÃO DA PALETA DE CORES DA ESCOLA -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'escola-primaria': '#2563eb',   
+                        'escola-secundaria': '#0f172a', 
+                        'escola-fundo': '#dbeafe',      
+                        'escola-card': '#ffffff',       
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Importação de fonte do Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
+</head>
+<body class="bg-escola-fundo px-4 md:px-7 font-sans text-gray-800">
+
+    <!-- MENU DE NAVEGAÇÃO PRINCIPAL -->
+    <nav class="my-4">
+        <header class="bg-escola-card shadow-md rounded-xl">
+            <ul class="flex gap-4 items-center p-4 overflow-x-auto whitespace-nowrap text-sm md:text-base">
+                <li><a href="index.html" class="px-3 py-2 rounded-lg hover:bg-escola-secundaria hover:text-white transition">Principal</a></li>
+                <li><a href="noticia.html" class="px-3 py-2 rounded-lg hover:bg-escola-secundaria hover:text-white transition">Notícias</a></li>
+                <li><a href="onu.html" class="px-3 py-2 rounded-lg hover:bg-escola-secundaria hover:text-white transition">Ser ONU</a></li>
+                <li><a href="vozes_negras.html" class="px-3 py-2 rounded-lg hover:bg-escola-secundaria hover:text-white transition">Vozes Negras</a></li>
+                <li><a href="neaonnim.html" class="px-3 py-2 rounded-lg hover:bg-escola-secundaria hover:text-white transition">NeaOnnim</a></li>
+                <li><a href="eletiva.html" class="px-3 py-2 rounded-lg hover:bg-escola-secundaria hover:text-white transition">Eletivas</a></li>
+                <li><a href="sugestao.html" class="px-3 py-2 rounded-lg hover:bg-escola-secundaria hover:text-white transition">Sugestões</a></li>
+                <li><a href="publicacao.html" class="px-3 py-2 rounded-lg hover:bg-escola-secundaria hover:text-white transition">Publicação</a></li>
+                <li><a href="eventos.html" class="px-3 py-2 rounded-lg bg-escola-secundaria text-white">Eventos</a></li>
+                <li class="ml-auto"><a href="admin.html" class="px-3 py-2 bg-escola-primaria text-white font-bold rounded-lg hover:opacity-90 transition">Administrador</a></li>
+            </ul>
+        </header>
+    </nav>
+
+    <!-- CONTEÚDO PRINCIPAL DA AGENDA -->
+    <main class="max-w-6xl mx-auto my-8 space-y-8">
+        
+        <!-- Apresentação da página -->
+        <section class="text-center">
+            <h1 class="text-3xl font-bold mb-2 font-['Plus_Jakarta_Sans']">Calendário e Agenda Escolar 2026</h1>
+            <p class="text-gray-700 font-serif">Acompanhe as datas dos eventos anuais, feiras culturais, torneios e reuniões da Escola Elza.</p>
+        </section>
+
+        <!-- SEÇÃO 1: AVISOS RÁPIDOS E ALTERAÇÕES DE DATAS -->
+        <section class="bg-amber-50 border-l-4 border-amber-500 p-5 rounded-2xl shadow-sm">
+            <div class="flex items-center gap-2 mb-2">
+                <span class="text-xl">⚠️</span>
+                <h2 class="text-lg font-bold text-amber-900 font-['Plus_Jakarta_Sans']">Avisos Rápidos de Mudanças na Agenda</h2>
+            </div>
+            <ul class="space-y-2 text-sm text-amber-900">
+                <li class="flex items-start gap-2">
+                    <span class="font-bold shrink-0">• [20/08/2026]:</span>
+                    <span><strong>Feira de Ciências NeaOnnim:</strong> Adiada do dia 28/08 para o dia <strong>04/09</strong> devido à reforma do auditório principal.</span>
+                </li>
+                <li class="flex items-start gap-2">
+                    <span class="font-bold shrink-0">• [12/08/2026]:</span>
+                    <span><strong>Campeonato Interclasses de Vôlei:</strong> Local alterado para a quadra coberta externa no dia 18/08.</span>
+                </li>
+            </ul>
+        </section>
+
+        <!-- SEÇÃO 2: LISTA CRONOLÓGICA DE EVENTOS -->
+        <section class="bg-escola-card rounded-2xl shadow-lg p-6 border border-gray-200">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4 border-b border-gray-100 pb-4">
+                <h2 class="text-2xl font-bold font-['Plus_Jakarta_Sans'] text-escola-secundaria">Cronograma Semestral</h2>
+                
+                <!-- Filtros visuais de evento -->
+                <div class="flex gap-2 text-xs font-bold">
+                    <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full">Confirmados</span>
+                    <span class="bg-amber-100 text-amber-800 px-3 py-1 rounded-full">Data Alterada</span>
+                    <span class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full">Eletivas & Projetos</span>
+                </div>
+            </div>
+
+            <div class="space-y-4">
+
+                <!-- CARD EVENTO 1 (Data Alterada) -->
+                <article class="p-4 bg-gray-50 rounded-xl border border-gray-200 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+                    <div class="flex items-center gap-4">
+                        <div class="bg-amber-500 text-white font-bold text-center px-4 py-2 rounded-xl min-w-[75px]">
+                            <span class="block text-xl">04</span>
+                            <span class="text-xs uppercase">SET</span>
+                        </div>
+                        <div>
+                            <div class="flex items-center gap-2 mb-1">
+                                <h3 class="font-bold text-base text-gray-900">Feira de Inovação e Ciência NeaOnnim</h3>
+                                <span class="bg-amber-100 text-amber-800 text-[10px] font-bold px-2 py-0.5 rounded uppercase">Data Alterada</span>
+                            </div>
+                            <p class="text-xs text-gray-600">Apresentação dos projetos de robótica e iniciação científica desenvolvidos pelos alunos no auditório.</p>
+                        </div>
+                    </div>
+                    <div class="text-xs text-gray-500 whitespace-nowrap">Horário: 08:00 às 12:00</div>
+                </article>
+
+                <!-- CARD EVENTO 2 (Confirmado) -->
+                <article class="p-4 bg-gray-50 rounded-xl border border-gray-200 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+                    <div class="flex items-center gap-4">
+                        <div class="bg-escola-primaria text-white font-bold text-center px-4 py-2 rounded-xl min-w-[75px]">
+                            <span class="block text-xl">18</span>
+                            <span class="text-xs uppercase">SET</span>
+                        </div>
+                        <div>
+                            <div class="flex items-center gap-2 mb-1">
+                                <h3 class="font-bold text-base text-gray-900">Torneio Interclasses de Vôlei e Futsal</h3>
+                                <span class="bg-blue-100 text-blue-800 text-[10px] font-bold px-2 py-0.5 rounded uppercase">Confirmado</span>
+                            </div>
+                            <p class="text-xs text-gray-600">Abertura dos jogos escolares entre os 1º, 2º e 3º anos do ensino médio.</p>
+                        </div>
+                    </div>
+                    <div class="text-xs text-gray-500 whitespace-nowrap">Horário: 13:30 às 17:00</div>
+                </article>
+
+                <!-- CARD EVENTO 3 (Eletivas/ONU) -->
+                <article class="p-4 bg-gray-50 rounded-xl border border-gray-200 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+                    <div class="flex items-center gap-4">
+                        <div class="bg-purple-600 text-white font-bold text-center px-4 py-2 rounded-xl min-w-[75px]">
+                            <span class="block text-xl">02</span>
+                            <span class="text-xs uppercase">OUT</span>
+                        </div>
+                        <div>
+                            <div class="flex items-center gap-2 mb-1">
+                                <h3 class="font-bold text-base text-gray-900">Simulação Diplomática Ser ONU</h3>
+                                <span class="bg-purple-100 text-purple-800 text-[10px] font-bold px-2 py-0.5 rounded uppercase">Ser ONU</span>
+                            </div>
+                            <p class="text-xs text-gray-600">Debate aberto entre os estudantes representando diferentes países sobre questões ambientais globais.</p>
+                        </div>
+                    </div>
+                    <div class="text-xs text-gray-500 whitespace-nowrap">Horário: 09:00 às 16:00</div>
+                </article>
+
+                <!-- CARD EVENTO 4 (Confirmado) -->
+                <article class="p-4 bg-gray-50 rounded-xl border border-gray-200 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+                    <div class="flex items-center gap-4">
+                        <div class="bg-escola-primaria text-white font-bold text-center px-4 py-2 rounded-xl min-w-[75px]">
+                            <span class="block text-xl">20</span>
+                            <span class="text-xs uppercase">NOV</span>
+                        </div>
+                        <div>
+                            <div class="flex items-center gap-2 mb-1">
+                                <h3 class="font-bold text-base text-gray-900">Mostra Cultural e Sarau Vozes Negras</h3>
+                                <span class="bg-blue-100 text-blue-800 text-[10px] font-bold px-2 py-0.5 rounded uppercase">Confirmado</span>
+                            </div>
+                            <p class="text-xs text-gray-600">Apresentações literárias, musicais e exposição artística referente à Consciência Negra.</p>
+                        </div>
+                    </div>
+                    <div class="text-xs text-gray-500 whitespace-nowrap">Horário: 14:00 às 18:00</div>
+                </article>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- RODAPÉ DO SITE -->
+    <footer class="bg-escola-secundaria text-white rounded-t-xl p-8 grid grid-cols-1 md:grid-cols-4 gap-6 mt-12 text-sm">
+        <div>
+            <h3 class="font-bold text-lg mb-2 border-b border-gray-700 pb-1">Sobre</h3>
+            <p class="text-gray-400">Portal de notícias da Escola Elza, criado por alunos para manter a comunidade escolar informada sobre projetos e eventos.</p>
+        </div>
+        <div>
+            <h3 class="font-bold text-lg mb-2 border-b border-gray-700 pb-1">Navegação</h3>
+            <ul class="space-y-1 text-gray-400">
+                <li><a href="index.html" class="hover:text-white">Início</a></li>
+                <li><a href="noticia.html" class="hover:text-white">Notícias</a></li>
+                <li><a href="eventos.html" class="hover:text-white">Agenda de Eventos</a></li>
+            </ul>
+        </div>
+        <div>
+            <h3 class="font-bold text-lg mb-2 border-b border-gray-700 pb-1">Contato</h3>
+            <p class="text-gray-400">Email: contato@escolaelza.edu.br</p>
+            <p class="text-gray-400">Telefone: (00) 0000-0000</p>
+        </div>
+        <div>
+            <h3 class="font-bold text-lg mb-2 border-b border-gray-700 pb-1">Redes Sociais</h3>
+            <p class="text-gray-400">Siga nosso perfil oficial para acompanhar as fotos dos eventos da escola.</p>
+        </div>
+    </footer>
+
+</body>
+</html>

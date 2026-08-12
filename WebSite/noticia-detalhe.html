@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sugestões - Portal Elza</title>
-    
+    <title>Leitura da Notícia - Portal Elza</title>
+
     <script src="https://cdn.tailwindcss.com"></script>
 
     <script>
@@ -21,23 +21,24 @@
             }
         }
     </script>
-    
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
 </head>
 <body class="bg-escola-fundo px-4 md:px-7 font-sans text-gray-800">
 
+    <!-- MENU DE NAVEGAÇÃO PRINCIPAL -->
     <nav class="my-4">
         <header class="bg-escola-card shadow-md rounded-xl">
             <ul class="flex gap-4 items-center p-4 overflow-x-auto whitespace-nowrap text-sm md:text-base">
                 <li><a href="index.html" class="px-3 py-2 rounded-lg hover:bg-escola-secundaria hover:text-white transition">Principal</a></li>
-                <li><a href="noticia.html" class="px-3 py-2 rounded-lg hover:bg-escola-secundaria hover:text-white transition">Notícias</a></li>
+                <li><a href="noticia.html" class="px-3 py-2 rounded-lg bg-escola-secundaria text-white">Notícias</a></li>
                 <li><a href="onu.html" class="px-3 py-2 rounded-lg hover:bg-escola-secundaria hover:text-white transition">Ser ONU</a></li>
                 <li><a href="vozes_negras.html" class="px-3 py-2 rounded-lg hover:bg-escola-secundaria hover:text-white transition">Vozes Negras</a></li>
                 <li><a href="neaonnim.html" class="px-3 py-2 rounded-lg hover:bg-escola-secundaria hover:text-white transition">NeaOnnim</a></li>
                 <li><a href="eletiva.html" class="px-3 py-2 rounded-lg hover:bg-escola-secundaria hover:text-white transition">Eletivas</a></li>
-                <li><a href="sugestao.html" class="px-3 py-2 rounded-lg bg-escola-secundaria text-white">Sugestões</a></li>
+                <li><a href="sugestao.html" class="px-3 py-2 rounded-lg hover:bg-escola-secundaria hover:text-white transition">Sugestões</a></li>
                 <li><a href="publicacao.html" class="px-3 py-2 rounded-lg hover:bg-escola-secundaria hover:text-white transition">Publicação</a></li>
                 <li><a href="eventos.html" class="px-3 py-2 rounded-lg hover:bg-escola-secundaria hover:text-white transition">Eventos</a></li>
                 <li class="ml-auto"><a href="admin.html" class="px-3 py-2 bg-escola-primaria text-white font-bold rounded-lg hover:opacity-90 transition">Administrador</a></li>
@@ -45,60 +46,52 @@
         </header>
     </nav>
 
-    <main class="max-w-3xl mx-auto my-8">
+    <main class="max-w-4xl mx-auto my-8">
         
-        <section class="text-center mb-8">
-            <h1 class="text-3xl font-bold text-gray-800 mb-2 font-['Plus_Jakarta_Sans']">Caixa de Sugestões</h1>
-            <p class="text-gray-700 font-serif">Envie suas ideias, críticas ou elogios para melhorar a escola e o nosso portal.</p>
-        </section>
+        <!-- Botão Voltar -->
+        <a href="noticia.html" class="inline-block mb-6 text-sm font-bold text-escola-secundaria hover:underline">← Voltar para todas as notícias</a>
 
-        <section>
-            <form action="/api/sugestoes" method="POST" class="grid grid-cols-1 md:grid-cols-2 gap-6 p-6 md:p-8 bg-escola-card rounded-2xl shadow-lg border border-gray-200">
-
-                <div>
-                    <label for="nome" class="block font-bold text-gray-700 mb-1">Nome Completo</label>
-                    <input class="border border-gray-300 rounded-lg p-2.5 w-full focus:ring-2 focus:ring-escola-primaria outline-none" type="text" id="nome" name="nome" placeholder="Seu nome" required>
+        <!-- ARTIGO COMPLETO DA MATÉRIA -->
+        <article class="bg-escola-card rounded-2xl shadow-xl overflow-hidden border border-gray-200 p-6 md:p-10">
+            
+            <!-- Cabeçalho da Notícia -->
+            <header class="mb-6">
+                <!-- Tag Dinâmica da Categoria (As cores serão alteradas via JS conforme a categoria) -->
+                <!-- Azul para Ser ONU, Roxo para Vozes Negras, Verde para NeaOnnim -->
+                <span id="categoria-tag" class="bg-blue-100 text-blue-800 text-xs font-bold px-3 py-1 rounded-full uppercase inline-block mb-3">Ser ONU</span>
+                
+                <h1 id="noticia-titulo" class="text-3xl md:text-4xl font-bold font-['Plus_Jakarta_Sans'] leading-tight mb-4">Simulação da ONU reúne estudantes do 3º ano no auditório</h1>
+                
+                <div class="flex items-center gap-4 text-xs text-gray-500 border-b border-gray-100 pb-4">
+                    <p>Por <strong id="noticia-autor" class="text-gray-700">Profª Maria</strong></p>
+                    <span>•</span>
+                    <time id="noticia-data">08 de Agosto de 2026</time>
                 </div>
+            </header>
 
-                <div>
-                    <label for="email" class="block font-bold text-gray-700 mb-1">E-mail</label>
-                    <input class="border border-gray-300 rounded-lg p-2.5 w-full focus:ring-2 focus:ring-escola-primaria outline-none" type="email" id="email" name="email" placeholder="seuemail@escola.com" required>
-                </div>
+            <!-- Imagem e Legenda -->
+            <figure class="mb-8">
+                <img id="noticia-imagem" src="https://via.placeholder.com/800x400" alt="Imagem principal da matéria" class="w-full h-auto max-h-[450px] object-cover rounded-xl shadow">
+                <figcaption id="noticia-legenda" class="text-xs text-gray-500 mt-2 text-center italic">Alunos debatem metas globais durante o primeiro dia de comitê.</figcaption>
+            </figure>
 
-                <div>
-                    <label for="categoria" class="block font-bold text-gray-700 mb-1">Tipo de Feedback</label>
-                    <select class="border border-gray-300 rounded-lg p-2.5 w-full focus:ring-2 focus:ring-escola-primaria outline-none" id="categoria" name="categoria">
-                        <option value="sugestao">Sugestão</option>
-                        <option value="elogio">Elogio</option>
-                        <option value="critica">Crítica</option>
-                    </select>
-                </div>
+            <!-- Conteúdo em Texto Corrido -->
+            <section id="noticia-corpo" class="font-serif text-gray-700 leading-relaxed text-base md:text-lg space-y-4 border-b border-gray-100 pb-8">
+                <p>Estudantes do ensino médio participaram ativamente do primeiro dia da simulação do Conselho de Segurança. O evento contou com a mediação de professores e convidados especialistas em diplomacia internacional.</p>
+                <p>Durante a sessão, os países representados defenderam resoluções sobre sustentabilidade e acolhimento humanitário. O encerramento do evento ocorrerá na próxima sexta-feira com a publicação do documento oficial assinado pelas delegações.</p>
+            </section>
 
-                <div>
-                    <label for="perfil" class="block font-bold text-gray-700 mb-1">Perfil</label>
-                    <select class="border border-gray-300 rounded-lg p-2.5 w-full focus:ring-2 focus:ring-escola-primaria outline-none" id="perfil" name="perfil">
-                        <option value="aluno">Aluno(a)</option>
-                        <option value="professor">Professor(a)</option>
-                        <option value="comunidade">Comunidade Exterior</option>
-                    </select>
-                </div>
+            <!-- Rodapé do Artigo -->
+            <footer class="mt-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 text-xs text-gray-500">
+                <p>Categoria cadastrada no banco: <strong class="text-gray-800">Ser ONU</strong></p>
+                <button type="button" onclick="window.print()" class="bg-gray-100 hover:bg-gray-200 text-gray-800 font-bold px-4 py-2 rounded-lg transition">🖨️ Imprimir ou Salvar em PDF</button>
+            </footer>
 
-                <div class="col-span-2">
-                    <label for="assunto" class="block font-bold text-gray-700 mb-1">Assunto</label>
-                    <input class="border border-gray-300 rounded-lg p-2.5 w-full focus:ring-2 focus:ring-escola-primaria outline-none" type="text" id="assunto" name="assunto" placeholder="Resumo do assunto" required>
-                </div>
-
-                <div class="col-span-2">
-                    <label for="sugestao" class="block font-bold text-gray-700 mb-1">Sua Mensagem</label>
-                    <textarea class="border border-gray-300 rounded-lg p-2.5 w-full h-32 focus:ring-2 focus:ring-escola-primaria outline-none" id="sugestao" name="sugestao" placeholder="Detilhe aqui sua sugestão..." required></textarea>
-                </div>
-
-                <button class="col-span-2 bg-escola-primaria hover:opacity-90 text-white font-bold py-3 px-6 rounded-lg transition shadow-md" type="submit">Enviar Avaliação</button>
-            </form>
-        </section>
+        </article>
 
     </main>
 
+    <!-- RODAPÉ -->
     <footer class="bg-escola-secundaria text-white rounded-t-xl p-8 grid grid-cols-1 md:grid-cols-4 gap-6 mt-12 text-sm">
         <div>
             <h3 class="font-bold text-lg mb-2 border-b border-gray-700 pb-1">Sobre</h3>
