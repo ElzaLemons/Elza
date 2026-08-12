@@ -6,27 +6,41 @@
     <title>Sugestões - Portal Elza</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'escola-primaria': '#2563eb',   
+                        'escola-secundaria': '#0f172a', 
+                        'escola-fundo': '#dbeafe',      
+                        'escola-card': '#ffffff',       
+                    }
+                }
+            }
+        }
+    </script>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
 </head>
-<body class="bg-blue-100 px-4 md:px-7 font-sans">
+<body class="bg-escola-fundo px-4 md:px-7 font-sans text-gray-800">
 
-    <!-- MENU DE NAVEGAÇÃO -->
     <nav class="my-4">
-        <header class="bg-white shadow-md rounded-xl">
+        <header class="bg-escola-card shadow-md rounded-xl">
             <ul class="flex gap-4 items-center p-4 overflow-x-auto whitespace-nowrap text-sm md:text-base">
-                <li><a href="index.html" class="px-3 py-2 rounded-lg hover:bg-black hover:text-white transition">Principal</a></li>
-                <li><a href="noticia.html" class="px-3 py-2 rounded-lg hover:bg-black hover:text-white transition">Notícias</a></li>
-                <li><a href="onu.html" class="px-3 py-2 rounded-lg hover:bg-black hover:text-white transition">Ser ONU</a></li>
-                <li><a href="vozes_negras.html" class="px-3 py-2 rounded-lg hover:bg-black hover:text-white transition">Vozes Negras</a></li>
-                <li><a href="neaonnim.html" class="px-3 py-2 rounded-lg hover:bg-black hover:text-white transition">NeaOnnim</a></li>
-                <li><a href="eletiva.html" class="px-3 py-2 rounded-lg hover:bg-black hover:text-white transition">Eletivas</a></li>
-                <li><a href="sugestao.html" class="px-3 py-2 rounded-lg bg-black text-white">Sugestões</a></li>
-                <li><a href="publicacao.html" class="px-3 py-2 rounded-lg hover:bg-black hover:text-white transition">Publicação</a></li>
-                <li><a href="eventos.html" class="px-3 py-2 rounded-lg hover:bg-black hover:text-white transition">Eventos</a></li>
-                <li class="ml-auto"><a href="admin.html" class="px-3 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-800 transition">Administrador</a></li>
+                <li><a href="index.html" class="px-3 py-2 rounded-lg hover:bg-escola-secundaria hover:text-white transition">Principal</a></li>
+                <li><a href="noticia.html" class="px-3 py-2 rounded-lg hover:bg-escola-secundaria hover:text-white transition">Notícias</a></li>
+                <li><a href="onu.html" class="px-3 py-2 rounded-lg hover:bg-escola-secundaria hover:text-white transition">Ser ONU</a></li>
+                <li><a href="vozes_negras.html" class="px-3 py-2 rounded-lg hover:bg-escola-secundaria hover:text-white transition">Vozes Negras</a></li>
+                <li><a href="neaonnim.html" class="px-3 py-2 rounded-lg hover:bg-escola-secundaria hover:text-white transition">NeaOnnim</a></li>
+                <li><a href="eletiva.html" class="px-3 py-2 rounded-lg hover:bg-escola-secundaria hover:text-white transition">Eletivas</a></li>
+                <li><a href="sugestao.html" class="px-3 py-2 rounded-lg bg-escola-secundaria text-white">Sugestões</a></li>
+                <li><a href="publicacao.html" class="px-3 py-2 rounded-lg hover:bg-escola-secundaria hover:text-white transition">Publicação</a></li>
+                <li><a href="eventos.html" class="px-3 py-2 rounded-lg hover:bg-escola-secundaria hover:text-white transition">Eventos</a></li>
+                <li class="ml-auto"><a href="admin.html" class="px-3 py-2 bg-escola-primaria text-white font-bold rounded-lg hover:opacity-90 transition">Administrador</a></li>
             </ul>
         </header>
     </nav>
@@ -38,23 +52,22 @@
             <p class="text-gray-700 font-serif">Envie suas ideias, críticas ou elogios para melhorar a escola e o nosso portal.</p>
         </section>
 
-        <!-- FORMULÁRIO DE ENVIOS -->
         <section>
-            <form action="/api/sugestoes" method="POST" class="grid grid-cols-1 md:grid-cols-2 gap-6 p-6 md:p-8 bg-white rounded-2xl shadow-lg border border-gray-200">
+            <form action="/api/sugestoes" method="POST" class="grid grid-cols-1 md:grid-cols-2 gap-6 p-6 md:p-8 bg-escola-card rounded-2xl shadow-lg border border-gray-200">
 
                 <div>
                     <label for="nome" class="block font-bold text-gray-700 mb-1">Nome Completo</label>
-                    <input class="border border-gray-300 rounded-lg p-2.5 w-full focus:ring-2 focus:ring-blue-500 outline-none" type="text" id="nome" name="nome" placeholder="Seu nome" required>
+                    <input class="border border-gray-300 rounded-lg p-2.5 w-full focus:ring-2 focus:ring-escola-primaria outline-none" type="text" id="nome" name="nome" placeholder="Seu nome" required>
                 </div>
 
                 <div>
                     <label for="email" class="block font-bold text-gray-700 mb-1">E-mail</label>
-                    <input class="border border-gray-300 rounded-lg p-2.5 w-full focus:ring-2 focus:ring-blue-500 outline-none" type="email" id="email" name="email" placeholder="seuemail@escola.com" required>
+                    <input class="border border-gray-300 rounded-lg p-2.5 w-full focus:ring-2 focus:ring-escola-primaria outline-none" type="email" id="email" name="email" placeholder="seuemail@escola.com" required>
                 </div>
 
                 <div>
                     <label for="categoria" class="block font-bold text-gray-700 mb-1">Tipo de Feedback</label>
-                    <select class="border border-gray-300 rounded-lg p-2.5 w-full focus:ring-2 focus:ring-blue-500 outline-none" id="categoria" name="categoria">
+                    <select class="border border-gray-300 rounded-lg p-2.5 w-full focus:ring-2 focus:ring-escola-primaria outline-none" id="categoria" name="categoria">
                         <option value="sugestao">Sugestão</option>
                         <option value="elogio">Elogio</option>
                         <option value="critica">Crítica</option>
@@ -63,7 +76,7 @@
 
                 <div>
                     <label for="perfil" class="block font-bold text-gray-700 mb-1">Perfil</label>
-                    <select class="border border-gray-300 rounded-lg p-2.5 w-full focus:ring-2 focus:ring-blue-500 outline-none" id="perfil" name="perfil">
+                    <select class="border border-gray-300 rounded-lg p-2.5 w-full focus:ring-2 focus:ring-escola-primaria outline-none" id="perfil" name="perfil">
                         <option value="aluno">Aluno(a)</option>
                         <option value="professor">Professor(a)</option>
                         <option value="comunidade">Comunidade Exterior</option>
@@ -72,21 +85,21 @@
 
                 <div class="col-span-2">
                     <label for="assunto" class="block font-bold text-gray-700 mb-1">Assunto</label>
-                    <input class="border border-gray-300 rounded-lg p-2.5 w-full focus:ring-2 focus:ring-blue-500 outline-none" type="text" id="assunto" name="assunto" placeholder="Resumo do assunto" required>
+                    <input class="border border-gray-300 rounded-lg p-2.5 w-full focus:ring-2 focus:ring-escola-primaria outline-none" type="text" id="assunto" name="assunto" placeholder="Resumo do assunto" required>
                 </div>
 
                 <div class="col-span-2">
                     <label for="sugestao" class="block font-bold text-gray-700 mb-1">Sua Mensagem</label>
-                    <textarea class="border border-gray-300 rounded-lg p-2.5 w-full h-32 focus:ring-2 focus:ring-blue-500 outline-none" id="sugestao" name="sugestao" placeholder="Detilhe aqui sua sugestão..." required></textarea>
+                    <textarea class="border border-gray-300 rounded-lg p-2.5 w-full h-32 focus:ring-2 focus:ring-escola-primaria outline-none" id="sugestao" name="sugestao" placeholder="Detilhe aqui sua sugestão..." required></textarea>
                 </div>
 
-                <button class="col-span-2 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg transition shadow-md" type="submit">Enviar Avaliação</button>
+                <button class="col-span-2 bg-escola-primaria hover:opacity-90 text-white font-bold py-3 px-6 rounded-lg transition shadow-md" type="submit">Enviar Avaliação</button>
             </form>
         </section>
 
     </main>
 
-    <footer class="bg-slate-900 text-white rounded-t-xl p-8 grid grid-cols-1 md:grid-cols-4 gap-6 mt-12 text-sm">
+    <footer class="bg-escola-secundaria text-white rounded-t-xl p-8 grid grid-cols-1 md:grid-cols-4 gap-6 mt-12 text-sm">
         <div>
             <h3 class="font-bold text-lg mb-2 border-b border-gray-700 pb-1">Sobre</h3>
             <p class="text-gray-400">Portal de notícias da Escola Elza, criado por alunos para manter a comunidade escolar informada sobre projetos e eventos.</p>
