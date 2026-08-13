@@ -6,7 +6,6 @@
     <title>NeaOnnim - Portal Elza</title>
 
     <script src="https://cdn.tailwindcss.com"></script>
-
     <script>
         tailwind.config = {
             theme: {
@@ -26,60 +25,86 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
 </head>
-<body class="bg-escola-fundo px-4 md:px-7 font-sans text-gray-800">
+<body class="bg-escola-fundo px-4 md:px-7 font-sans text-gray-800 min-h-screen flex flex-col justify-between">
 
-    <!-- MENU DE NAVEGAÇÃO PRINCIPAL -->
-    <nav class="my-4">
-        <header class="bg-escola-card shadow-md rounded-xl">
-            <ul class="flex gap-4 items-center p-4 overflow-x-auto whitespace-nowrap text-sm md:text-base">
-                <li><a href="index.html" class="px-3 py-2 rounded-lg hover:bg-escola-secundaria hover:text-white transition">Principal</a></li>
-                <li><a href="noticia.html" class="px-3 py-2 rounded-lg hover:bg-escola-secundaria hover:text-white transition">Notícias</a></li>
-                <li><a href="onu.html" class="px-3 py-2 rounded-lg hover:bg-escola-secundaria hover:text-white transition">Ser ONU</a></li>
-                <li><a href="vozes_negras.html" class="px-3 py-2 rounded-lg hover:bg-escola-secundaria hover:text-white transition">Vozes Negras</a></li>
-                <li><a href="neaonnim.html" class="px-3 py-2 rounded-lg bg-escola-secundaria text-white">NeaOnnim</a></li>
-                <li><a href="eletiva.html" class="px-3 py-2 rounded-lg hover:bg-escola-secundaria hover:text-white transition">Eletivas</a></li>
-                <li><a href="sugestao.html" class="px-3 py-2 rounded-lg hover:bg-escola-secundaria hover:text-white transition">Sugestões</a></li>
-                <li><a href="publicacao.html" class="px-3 py-2 rounded-lg hover:bg-escola-secundaria hover:text-white transition">Publicação</a></li>
-                <li><a href="eventos.html" class="px-3 py-2 rounded-lg hover:bg-escola-secundaria hover:text-white transition">Eventos</a></li>
-                <li class="ml-auto"><a href="admin.html" class="px-3 py-2 bg-escola-primaria text-white font-bold rounded-lg hover:opacity-90 transition">Administrador</a></li>
+    <!-- NAVBAR RESPONSIVA -->
+    <nav class="my-4 relative z-50">
+        <header class="bg-escola-card shadow-md rounded-xl p-4 flex items-center justify-between">
+            <a href="index.html" class="flex items-center gap-2 font-bold text-xl text-escola-secundaria font-['Plus_Jakarta_Sans']">
+                <span class="bg-escola-primaria text-white p-1.5 rounded-lg text-sm">🏫</span>
+                <span>Portal Elza</span>
+            </a>
+
+            <button id="btn-menu-mobile" type="button" class="md:hidden text-escola-secundaria hover:bg-gray-100 p-2 rounded-lg transition focus:outline-none">
+                <svg id="icon-hamb" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                <svg id="icon-close" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+
+            <ul class="hidden md:flex items-center gap-2 text-sm font-medium">
+                <li><a href="index.html" class="px-3 py-2 rounded-lg text-gray-700 hover:bg-escola-secundaria hover:text-white transition">Principal</a></li>
+                <li><a href="noticia.html" class="px-3 py-2 rounded-lg text-gray-700 hover:bg-escola-secundaria hover:text-white transition">Notícias</a></li>
+                <li><a href="onu.html" class="px-3 py-2 rounded-lg text-gray-700 hover:bg-escola-secundaria hover:text-white transition">Ser ONU</a></li>
+                <li><a href="vozes_negras.html" class="px-3 py-2 rounded-lg text-gray-700 hover:bg-escola-secundaria hover:text-white transition">Vozes Negras</a></li>
+                <li><a href="neaonnim.html" class="px-3 py-2 rounded-lg bg-escola-secundaria text-white font-semibold">NeaOnnim</a></li>
+                <li><a href="eletiva.html" class="px-3 py-2 rounded-lg text-gray-700 hover:bg-escola-secundaria hover:text-white transition">Eletivas</a></li>
+                <li><a href="sugestao.html" class="px-3 py-2 rounded-lg text-gray-700 hover:bg-escola-secundaria hover:text-white transition">Sugestões</a></li>
+                <li><a href="publicacao.html" class="px-3 py-2 rounded-lg text-gray-700 hover:bg-escola-secundaria hover:text-white transition">Publicação</a></li>
+                <li><a href="eventos.html" class="px-3 py-2 rounded-lg text-gray-700 hover:bg-escola-secundaria hover:text-white transition">Eventos</a></li>
+                <li><a href="admin.html" class="px-3 py-2 bg-escola-primaria text-white font-bold rounded-lg hover:opacity-90 transition ml-2">Admin</a></li>
             </ul>
+
+            <div id="mobile-menu" class="hidden absolute top-full left-0 w-full mt-2 bg-escola-card shadow-2xl rounded-2xl p-4 flex-col gap-1 border border-gray-100 md:hidden">
+                <a href="index.html" class="px-4 py-2.5 rounded-xl text-gray-700 hover:bg-gray-100 font-medium text-sm transition">Principal</a>
+                <a href="noticia.html" class="px-4 py-2.5 rounded-xl text-gray-700 hover:bg-gray-100 font-medium text-sm transition">Notícias</a>
+                <a href="onu.html" class="px-4 py-2.5 rounded-xl text-gray-700 hover:bg-gray-100 font-medium text-sm transition">Ser ONU</a>
+                <a href="vozes_negras.html" class="px-4 py-2.5 rounded-xl text-gray-700 hover:bg-gray-100 font-medium text-sm transition">Vozes Negras</a>
+                <a href="neaonnim.html" class="px-4 py-2.5 rounded-xl bg-escola-secundaria text-white font-bold text-sm">NeaOnnim</a>
+                <a href="eletiva.html" class="px-4 py-2.5 rounded-xl text-gray-700 hover:bg-gray-100 font-medium text-sm transition">Eletivas</a>
+                <a href="sugestao.html" class="px-4 py-2.5 rounded-xl text-gray-700 hover:bg-gray-100 font-medium text-sm transition">Sugestões</a>
+                <a href="publicacao.html" class="px-4 py-2.5 rounded-xl text-gray-700 hover:bg-gray-100 font-medium text-sm transition">Publicação</a>
+                <a href="eventos.html" class="px-4 py-2.5 rounded-xl text-gray-700 hover:bg-gray-100 font-medium text-sm transition">Eventos</a>
+                <a href="admin.html" class="px-4 py-2.5 rounded-xl bg-escola-primaria text-white font-bold text-sm text-center mt-2 transition">Painel Admin</a>
+            </div>
         </header>
     </nav>
 
-    <main class="max-w-6xl mx-auto my-8">
+    <!-- CONTEÚDO PRINCIPAL -->
+    <main class="max-w-6xl mx-auto my-6 md:my-10 w-full flex-grow space-y-10">
         
-        <!-- APRESENTAÇÃO DO PROJETO -->
-        <section class="bg-escola-card p-8 rounded-2xl shadow-lg border-l-8 border-emerald-600 mb-10">
-            <span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-3 py-1 rounded-full uppercase">Ciência, Tecnologia & Filosofia</span>
-            <h1 class="text-3xl md:text-5xl font-bold mt-3 mb-3 font-['Plus_Jakarta_Sans']">Projeto NeaOnnim</h1>
-            <p class="text-gray-600 font-serif text-lg max-w-3xl">"Aquele que não sabe pode saber através do aprendizado." Espaço de pesquisa, inovação, ciência e busca constante pelo conhecimento na Escola Elza.</p>
+        <!-- HEADER DO PROJETO -->
+        <section class="bg-escola-card p-6 md:p-10 rounded-2xl shadow-sm border-l-8 border-emerald-600 border-t border-r border-b border-gray-100">
+            <span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-3 py-1 rounded-md uppercase tracking-wider">Ciência, Tecnologia & Filosofia</span>
+            <h1 class="text-3xl md:text-5xl font-extrabold mt-3 mb-3 font-['Plus_Jakarta_Sans'] text-gray-900">Projeto NeaOnnim</h1>
+            <p class="text-gray-600 font-serif text-base md:text-lg max-w-3xl leading-relaxed">
+                "Aquele que não sabe pode saber através do aprendizado." Espaço de pesquisa, inovação, ciência e busca constante pelo conhecimento na Escola Elza.
+            </p>
         </section>
 
-        <!-- SOBRE O PROJETO -->
-        <section class="bg-escola-card p-6 md:p-8 rounded-2xl shadow-md mb-10 border border-gray-200">
-            <h2 class="text-2xl font-bold mb-3 font-['Plus_Jakarta_Sans']">Sobre o NeaOnnim</h2>
-            <p class="text-gray-700 leading-relaxed font-serif">Inspirado pelo símbolo Adinkra do conhecimento contínuo, o grupo NeaOnnim promove a iniciação científica, o desenvolvimento de tecnologia social, experimentos práticos em laboratório e a produção acadêmica feita por e para estudantes.</p>
+        <!-- SOBRE -->
+        <section class="bg-escola-card p-6 md:p-8 rounded-2xl shadow-sm border border-gray-100">
+            <h2 class="text-2xl font-bold mb-3 font-['Plus_Jakarta_Sans'] text-escola-secundaria">Sobre o NeaOnnim</h2>
+            <p class="text-gray-700 leading-relaxed font-serif text-sm md:text-base">
+                Inspirado pelo símbolo Adinkra do conhecimento contínuo, o grupo NeaOnnim promove a iniciação científica, o desenvolvimento de tecnologia social, experimentos práticos em laboratório e a produção acadêmica feita por e para estudantes.
+            </p>
         </section>
 
-        <!-- ARTIGOS CIENTÍFICOS E PESQUISAS -->
-        <section class="mb-10">
-            <h2 class="text-2xl font-bold mb-6 font-['Plus_Jakarta_Sans']">Artigos Científicos e Pesquisas</h2>
+        <!-- ARTIGOS CIENTÍFICOS -->
+        <section>
+            <h2 class="text-2xl font-bold mb-6 font-['Plus_Jakarta_Sans'] text-escola-secundaria">Artigos Científicos e Pesquisas</h2>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <!-- Artigo 1 -->
-                <article class="bg-escola-card p-6 rounded-2xl shadow-md border border-gray-200 flex flex-col justify-between hover:shadow-lg transition">
+                <article class="bg-escola-card p-6 rounded-2xl shadow-md border border-gray-100 flex flex-col justify-between hover:shadow-lg transition">
                     <div>
-                        <h3 class="text-xl font-bold mb-2 font-['Plus_Jakarta_Sans']">Inovação e Sustentabilidade no Ambiente Escolar</h3>
+                        <h3 class="text-xl font-bold mb-2 font-['Plus_Jakarta_Sans'] text-gray-900">Inovação e Sustentabilidade no Ambiente Escolar</h3>
                         <p class="text-xs text-gray-500 mb-4">Por <strong>Equipe NeaOnnim (3º A)</strong> — Orientação: Prof. Roberto</p>
                         <p class="text-gray-600 font-serif text-sm leading-relaxed mb-4">"Estudo sobre o reaproveitamento de resíduos orgânicos para geração de energia limpa no laboratório..."</p>
                     </div>
                     <a href="noticia-detalhe.html?id=30" class="text-emerald-700 font-bold text-sm hover:underline">Ler artigo completo →</a>
                 </article>
 
-                <!-- Artigo 2 -->
-                <article class="bg-escola-card p-6 rounded-2xl shadow-md border border-gray-200 flex flex-col justify-between hover:shadow-lg transition">
+                <article class="bg-escola-card p-6 rounded-2xl shadow-md border border-gray-100 flex flex-col justify-between hover:shadow-lg transition">
                     <div>
-                        <h3 class="text-xl font-bold mb-2 font-['Plus_Jakarta_Sans']">Tecnologia Social e Democratização</h3>
+                        <h3 class="text-xl font-bold mb-2 font-['Plus_Jakarta_Sans'] text-gray-900">Tecnologia Social e Democratização</h3>
                         <p class="text-xs text-gray-500 mb-4">Por <strong>Equipe NeaOnnim (2º B)</strong> — Orientação: Profª Fernanda</p>
                         <p class="text-gray-600 font-serif text-sm leading-relaxed mb-4">"Análise da inclusão digital e do uso de softwares livres na construção do saber coletivo..."</p>
                     </div>
@@ -89,22 +114,22 @@
         </section>
 
         <!-- PROJETOS EM ANDAMENTO -->
-        <section class="mb-10">
-            <h2 class="text-2xl font-bold mb-6 font-['Plus_Jakarta_Sans']">Projetos e Experimentos em Andamento</h2>
+        <section>
+            <h2 class="text-2xl font-bold mb-6 font-['Plus_Jakarta_Sans'] text-escola-secundaria">Projetos e Experimentos em Andamento</h2>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <article class="bg-escola-card rounded-2xl shadow-md overflow-hidden border border-gray-200">
+                <article class="bg-escola-card rounded-2xl shadow-md overflow-hidden border border-gray-100">
                     <img src="https://via.placeholder.com/600x300" alt="Robótica e programação" class="w-full h-48 object-cover">
                     <div class="p-5">
-                        <h3 class="font-bold text-lg mb-1 font-['Plus_Jakarta_Sans']">Laboratório Aberto de Robótica</h3>
+                        <h3 class="font-bold text-lg mb-1 font-['Plus_Jakarta_Sans'] text-gray-900">Laboratório Aberto de Robótica</h3>
                         <p class="text-sm text-gray-600 font-serif">Desenvolvimento de sistemas de irrigação automatizados para a horta escolar.</p>
                     </div>
                 </article>
 
-                <article class="bg-escola-card rounded-2xl shadow-md overflow-hidden border border-gray-200">
+                <article class="bg-escola-card rounded-2xl shadow-md overflow-hidden border border-gray-100">
                     <img src="https://via.placeholder.com/600x300" alt="Mostra científica" class="w-full h-48 object-cover">
                     <div class="p-5">
-                        <h3 class="font-bold text-lg mb-1 font-['Plus_Jakarta_Sans']">Mostra de Iniciação Científica</h3>
+                        <h3 class="font-bold text-lg mb-1 font-['Plus_Jakarta_Sans'] text-gray-900">Mostra de Iniciação Científica</h3>
                         <p class="text-sm text-gray-600 font-serif">Exposição dos projetos de pesquisa produzidos pelos estudantes no semestre.</p>
                     </div>
                 </article>
@@ -112,9 +137,9 @@
         </section>
 
         <!-- ACERVO CIENTÍFICO -->
-        <section class="bg-escola-card p-6 rounded-2xl shadow-md border border-gray-200">
-            <h2 class="text-xl font-bold mb-3 font-['Plus_Jakarta_Sans']">Publicações e Relatórios Acadêmicos</h2>
-            <ul class="space-y-2 text-sm font-semibold text-emerald-700">
+        <section class="bg-escola-card p-6 rounded-2xl shadow-sm border border-gray-100">
+            <h2 class="text-xl font-bold mb-3 font-['Plus_Jakarta_Sans'] text-escola-secundaria">Publicações e Relatórios Acadêmicos</h2>
+            <ul class="space-y-3 text-sm font-semibold text-emerald-700">
                 <li><a href="#" class="hover:underline flex items-center gap-2">🔬 Revista Científica NeaOnnim - Edição Especial (PDF)</a></li>
                 <li><a href="#" class="hover:underline flex items-center gap-2">📐 Guia Prático de Metodologia Científica Escolar (PDF)</a></li>
             </ul>
@@ -123,29 +148,56 @@
     </main>
 
     <!-- RODAPÉ -->
-    <footer class="bg-escola-secundaria text-white rounded-t-xl p-8 grid grid-cols-1 md:grid-cols-4 gap-6 mt-12 text-sm">
-        <div>
-            <h3 class="font-bold text-lg mb-2 border-b border-gray-700 pb-1">Sobre</h3>
-            <p class="text-gray-400">Portal de notícias da Escola Elza, criado por alunos para manter a comunidade escolar informada sobre projetos e eventos.</p>
+    <footer class="bg-escola-secundaria text-white rounded-t-2xl p-6 md:p-8 mt-12 text-sm">
+        <div class="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
+            <div>
+                <h3 class="font-bold text-base mb-3 border-b border-gray-700 pb-2">Sobre</h3>
+                <p class="text-gray-400 text-xs leading-relaxed">Portal de notícias da Escola Elza, criado por alunos para manter a comunidade escolar informada sobre projetos e eventos.</p>
+            </div>
+            <div>
+                <h3 class="font-bold text-base mb-3 border-b border-gray-700 pb-2">Navegação</h3>
+                <ul class="space-y-2 text-gray-400 text-xs">
+                    <li><a href="index.html" class="hover:text-white transition">Início</a></li>
+                    <li><a href="noticia.html" class="hover:text-white transition">Notícias</a></li>
+                    <li><a href="eletiva.html" class="hover:text-white transition">Inscrição de Eletivas</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="font-bold text-base mb-3 border-b border-gray-700 pb-2">Contato</h3>
+                <p class="text-gray-400 text-xs">Email: contato@escolaelza.edu.br</p>
+                <p class="text-gray-400 text-xs mt-1">Telefone: (00) 0000-0000</p>
+            </div>
+            <div>
+                <h3 class="font-bold text-base mb-3 border-b border-gray-700 pb-2">Redes Sociais</h3>
+                <p class="text-gray-400 text-xs leading-relaxed">Siga nosso perfil oficial para acompanhar as fotos dos eventos da escola.</p>
+            </div>
         </div>
-        <div>
-            <h3 class="font-bold text-lg mb-2 border-b border-gray-700 pb-1">Navegação</h3>
-            <ul class="space-y-1 text-gray-400">
-                <li><a href="index.html" class="hover:text-white">Início</a></li>
-                <li><a href="noticia.html" class="hover:text-white">Notícias</a></li>
-                <li><a href="eletiva.html" class="hover:text-white">Inscrição de Eletivas</a></li>
-            </ul>
-        </div>
-        <div>
-            <h3 class="font-bold text-lg mb-2 border-b border-gray-700 pb-1">Contato</h3>
-            <p class="text-gray-400">Email: contato@escolaelza.edu.br</p>
-            <p class="text-gray-400">Telefone: (00) 0000-0000</p>
-        </div>
-        <div>
-            <h3 class="font-bold text-lg mb-2 border-b border-gray-700 pb-1">Redes Sociais</h3>
-            <p class="text-gray-400">Siga nosso perfil oficial para acompanhar as fotos dos eventos da escola.</p>
+        <div class="border-t border-gray-800 mt-8 pt-4 text-center text-xs text-gray-500">
+            &copy; 2026 Portal Escola Elza - Todos os direitos reservados.
         </div>
     </footer>
 
+    <!-- SCRIPT MENU MOBILE -->
+    <script>
+        const btnMenuMobile = document.getElementById('btn-menu-mobile');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const iconHamb = document.getElementById('icon-hamb');
+        const iconClose = document.getElementById('icon-close');
+
+        btnMenuMobile.addEventListener('click', () => {
+            const isHidden = mobileMenu.classList.contains('hidden');
+            if (isHidden) {
+                mobileMenu.classList.remove('hidden');
+                mobileMenu.classList.add('flex');
+                iconHamb.classList.add('hidden');
+                iconClose.classList.remove('hidden');
+            } else {
+                mobileMenu.classList.add('hidden');
+                mobileMenu.classList.remove('flex');
+                iconHamb.classList.remove('hidden');
+                iconClose.classList.add('hidden');
+            }
+        });
+    </script>
 </body>
 </html>
