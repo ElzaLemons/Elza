@@ -3,243 +3,313 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agenda de Eventos - Portal Elza</title>
+    <title>Agenda de Eventos - Portal Escola Elza</title>
 
+    <!-- TAILWIND CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- CONFIGURAÇÃO DA PALETA EXCLUSIVA: EVENTOS (ROXO / AMBER / VIOLETA) -->
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        'escola-primaria': '#2563eb',   
-                        'escola-secundaria': '#0f172a', 
-                        'escola-fundo': '#dbeafe',      
-                        'escola-card': '#ffffff',       
+                        'evt-principal': '#7C3AED',  /* Violeta Eventos */
+                        'evt-escuro': '#2E1065',     /* Roxo Profundo */
+                        'evt-fundo': '#F5F3FF',      /* Fundo Lavanda Suave */
+                        'evt-card': '#FFFFFF',       /* Card Branco */
+                        'evt-destaque': '#F59E0B',   /* Amarelo Amber Destaque */
                     }
                 }
             }
         }
     </script>
 
+    <!-- TIPOGRAFIA PLUS JAKARTA SANS -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    </style>
 </head>
-<body class="bg-escola-fundo px-4 md:px-7 font-sans text-gray-800 min-h-screen flex flex-col justify-between">
+<body class="bg-evt-fundo text-slate-800 min-h-screen flex flex-col justify-between">
 
-    <!-- NAVBAR RESPONSIVA -->
-    <nav class="my-4 relative z-50">
-        <header class="bg-escola-card shadow-md rounded-xl p-4 flex items-center justify-between">
-            <a href="index.html" class="flex items-center gap-2 font-bold text-xl text-escola-secundaria font-['Plus_Jakarta_Sans']">
-                <span class="bg-escola-primaria text-white p-1.5 rounded-lg text-sm">🏫</span>
-                <span>Portal Elza</span>
+    <!-- CABEÇALHO / NAVBAR RESPONSIVA (SEM ELETIVAS) -->
+    <header class="bg-evt-escuro text-white sticky top-0 z-50 shadow-lg border-b border-evt-principal/30">
+        <div class="max-w-7xl mx-auto px-4 md:px-6 py-3 flex items-center justify-between">
+            
+            <!-- Logo Institucional -->
+            <a href="index.html" class="flex items-center gap-3 group">
+                <div class="bg-evt-principal p-2 rounded-xl text-white font-bold text-lg group-hover:scale-105 transition shadow-sm">
+                    📅
+                </div>
+                <div>
+                    <span class="block text-lg font-bold leading-none tracking-tight">PORTAL ELZA</span>
+                    <span class="text-[10px] text-purple-200 font-medium tracking-wide">EEEFM Elza Lemos Andreatta</span>
+                </div>
             </a>
 
-            <!-- Botão Hambúrguer Mobile -->
-            <button id="btn-menu-mobile" type="button" class="md:hidden text-escola-secundaria hover:bg-gray-100 p-2 rounded-lg transition focus:outline-none">
-                <svg id="icon-hamb" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
-                <svg id="icon-close" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            <!-- Botão Hambúrguer (Mobile) -->
+            <button id="btn-menu" type="button" aria-label="Abrir Menu" class="lg:hidden text-purple-200 hover:text-white p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-evt-principal">
+                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
             </button>
 
             <!-- Links Desktop -->
-            <ul class="hidden md:flex items-center gap-2 text-sm font-medium">
-                <li><a href="index.html" class="px-3 py-2 rounded-lg text-gray-700 hover:bg-escola-secundaria hover:text-white transition">Principal</a></li>
-                <li><a href="noticia.html" class="px-3 py-2 rounded-lg text-gray-700 hover:bg-escola-secundaria hover:text-white transition">Notícias</a></li>
-                <li><a href="onu.html" class="px-3 py-2 rounded-lg text-gray-700 hover:bg-escola-secundaria hover:text-white transition">Ser ONU</a></li>
-                <li><a href="vozes_negras.html" class="px-3 py-2 rounded-lg text-gray-700 hover:bg-escola-secundaria hover:text-white transition">Vozes Negras</a></li>
-                <li><a href="neaonnim.html" class="px-3 py-2 rounded-lg text-gray-700 hover:bg-escola-secundaria hover:text-white transition">NeaOnnim</a></li>
-                <li><a href="eletiva.html" class="px-3 py-2 rounded-lg text-gray-700 hover:bg-escola-secundaria hover:text-white transition">Eletivas</a></li>
-                <li><a href="sugestao.html" class="px-3 py-2 rounded-lg text-gray-700 hover:bg-escola-secundaria hover:text-white transition">Sugestões</a></li>
-                <li><a href="publicacao.html" class="px-3 py-2 rounded-lg text-gray-700 hover:bg-escola-secundaria hover:text-white transition">Publicação</a></li>
-                <li><a href="eventos.html" class="px-3 py-2 rounded-lg bg-escola-secundaria text-white font-semibold">Eventos</a></li>
-                <li><a href="admin.html" class="px-3 py-2 bg-escola-primaria text-white font-bold rounded-lg hover:opacity-90 transition ml-2">Admin</a></li>
-            </ul>
+            <nav class="hidden lg:flex items-center gap-1 text-xs font-semibold">
+                <a href="index.html" class="px-3 py-2 rounded-lg text-purple-100 hover:bg-purple-900/60 hover:text-white transition">Principal</a>
+                <a href="noticia.html" class="px-3 py-2 rounded-lg text-purple-100 hover:bg-purple-900/60 hover:text-white transition">Notícias</a>
+                <a href="onu.html" class="px-3 py-2 rounded-lg text-purple-100 hover:bg-purple-900/60 hover:text-white transition">Ser ONU</a>
+                <a href="vozes_negras.html" class="px-3 py-2 rounded-lg text-purple-100 hover:bg-purple-900/60 hover:text-white transition">Vozes Negras</a>
+                <a href="neaonnim.html" class="px-3 py-2 rounded-lg text-purple-100 hover:bg-purple-900/60 hover:text-white transition">NeaOnnim</a>
+                <a href="sugestao.html" class="px-3 py-2 rounded-lg text-purple-100 hover:bg-purple-900/60 hover:text-white transition">Sugestões</a>
+                <a href="publicacao.html" class="px-3 py-2 rounded-lg text-purple-100 hover:bg-purple-900/60 hover:text-white transition">Publicação</a>
+                <a href="eventos.html" class="px-3 py-2 rounded-lg bg-evt-principal text-white shadow-sm">Eventos</a>
+                <a href="admin.html" class="px-3 py-2 rounded-lg bg-purple-950 text-amber-400 hover:bg-purple-900 transition ml-2 border border-purple-800/50">Admin</a>
+            </nav>
+        </div>
 
-            <!-- Dropdown Mobile -->
-            <div id="mobile-menu" class="hidden absolute top-full left-0 w-full mt-2 bg-escola-card shadow-2xl rounded-2xl p-4 flex-col gap-1 border border-gray-100 md:hidden">
-                <a href="index.html" class="px-4 py-2.5 rounded-xl text-gray-700 hover:bg-gray-100 font-medium text-sm transition">Principal</a>
-                <a href="noticia.html" class="px-4 py-2.5 rounded-xl text-gray-700 hover:bg-gray-100 font-medium text-sm transition">Notícias</a>
-                <a href="onu.html" class="px-4 py-2.5 rounded-xl text-gray-700 hover:bg-gray-100 font-medium text-sm transition">Ser ONU</a>
-                <a href="vozes_negras.html" class="px-4 py-2.5 rounded-xl text-gray-700 hover:bg-gray-100 font-medium text-sm transition">Vozes Negras</a>
-                <a href="neaonnim.html" class="px-4 py-2.5 rounded-xl text-gray-700 hover:bg-gray-100 font-medium text-sm transition">NeaOnnim</a>
-                <a href="eletiva.html" class="px-4 py-2.5 rounded-xl text-gray-700 hover:bg-gray-100 font-medium text-sm transition">Eletivas</a>
-                <a href="sugestao.html" class="px-4 py-2.5 rounded-xl text-gray-700 hover:bg-gray-100 font-medium text-sm transition">Sugestões</a>
-                <a href="publicacao.html" class="px-4 py-2.5 rounded-xl text-gray-700 hover:bg-gray-100 font-medium text-sm transition">Publicação</a>
-                <a href="eventos.html" class="px-4 py-2.5 rounded-xl bg-escola-secundaria text-white font-bold text-sm">Eventos</a>
-                <a href="admin.html" class="px-4 py-2.5 rounded-xl bg-escola-primaria text-white font-bold text-sm text-center mt-2 transition">Painel Admin</a>
+        <!-- Menu Mobile Dropdown -->
+        <div id="mobile-menu" class="hidden lg:hidden bg-evt-escuro border-t border-purple-900/50 px-4 py-4 space-y-2 text-sm font-medium">
+            <a href="index.html" class="block px-3 py-2 rounded-lg text-purple-100 hover:bg-purple-950">Principal</a>
+            <a href="noticia.html" class="block px-3 py-2 rounded-lg text-purple-100 hover:bg-purple-950">Notícias</a>
+            <a href="onu.html" class="block px-3 py-2 rounded-lg text-purple-100 hover:bg-purple-950">Ser ONU</a>
+            <a href="vozes_negras.html" class="block px-3 py-2 rounded-lg text-purple-100 hover:bg-purple-950">Vozes Negras</a>
+            <a href="neaonnim.html" class="block px-3 py-2 rounded-lg text-purple-100 hover:bg-purple-950">NeaOnnim</a>
+            <a href="sugestao.html" class="block px-3 py-2 rounded-lg text-purple-100 hover:bg-purple-950">Sugestões</a>
+            <a href="publicacao.html" class="block px-3 py-2 rounded-lg text-purple-100 hover:bg-purple-950">Publicação</a>
+            <a href="eventos.html" class="block px-3 py-2 rounded-lg bg-evt-principal text-white font-bold">Eventos</a>
+            <a href="admin.html" class="block px-3 py-2 rounded-lg bg-purple-950 text-amber-400 font-bold">Painel Admin</a>
+        </div>
+    </header>
+
+    <!-- CONTEÚDO PRINCIPAL -->
+    <main class="max-w-7xl mx-auto px-4 md:px-6 my-6 md:my-10 space-y-10 w-full flex-grow">
+
+        <!-- HERO BANNER EVENTOS -->
+        <section class="bg-evt-escuro rounded-3xl p-6 md:p-10 text-white relative overflow-hidden shadow-xl border border-evt-principal/30">
+            <div class="absolute right-0 top-0 opacity-10 translate-x-10 -translate-y-6 pointer-events-none">
+                <span class="text-[200px]">🗓️</span>
             </div>
-        </header>
-    </nav>
-
-    <!-- CONTEÚDO PRINCIPAL DA AGENDA -->
-    <main class="max-w-6xl mx-auto my-6 md:my-10 w-full flex-grow space-y-8">
-        
-        <!-- Apresentação da página -->
-        <section class="text-center">
-            <h1 class="text-3xl md:text-5xl font-extrabold mb-3 font-['Plus_Jakarta_Sans'] text-gray-900">Calendário e Agenda Escolar 2026</h1>
-            <p class="text-base md:text-lg text-gray-600 font-serif max-w-2xl mx-auto">Acompanhe as datas dos eventos anuais, feiras culturais, torneios e reuniões da Escola Elza.</p>
+            
+            <div class="relative z-10 max-w-2xl space-y-3">
+                <span class="inline-flex items-center gap-1.5 bg-evt-principal text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow-sm">
+                    🗓️ Calendário & Atividades Escolares
+                </span>
+                <h1 class="text-3xl md:text-4xl font-extrabold leading-tight text-purple-50">
+                    Fique por dentro de tudo o que acontece na Escola Elza
+                </h1>
+                <p class="text-purple-200 text-sm leading-relaxed">
+                    Acompanhe as datas das simulações da ONU, feiras de ciências do NeaOnnim, apresentações do Vozes Negras, reuniões pedagógicas e conselhos de classe.
+                </p>
+            </div>
         </section>
 
-        <!-- SEÇÃO 1: AVISOS RÁPIDOS E ALTERAÇÕES DE DATAS -->
-        <section class="bg-amber-50 border-l-4 border-amber-500 p-5 rounded-2xl shadow-sm border border-amber-200/50">
-            <div class="flex items-center gap-2 mb-3">
-                <span class="text-xl">⚠️</span>
-                <h2 class="text-lg font-bold text-amber-900 font-['Plus_Jakarta_Sans']">Avisos Rápidos de Mudanças na Agenda</h2>
-            </div>
-            <ul class="space-y-2 text-sm text-amber-900">
-                <li class="flex items-start gap-2">
-                    <span class="font-bold shrink-0">• [20/08/2026]:</span>
-                    <span><strong>Feira de Ciências NeaOnnim:</strong> Adiada do dia 28/08 para o dia <strong>04/09</strong> devido à reforma do auditório principal.</span>
-                </li>
-                <li class="flex items-start gap-2">
-                    <span class="font-bold shrink-0">• [12/08/2026]:</span>
-                    <span><strong>Campeonato Interclasses de Vôlei:</strong> Local alterado para a quadra coberta externa no dia 18/08.</span>
-                </li>
-            </ul>
+        <!-- FILTROS RÁPIDOS DE CATEGORIA -->
+        <section class="flex items-center gap-2 overflow-x-auto pb-2 text-xs font-semibold scrollbar-none">
+            <button class="bg-evt-principal text-white px-4 py-2 rounded-xl whitespace-nowrap shadow-sm">Todos os Eventos</button>
+            <button class="bg-evt-card hover:bg-purple-100 text-slate-700 px-4 py-2 rounded-xl border border-purple-200/60 whitespace-nowrap transition">Acadêmico & NeaOnnim</button>
+            <button class="bg-evt-card hover:bg-purple-100 text-slate-700 px-4 py-2 rounded-xl border border-purple-200/60 whitespace-nowrap transition">Ser ONU</button>
+            <button class="bg-evt-card hover:bg-purple-100 text-slate-700 px-4 py-2 rounded-xl border border-purple-200/60 whitespace-nowrap transition">Vozes Negras & Cultura</button>
+            <button class="bg-evt-card hover:bg-purple-100 text-slate-700 px-4 py-2 rounded-xl border border-purple-200/60 whitespace-nowrap transition">Reuniões & Conselho</button>
         </section>
 
-        <!-- SEÇÃO 2: LISTA CRONOLÓGICA DE EVENTOS -->
-        <section class="bg-escola-card rounded-2xl shadow-sm p-6 border border-gray-100">
-            <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4 border-b border-gray-100 pb-4">
-                <h2 class="text-2xl font-bold font-['Plus_Jakarta_Sans'] text-escola-secundaria">Cronograma Semestral</h2>
+        <!-- EVENTO EM DESTAQUE / PRÓXIMO GRANDE EVENTO -->
+        <section class="bg-gradient-to-r from-purple-900 to-evt-escuro text-white rounded-3xl p-6 md:p-8 shadow-md border border-purple-700/50 relative overflow-hidden">
+            <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 relative z-10">
                 
-                <!-- Filtros visuais de evento -->
-                <div class="flex flex-wrap gap-2 text-xs font-bold">
-                    <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full">Confirmados</span>
-                    <span class="bg-amber-100 text-amber-800 px-3 py-1 rounded-full">Data Alterada</span>
-                    <span class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full">Eletivas & Projetos</span>
+                <div class="flex items-start gap-4">
+                    <!-- Badge Data Destaque -->
+                    <div class="bg-evt-destaque text-slate-900 rounded-2xl p-3 md:p-4 text-center min-w-[80px] shrink-0 font-extrabold shadow-lg">
+                        <span class="block text-2xl leading-none">28</span>
+                        <span class="text-[10px] uppercase font-bold tracking-wider">AGO / 2026</span>
+                    </div>
+                    
+                    <div class="space-y-1">
+                        <span class="bg-purple-800 text-amber-300 text-[10px] font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wider">Destaque do Mês</span>
+                        <h2 class="text-xl md:text-2xl font-bold text-white">I Simulação Interna Ser ONU Elza</h2>
+                        <p class="text-xs text-purple-200 leading-relaxed max-w-xl">
+                            Debates diplomáticos com os estudantes representando delegações internacionais sobre sustentabilidade e direitos humanos.
+                        </p>
+                    </div>
                 </div>
+
+                <div class="w-full md:w-auto shrink-0 space-y-2 text-xs border-t md:border-t-0 md:border-l border-purple-700/60 pt-4 md:pt-0 md:pl-6">
+                    <div class="flex items-center gap-2 text-purple-200">
+                        <span>⏰</span> <b>Horário:</b> 08:00 às 16:30
+                    </div>
+                    <div class="flex items-center gap-2 text-purple-200">
+                        <span>📍</span> <b>Local:</b> Auditório Principal
+                    </div>
+                    <div class="flex items-center gap-2 text-purple-200">
+                        <span>👥</span> <b>Público:</b> Estudantes & Comunidade
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- PRÓXIMOS EVENTOS (LISTA COM BADGES E CARDS) -->
+        <section class="space-y-4">
+            <div class="border-b border-purple-200 pb-3 flex items-center justify-between">
+                <h2 class="text-xl font-bold text-evt-escuro flex items-center gap-2">
+                    <span>📌</span> Próximas Atividades Programadas
+                </h2>
+                <span class="text-xs text-slate-500 font-medium">Ano Letivo 2026</span>
             </div>
 
-            <div class="space-y-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
-                <!-- CARD EVENTO 1 (Data Alterada) -->
-                <article class="p-4 bg-gray-50 rounded-xl border border-gray-200/70 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 hover:border-gray-300 transition">
-                    <div class="flex items-center gap-4">
-                        <div class="bg-amber-500 text-white font-bold text-center px-4 py-2.5 rounded-xl min-w-[75px] shrink-0">
-                            <span class="block text-xl leading-none font-extrabold">04</span>
-                            <span class="text-xs uppercase tracking-wider">SET</span>
+                <!-- Evento Card 1 -->
+                <div class="bg-evt-card rounded-2xl p-5 border border-purple-200/70 shadow-sm hover:shadow-md transition flex gap-4 items-start">
+                    <div class="bg-purple-100 text-evt-principal rounded-xl p-3 text-center min-w-[65px] font-extrabold shrink-0 border border-purple-200">
+                        <span class="block text-xl leading-none">04</span>
+                        <span class="text-[9px] uppercase font-bold tracking-wider">SET</span>
+                    </div>
+
+                    <div class="space-y-2 flex-grow">
+                        <div class="flex items-center justify-between">
+                            <span class="bg-indigo-100 text-indigo-700 text-[10px] font-bold px-2 py-0.5 rounded-md uppercase">NeaOnnim</span>
+                            <span class="text-[11px] font-semibold text-slate-400">09:00 - 12:00</span>
                         </div>
-                        <div>
-                            <div class="flex flex-wrap items-center gap-2 mb-1">
-                                <h3 class="font-bold text-base text-gray-900 font-['Plus_Jakarta_Sans']">Feira de Inovação e Ciência NeaOnnim</h3>
-                                <span class="bg-amber-100 text-amber-800 text-[10px] font-bold px-2 py-0.5 rounded uppercase">Data Alterada</span>
-                            </div>
-                            <p class="text-xs text-gray-600 font-serif">Apresentação dos projetos de robótica e iniciação científica desenvolvidos pelos alunos no auditório.</p>
+                        <h3 class="font-bold text-sm text-evt-escuro leading-snug">
+                            Mostra de Projetos de Iniciação Científica
+                        </h3>
+                        <p class="text-xs text-slate-600 line-clamp-2">
+                            Apresentação das pesquisas dos estudantes inspiradas na filosofia Adinkra do aprendizado autônomo.
+                        </p>
+                        <div class="pt-1 text-[11px] text-slate-500 flex items-center gap-1 font-medium">
+                            <span>📍</span> Patio Central da Escola
                         </div>
                     </div>
-                    <div class="text-xs font-semibold text-gray-500 whitespace-nowrap self-end md:self-center">Horário: 08:00 às 12:00</div>
-                </article>
+                </div>
 
-                <!-- CARD EVENTO 2 (Confirmado) -->
-                <article class="p-4 bg-gray-50 rounded-xl border border-gray-200/70 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 hover:border-gray-300 transition">
-                    <div class="flex items-center gap-4">
-                        <div class="bg-escola-primaria text-white font-bold text-center px-4 py-2.5 rounded-xl min-w-[75px] shrink-0">
-                            <span class="block text-xl leading-none font-extrabold">18</span>
-                            <span class="text-xs uppercase tracking-wider">SET</span>
+                <!-- Evento Card 2 -->
+                <div class="bg-evt-card rounded-2xl p-5 border border-purple-200/70 shadow-sm hover:shadow-md transition flex gap-4 items-start">
+                    <div class="bg-purple-100 text-evt-principal rounded-xl p-3 text-center min-w-[65px] font-extrabold shrink-0 border border-purple-200">
+                        <span class="block text-xl leading-none">11</span>
+                        <span class="text-[9px] uppercase font-bold tracking-wider">SET</span>
+                    </div>
+
+                    <div class="space-y-2 flex-grow">
+                        <div class="flex items-center justify-between">
+                            <span class="bg-emerald-100 text-emerald-800 text-[10px] font-bold px-2 py-0.5 rounded-md uppercase">Vozes Negras</span>
+                            <span class="text-[11px] font-semibold text-slate-400">14:00 - 17:00</span>
                         </div>
-                        <div>
-                            <div class="flex flex-wrap items-center gap-2 mb-1">
-                                <h3 class="font-bold text-base text-gray-900 font-['Plus_Jakarta_Sans']">Torneio Interclasses de Vôlei e Futsal</h3>
-                                <span class="bg-blue-100 text-blue-800 text-[10px] font-bold px-2 py-0.5 rounded uppercase">Confirmado</span>
-                            </div>
-                            <p class="text-xs text-gray-600 font-serif">Abertura dos jogos escolares entre os 1º, 2º e 3º anos do ensino médio.</p>
+                        <h3 class="font-bold text-sm text-evt-escuro leading-snug">
+                            Roda de Capoeira e Sarau de Poesia Afro-Brasileira
+                        </h3>
+                        <p class="text-xs text-slate-600 line-clamp-2">
+                            Celebrando a cultura local na Ilha das Caieiras com participação de mestres da comunidade e estudantes.
+                        </p>
+                        <div class="pt-1 text-[11px] text-slate-500 flex items-center gap-1 font-medium">
+                            <span>📍</span> Quadra Poliesportiva
                         </div>
                     </div>
-                    <div class="text-xs font-semibold text-gray-500 whitespace-nowrap self-end md:self-center">Horário: 13:30 às 17:00</div>
-                </article>
+                </div>
 
-                <!-- CARD EVENTO 3 (Eletivas/ONU) -->
-                <article class="p-4 bg-gray-50 rounded-xl border border-gray-200/70 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 hover:border-gray-300 transition">
-                    <div class="flex items-center gap-4">
-                        <div class="bg-purple-600 text-white font-bold text-center px-4 py-2.5 rounded-xl min-w-[75px] shrink-0">
-                            <span class="block text-xl leading-none font-extrabold">02</span>
-                            <span class="text-xs uppercase tracking-wider">OUT</span>
+                <!-- Evento Card 3 -->
+                <div class="bg-evt-card rounded-2xl p-5 border border-purple-200/70 shadow-sm hover:shadow-md transition flex gap-4 items-start">
+                    <div class="bg-purple-100 text-evt-principal rounded-xl p-3 text-center min-w-[65px] font-extrabold shrink-0 border border-purple-200">
+                        <span class="block text-xl leading-none">18</span>
+                        <span class="text-[9px] uppercase font-bold tracking-wider">SET</span>
+                    </div>
+
+                    <div class="space-y-2 flex-grow">
+                        <div class="flex items-center justify-between">
+                            <span class="bg-amber-100 text-amber-800 text-[10px] font-bold px-2 py-0.5 rounded-md uppercase">Institucional</span>
+                            <span class="text-[11px] font-semibold text-slate-400">18:00 - 20:00</span>
                         </div>
-                        <div>
-                            <div class="flex flex-wrap items-center gap-2 mb-1">
-                                <h3 class="font-bold text-base text-gray-900 font-['Plus_Jakarta_Sans']">Simulação Diplomática Ser ONU</h3>
-                                <span class="bg-purple-100 text-purple-800 text-[10px] font-bold px-2 py-0.5 rounded uppercase">Ser ONU</span>
-                            </div>
-                            <p class="text-xs text-gray-600 font-serif">Debate aberto entre os estudantes representando diferentes países sobre questões ambientais globais.</p>
+                        <h3 class="font-bold text-sm text-evt-escuro leading-snug">
+                            Reunião de Pais e Responsáveis - 3º Trimestre
+                        </h3>
+                        <p class="text-xs text-slate-600 line-clamp-2">
+                            Apresentação dos rendimentos acadêmicos, frequência e alinhamento das próximas ações pedagógicas.
+                        </p>
+                        <div class="pt-1 text-[11px] text-slate-500 flex items-center gap-1 font-medium">
+                            <span>📍</span> Salas de Aula da EEEFM Elza
                         </div>
                     </div>
-                    <div class="text-xs font-semibold text-gray-500 whitespace-nowrap self-end md:self-center">Horário: 09:00 às 16:00</div>
-                </article>
+                </div>
 
-                <!-- CARD EVENTO 4 (Confirmado) -->
-                <article class="p-4 bg-gray-50 rounded-xl border border-gray-200/70 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 hover:border-gray-300 transition">
-                    <div class="flex items-center gap-4">
-                        <div class="bg-escola-primaria text-white font-bold text-center px-4 py-2.5 rounded-xl min-w-[75px] shrink-0">
-                            <span class="block text-xl leading-none font-extrabold">20</span>
-                            <span class="text-xs uppercase tracking-wider">NOV</span>
+                <!-- Evento Card 4 -->
+                <div class="bg-evt-card rounded-2xl p-5 border border-purple-200/70 shadow-sm hover:shadow-md transition flex gap-4 items-start">
+                    <div class="bg-purple-100 text-evt-principal rounded-xl p-3 text-center min-w-[65px] font-extrabold shrink-0 border border-purple-200">
+                        <span class="block text-xl leading-none">25</span>
+                        <span class="text-[9px] uppercase font-bold tracking-wider">SET</span>
+                    </div>
+
+                    <div class="space-y-2 flex-grow">
+                        <div class="flex items-center justify-between">
+                            <span class="bg-rose-100 text-rose-800 text-[10px] font-bold px-2 py-0.5 rounded-md uppercase">Cultura & Arte</span>
+                            <span class="text-[11px] font-semibold text-slate-400">10:00 - 15:00</span>
                         </div>
-                        <div>
-                            <div class="flex flex-wrap items-center gap-2 mb-1">
-                                <h3 class="font-bold text-base text-gray-900 font-['Plus_Jakarta_Sans']">Mostra Cultural e Sarau Vozes Negras</h3>
-                                <span class="bg-blue-100 text-blue-800 text-[10px] font-bold px-2 py-0.5 rounded uppercase">Confirmado</span>
-                            </div>
-                            <p class="text-xs text-gray-600 font-serif">Apresentações literárias, musicais e exposição artística referente à Consciência Negra.</p>
+                        <h3 class="font-bold text-sm text-evt-escuro leading-snug">
+                            Festival Escolar de Música e Expressão Corporal
+                        </h3>
+                        <p class="text-xs text-slate-600 line-clamp-2">
+                            Apresentações de bandas formadas pelos alunos, dança e exposições artísticas de artes visuais.
+                        </p>
+                        <div class="pt-1 text-[11px] text-slate-500 flex items-center gap-1 font-medium">
+                            <span>📍</span> Pátio e Palco da Escola
                         </div>
                     </div>
-                    <div class="text-xs font-semibold text-gray-500 whitespace-nowrap self-end md:self-center">Horário: 14:00 às 18:00</div>
-                </article>
+                </div>
 
             </div>
         </section>
 
     </main>
 
-    <!-- RODAPÉ -->
-    <footer class="bg-escola-secundaria text-white rounded-t-2xl p-6 md:p-8 mt-12 text-sm">
-        <div class="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
+    <!-- RODAPÉ INSTITUCIONAL (SEM ELETIVAS) -->
+    <footer class="bg-evt-escuro text-white pt-10 pb-6 mt-16 text-xs">
+        <div class="max-w-7xl mx-auto px-4 md:px-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 pb-8 border-b border-purple-900/50">
             <div>
-                <h3 class="font-bold text-base mb-3 border-b border-gray-700 pb-2">Sobre</h3>
-                <p class="text-gray-400 text-xs leading-relaxed">Portal de notícias da Escola Elza, criado por alunos para manter a comunidade escolar informada sobre projetos e eventos.</p>
+                <h3 class="font-bold text-sm mb-3 text-white border-b border-purple-800/50 pb-2">EEEFM Elza Lemos Andreatta</h3>
+                <p class="text-purple-200/70 leading-relaxed">
+                    Comunidade escolar unida pela educação transformadora, inovação e valorização cultural na Ilha das Caieiras.
+                </p>
             </div>
             <div>
-                <h3 class="font-bold text-base mb-3 border-b border-gray-700 pb-2">Navegação</h3>
-                <ul class="space-y-2 text-gray-400 text-xs">
-                    <li><a href="index.html" class="hover:text-white transition">Início</a></li>
-                    <li><a href="noticia.html" class="hover:text-white transition">Notícias</a></li>
-                    <li><a href="eletiva.html" class="hover:text-white transition">Inscrição de Eletivas</a></li>
+                <h3 class="font-bold text-sm mb-3 text-white border-b border-purple-800/50 pb-2">Navegação Rápida</h3>
+                <ul class="space-y-2 text-purple-200/70">
+                    <li><a href="index.html" class="hover:text-amber-400 transition">Início</a></li>
+                    <li><a href="noticia.html" class="hover:text-amber-400 transition">Mural de Notícias</a></li>
+                    <li><a href="sugestao.html" class="hover:text-amber-400 transition">Envie sua Sugestão</a></li>
+                    <li><a href="eventos.html" class="hover:text-amber-400 transition">Agenda de Eventos</a></li>
                 </ul>
             </div>
             <div>
-                <h3 class="font-bold text-base mb-3 border-b border-gray-700 pb-2">Contato</h3>
-                <p class="text-gray-400 text-xs">Email: contato@escolaelza.edu.br</p>
-                <p class="text-gray-400 text-xs mt-1">Telefone: (00) 0000-0000</p>
+                <h3 class="font-bold text-sm mb-3 text-white border-b border-purple-800/50 pb-2">Projetos em Destaque</h3>
+                <ul class="space-y-2 text-purple-200/70">
+                    <li><a href="onu.html" class="hover:text-amber-400 transition">Ser ONU Elza</a></li>
+                    <li><a href="vozes_negras.html" class="hover:text-amber-400 transition">Vozes Negras</a></li>
+                    <li><a href="neaonnim.html" class="hover:text-amber-400 transition">NeaOnnim</a></li>
+                </ul>
             </div>
             <div>
-                <h3 class="font-bold text-base mb-3 border-b border-gray-700 pb-2">Redes Sociais</h3>
-                <p class="text-gray-400 text-xs leading-relaxed">Siga nosso perfil oficial para acompanhar as fotos dos eventos da escola.</p>
+                <h3 class="font-bold text-sm mb-3 text-white border-b border-purple-800/50 pb-2">Área Restrita</h3>
+                <p class="text-purple-200/70 mb-3">Acesso exclusivo para professores e coordenação.</p>
+                <a href="admin.html" class="inline-block bg-purple-950 hover:bg-purple-900 text-amber-400 font-bold px-4 py-2 rounded-xl border border-purple-800/50 transition">
+                    Painel Administrativo
+                </a>
             </div>
         </div>
-        <div class="border-t border-gray-800 mt-8 pt-4 text-center text-xs text-gray-500">
-            &copy; 2026 Portal Escola Elza - Todos os direitos reservados.
+
+        <div class="max-w-7xl mx-auto px-4 md:px-6 pt-6 text-center text-purple-300/50">
+            &copy; 2026 Portal Escola Elza. Desenvolvido para e pelos estudantes da EEEFM Elza Lemos Andreatta.
         </div>
     </footer>
 
     <!-- SCRIPT MENU MOBILE -->
     <script>
-        const btnMenuMobile = document.getElementById('btn-menu-mobile');
+        const btnMenu = document.getElementById('btn-menu');
         const mobileMenu = document.getElementById('mobile-menu');
-        const iconHamb = document.getElementById('icon-hamb');
-        const iconClose = document.getElementById('icon-close');
 
-        btnMenuMobile.addEventListener('click', () => {
-            const isHidden = mobileMenu.classList.contains('hidden');
-            if (isHidden) {
-                mobileMenu.classList.remove('hidden');
-                mobileMenu.classList.add('flex');
-                iconHamb.classList.add('hidden');
-                iconClose.classList.remove('hidden');
-            } else {
-                mobileMenu.classList.add('hidden');
-                mobileMenu.classList.remove('flex');
-                iconHamb.classList.remove('hidden');
-                iconClose.classList.add('hidden');
-            }
+        btnMenu.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
         });
     </script>
 </body>

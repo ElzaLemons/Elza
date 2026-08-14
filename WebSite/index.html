@@ -3,223 +3,304 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portal Escolar Elza - Principal</title>
-    
-    <!-- IMPORTAÇÃO DO TAILWIND CSS VIA CDN -->
+    <title>Portal Escola Elza - EEEFM Elza Lemos Andreatta</title>
+
+    <!-- TAILWIND CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
 
-    <!-- CONFIGURAÇÃO DA PALETA DE CORES DA ESCOLA -->
+    <!-- CONFIGURAÇÃO DA PALETA DE CORES (ALTERE AQUI O FUNDO E DEMAIS CORES) -->
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        'escola-primaria': '#2563eb',   /* Azul principal (destaques e botões) */
-                        'escola-secundaria': '#0f172a', /* Azul escuro/grafite (textos e navegação) */
-                        'escola-fundo': '#dbeafe',      /* Fundo suave da página */
-                        'escola-card': '#ffffff',       /* Fundo dos blocos e cartões */
+                        'escola-primaria': '#EA580C',   /* Laranja dos botões e destaques */
+                        'escola-secundaria': '#0B132B', /* Azul escuro do header e cards */
+                        'escola-fundo': '#C5D15C',      /* Sua nova cor de fundo personalizada */
+                        'escola-card': '#FFFFFF',       /* Fundo dos cartões e avisos */
+                        'escola-mangue': '#15803D',     /* Verde NeaOnnim */
+                        'escola-argila': '#B45309',     /* Terracota Vozes Negras */
                     }
                 }
             }
         }
     </script>
 
-    <!-- IMPORTAÇÃO DE FONTE DO GOOGLE FONTS -->
+    <!-- TIPOGRAFIA PLUS JAKARTA SANS -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    </style>
 </head>
-<body class="bg-escola-fundo px-4 md:px-7 font-sans text-gray-800 min-h-screen flex flex-col justify-between">
+<body class="bg-escola-fundo text-slate-800 min-h-screen flex flex-col justify-between">
 
-    <!-- ==========================================
-         MENU DE NAVEGAÇÃO RESPONSIVO (NAVBAR)
-         ========================================== -->
-    <nav class="my-4 relative z-50">
-        <header class="bg-escola-card shadow-md rounded-xl p-4 flex items-center justify-between">
+    <!-- CABEÇALHO / NAVBAR RESPONSIVA -->
+    <header class="bg-escola-secundaria text-white sticky top-0 z-50 shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 md:px-6 py-3 flex items-center justify-between">
             
-            <!-- MARCA / LOGO DO SITE -->
-            <a href="index.html" class="flex items-center gap-2 font-bold text-xl text-escola-secundaria font-['Plus_Jakarta_Sans']">
-                <span class="bg-escola-primaria text-white p-1.5 rounded-lg text-sm">🏫</span>
-                <span>Portal Elza</span>
+            <!-- Logo Institucional -->
+            <a href="index.html" class="flex items-center gap-3 group">
+                <div class="bg-escola-primaria p-2 rounded-xl text-white font-bold text-lg group-hover:scale-105 transition">
+                    🏫
+                </div>
+                <div>
+                    <span class="block text-lg font-bold leading-none tracking-tight">PORTAL ELZA</span>
+                    <span class="text-[10px] text-slate-400 font-medium tracking-wide">EEEFM Elza Lemos Andreatta</span>
+                </div>
             </a>
 
-            <!-- BOTÃO MENU HAMBÚRGUER (Aparece apenas em telas pequenas 'md:hidden') -->
-            <button id="btn-menu-mobile" type="button" aria-label="Abrir menu de navegação" class="md:hidden text-escola-secundaria hover:bg-gray-100 p-2 rounded-lg transition focus:outline-none">
-                <!-- Ícone Hambúrguer (Aberto) -->
-                <svg id="icon-hamb" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <!-- Botão Hambúrguer (Visível apenas em telas menores que 1024px) -->
+            <button id="btn-menu" type="button" aria-label="Abrir Menu" class="lg:hidden text-slate-300 hover:text-white p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-escola-primaria">
+                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-                </svg>
-                <!-- Ícone Fechar "X" (Oculto por padrão) -->
-                <svg id="icon-close" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                 </svg>
             </button>
 
-            <!-- MENU DESKTOP (Aparece em computadores e tablets 'hidden md:flex') -->
-            <ul class="hidden md:flex items-center gap-2 text-sm font-medium">
-                <li><a href="index.html" class="px-3 py-2 rounded-lg bg-escola-secundaria text-white font-semibold">Principal</a></li>
-                <li><a href="noticia.html" class="px-3 py-2 rounded-lg text-gray-700 hover:bg-escola-secundaria hover:text-white transition">Notícias</a></li>
-                <li><a href="onu.html" class="px-3 py-2 rounded-lg text-gray-700 hover:bg-escola-secundaria hover:text-white transition">Ser ONU</a></li>
-                <li><a href="vozes_negras.html" class="px-3 py-2 rounded-lg text-gray-700 hover:bg-escola-secundaria hover:text-white transition">Vozes Negras</a></li>
-                <li><a href="neaonnim.html" class="px-3 py-2 rounded-lg text-gray-700 hover:bg-escola-secundaria hover:text-white transition">NeaOnnim</a></li>
-                <li><a href="eletiva.html" class="px-3 py-2 rounded-lg text-gray-700 hover:bg-escola-secundaria hover:text-white transition">Eletivas</a></li>
-                <li><a href="sugestao.html" class="px-3 py-2 rounded-lg text-gray-700 hover:bg-escola-secundaria hover:text-white transition">Sugestões</a></li>
-                <li><a href="publicacao.html" class="px-3 py-2 rounded-lg text-gray-700 hover:bg-escola-secundaria hover:text-white transition">Publicação</a></li>
-                <li><a href="eventos.html" class="px-3 py-2 rounded-lg text-gray-700 hover:bg-escola-secundaria hover:text-white transition">Eventos</a></li>
-                <li><a href="admin.html" class="px-3 py-2 bg-escola-primaria text-white font-bold rounded-lg hover:opacity-90 transition ml-2">Admin</a></li>
-            </ul>
+            <!-- Links de Navegação Desktop (Visível apenas em telas grandes - lg:flex) -->
+            <nav class="hidden lg:flex items-center gap-1 text-xs font-semibold">
+                <a href="index.html" class="px-3 py-2 rounded-lg bg-escola-primaria text-white">Principal</a>
+                <a href="noticia.html" class="px-3 py-2 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white transition">Notícias</a>
+                <a href="onu.html" class="px-3 py-2 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white transition">Ser ONU</a>
+                <a href="vozes_negras.html" class="px-3 py-2 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white transition">Vozes Negras</a>
+                <a href="neaonnim.html" class="px-3 py-2 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white transition">NeaOnnim</a>
+                <a href="sugestao.html" class="px-3 py-2 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white transition">Sugestões</a>
+                <a href="publicacao.html" class="px-3 py-2 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white transition">Publicação</a>
+                <a href="eventos.html" class="px-3 py-2 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white transition">Eventos</a>
+                <a href="admin.html" class="px-3 py-2 rounded-lg bg-slate-800 text-amber-400 hover:bg-slate-700 transition ml-2 border border-slate-700">Admin</a>
+            </nav>
+        </div>
 
-            <!-- MENU MOBILE DROPDOWN (Aparece abaixo da barra ao clicar no hambúrguer) -->
-            <div id="mobile-menu" class="hidden absolute top-full left-0 w-full mt-2 bg-escola-card shadow-2xl rounded-2xl p-4 flex-col gap-1 border border-gray-100 md:hidden">
-                <a href="index.html" class="px-4 py-2.5 rounded-xl bg-escola-secundaria text-white font-bold text-sm">Principal</a>
-                <a href="noticia.html" class="px-4 py-2.5 rounded-xl text-gray-700 hover:bg-gray-100 font-medium text-sm transition">Notícias</a>
-                <a href="onu.html" class="px-4 py-2.5 rounded-xl text-gray-700 hover:bg-gray-100 font-medium text-sm transition">Ser ONU</a>
-                <a href="vozes_negras.html" class="px-4 py-2.5 rounded-xl text-gray-700 hover:bg-gray-100 font-medium text-sm transition">Vozes Negras</a>
-                <a href="neaonnim.html" class="px-4 py-2.5 rounded-xl text-gray-700 hover:bg-gray-100 font-medium text-sm transition">NeaOnnim</a>
-                <a href="eletiva.html" class="px-4 py-2.5 rounded-xl text-gray-700 hover:bg-gray-100 font-medium text-sm transition">Eletivas</a>
-                <a href="sugestao.html" class="px-4 py-2.5 rounded-xl text-gray-700 hover:bg-gray-100 font-medium text-sm transition">Sugestões</a>
-                <a href="publicacao.html" class="px-4 py-2.5 rounded-xl text-gray-700 hover:bg-gray-100 font-medium text-sm transition">Publicação</a>
-                <a href="eventos.html" class="px-4 py-2.5 rounded-xl text-gray-700 hover:bg-gray-100 font-medium text-sm transition">Eventos</a>
-                <a href="admin.html" class="px-4 py-2.5 rounded-xl bg-escola-primaria text-white font-bold text-sm text-center mt-2 transition">Painel Admin</a>
-            </div>
-        </header>
-    </nav>
+        <!-- Menu Mobile Dropdown (Aparece ao clicar no Hambúrguer) -->
+        <div id="mobile-menu" class="hidden lg:hidden bg-slate-900 border-t border-slate-800 px-4 py-4 space-y-2 text-sm font-medium">
+            <a href="index.html" class="block px-3 py-2 rounded-lg bg-escola-primaria text-white">Principal</a>
+            <a href="noticia.html" class="block px-3 py-2 rounded-lg text-slate-300 hover:bg-slate-800">Notícias</a>
+            <a href="onu.html" class="block px-3 py-2 rounded-lg text-slate-300 hover:bg-slate-800">Ser ONU</a>
+            <a href="vozes_negras.html" class="block px-3 py-2 rounded-lg text-slate-300 hover:bg-slate-800">Vozes Negras</a>
+            <a href="neaonnim.html" class="block px-3 py-2 rounded-lg text-slate-300 hover:bg-slate-800">NeaOnnim</a>
+            <a href="sugestao.html" class="block px-3 py-2 rounded-lg text-slate-300 hover:bg-slate-800">Sugestões</a>
+            <a href="publicacao.html" class="block px-3 py-2 rounded-lg text-slate-300 hover:bg-slate-800">Publicação</a>
+            <a href="eventos.html" class="block px-3 py-2 rounded-lg text-slate-300 hover:bg-slate-800">Eventos</a>
+            <a href="admin.html" class="block px-3 py-2 rounded-lg bg-slate-800 text-amber-400 font-bold">Painel Admin</a>
+        </div>
+    </header>
 
-    <!-- ==========================================
-         CONTEÚDO PRINCIPAL DO SITE (MAIN)
-         ========================================== -->
-    <main class="max-w-6xl mx-auto my-6 md:my-10 space-y-10 w-full flex-grow">
-        
-        <!-- APRESENTAÇÃO / HERO SECTION -->
-        <section class="text-center py-8 px-4 bg-escola-card rounded-2xl shadow-sm border border-gray-100">
-            <h1 class="text-3xl md:text-5xl font-extrabold text-gray-900 mb-4 font-['Plus_Jakarta_Sans'] tracking-tight">
-                Bem-vindo ao Portal Elza
-            </h1>
-            <p class="text-base md:text-xl text-gray-600 font-serif max-w-2xl mx-auto leading-relaxed">
-                Aqui você encontra as notícias mais recentes da nossa escola.
-                Fique por dentro de todos os projetos, eletivas e eventos!
-            </p>
-        </section>
+    <!-- CONTEÚDO PRINCIPAL -->
+    <main class="max-w-7xl mx-auto px-4 md:px-6 my-6 md:my-8 space-y-8 w-full flex-grow">
 
-        <!-- SEÇÃO DE DESTAQUES (GRID ADAPTÁVEL) -->
-        <section class="space-y-6">
-            <div class="flex justify-between items-center border-b border-gray-300 pb-3">
-                <h2 class="text-xl md:text-2xl font-bold font-['Plus_Jakarta_Sans'] text-escola-secundaria">Destaques Recentes</h2>
-                <a href="noticia.html" class="text-xs md:text-sm font-bold text-escola-primaria hover:underline">Ver todas →</a>
-            </div>
-
-            <!-- GRID RESPONSIVO: 1 Coluna (Mobile), 2 Colunas (Tablet), 3 Colunas (Desktop) -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                
-                <!-- CARD DE NOTÍCIA 1 -->
-                <article class="bg-escola-card rounded-2xl shadow-md overflow-hidden hover:shadow-lg transition border border-gray-100 flex flex-col">
-                    <div class="bg-blue-100 h-48 flex items-center justify-center text-escola-primaria font-bold">
-                        [Foto do Projeto]
-                    </div>
-                    <div class="p-5 flex flex-col flex-grow justify-between">
-                        <div>
-                            <span class="text-xs font-bold text-escola-primaria uppercase tracking-wider">Projetos</span>
-                            <h3 class="font-bold text-lg text-gray-900 mt-1 mb-2 font-['Plus_Jakarta_Sans']">Sistemas de energia e sustentabilidade</h3>
-                            <p class="text-sm text-gray-600">Alunos apresentam soluções para otimização energética durante a feira de ciências da escola.</p>
-                        </div>
-                        <a href="noticia.html?id=1" class="mt-4 inline-block text-xs font-bold text-escola-primaria hover:underline">Ler notícia completa →</a>
-                    </div>
-                </article>
-
-                <!-- CARD DE NOTÍCIA 2 -->
-                <article class="bg-escola-card rounded-2xl shadow-md overflow-hidden hover:shadow-lg transition border border-gray-100 flex flex-col">
-                    <div class="bg-purple-100 h-48 flex items-center justify-center text-purple-600 font-bold">
-                        [Foto Ser ONU]
-                    </div>
-                    <div class="p-5 flex flex-col flex-grow justify-between">
-                        <div>
-                            <span class="text-xs font-bold text-purple-600 uppercase tracking-wider">Ser ONU</span>
-                            <h3 class="font-bold text-lg text-gray-900 mt-1 mb-2 font-['Plus_Jakarta_Sans']">Simulações Diplomáticas 2026</h3>
-                            <p class="text-sm text-gray-600">Estudantes assumem o papel de embaixadores para debater os principais desafios mundiais.</p>
-                        </div>
-                        <a href="onu.html" class="mt-4 inline-block text-xs font-bold text-escola-primaria hover:underline">Ler notícia completa →</a>
-                    </div>
-                </article>
-
-                <!-- CARD DE NOTÍCIA 3 -->
-                <article class="bg-escola-card rounded-2xl shadow-md overflow-hidden hover:shadow-lg transition border border-gray-100 flex flex-col sm:col-span-2 lg:col-span-1">
-                    <div class="bg-emerald-100 h-48 flex items-center justify-center text-emerald-600 font-bold">
-                        [Inscrições Eletivas]
-                    </div>
-                    <div class="p-5 flex flex-col flex-grow justify-between">
-                        <div>
-                            <span class="text-xs font-bold text-emerald-600 uppercase tracking-wider">Eletivas</span>
-                            <h3 class="font-bold text-lg text-gray-900 mt-1 mb-2 font-['Plus_Jakarta_Sans']">Inscrições abertas para o Semestre</h3>
-                            <p class="text-sm text-gray-600">Confira as opções de turmas permitidas e faça a sua escolha na aba de Eletivas.</p>
-                        </div>
-                        <a href="eletiva.html" class="mt-4 inline-block text-xs font-bold text-escola-primaria hover:underline">Garantir minha vaga →</a>
-                    </div>
-                </article>
-
+        <!-- BANNER HERO INSTITUCIONAL -->
+        <section class="bg-escola-secundaria rounded-3xl p-6 md:p-10 text-white relative overflow-hidden shadow-md">
+            <div class="relative z-10 max-w-2xl space-y-3">
+                <span class="inline-block bg-escola-primaria text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+                    Ilha das Caieiras • Vitória - ES
+                </span>
+                <h1 class="text-3xl md:text-5xl font-extrabold leading-tight">
+                    Vozes, Projetos e Protagonismo Estudantil
+                </h1>
+                <p class="text-slate-300 text-sm md:text-base leading-relaxed">
+                    O canal oficial de comunicação da EEEFM Elza Lemos Andreatta. Acompanhe os artigos das eletivas, eventos culturais e inovações da nossa comunidade.
+                </p>
+                <div class="pt-2 flex flex-wrap gap-3">
+                    <a href="eletiva.html" class="bg-escola-primaria hover:bg-orange-700 text-white font-bold px-5 py-2.5 rounded-xl text-xs transition shadow-sm">
+                        Inscrição nas Eletivas
+                    </a>
+                    <a href="eventos.html" class="bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 font-semibold px-5 py-2.5 rounded-xl text-xs transition">
+                        Ver Agenda Escolar
+                    </a>
+                </div>
             </div>
         </section>
+
+        <!-- QUADRO DE AVISOS RÁPIDOS -->
+        <section class="bg-escola-card border-l-4 border-escola-primaria rounded-2xl p-4 md:p-5 shadow-sm">
+            <div class="flex items-start gap-3">
+                <span class="text-2xl">⚡</span>
+                <div class="space-y-1">
+                    <h2 class="text-sm font-bold text-slate-900 uppercase tracking-wide">Mural de Avisos Rápidos</h2>
+                    <ul class="text-xs text-slate-700 space-y-1">
+                        <li>• <strong>[25/08]:</strong> Início das rematriculas e confirmação de turmas para as Eletivas do 2º Semestre.</li>
+                        <li>• <strong>[02/09]:</strong> Feira de Ciências e Tecnologia NeaOnnim no Pátio Principal.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- ATALHOS PARA OS PROJETOS DA ESCOLA -->
+        <section class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <a href="onu.html" class="bg-escola-card p-4 rounded-2xl border border-slate-200 hover:border-escola-primaria hover:shadow-md transition group">
+                <span class="text-2xl block mb-2">🇺🇳</span>
+                <h3 class="font-bold text-sm text-escola-secundaria group-hover:text-escola-primaria">Ser ONU</h3>
+                <p class="text-xs text-slate-500 mt-1">Simulações geopolíticas e debates internacionais.</p>
+            </a>
+
+            <a href="vozes_negras.html" class="bg-escola-card p-4 rounded-2xl border border-slate-200 hover:border-escola-argila hover:shadow-md transition group">
+                <span class="text-2xl block mb-2">✊🏿</span>
+                <h3 class="font-bold text-sm text-escola-secundaria group-hover:text-escola-argila">Vozes Negras</h3>
+                <p class="text-xs text-slate-500 mt-1">Cultura, história e valorização do pertencimento.</p>
+            </a>
+
+            <a href="neaonnim.html" class="bg-escola-card p-4 rounded-2xl border border-slate-200 hover:border-escola-mangue hover:shadow-md transition group">
+                <span class="text-2xl block mb-2">🔬</span>
+                <h3 class="font-bold text-sm text-escola-secundaria group-hover:text-escola-mangue">NeaOnnim</h3>
+                <p class="text-xs text-slate-500 mt-1">Iniciação científica, sustentabilidade e robótica.</p>
+            </a>
+
+            <a href="eletiva.html" class="bg-escola-card p-4 rounded-2xl border border-slate-200 hover:border-escola-primaria hover:shadow-md transition group">
+                <span class="text-2xl block mb-2">⚽</span>
+                <h3 class="font-bold text-sm text-escola-secundaria group-hover:text-escola-primaria">Eletivas</h3>
+                <p class="text-xs text-slate-500 mt-1">Garanta sua vaga nas turmas do semestre.</p>
+            </a>
+        </section>
+
+        <!-- CONTEÚDO PRINCIPAL: NOTÍCIAS + AGENDA -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            
+            <!-- COLUNA DE NOTÍCIAS RECENTES -->
+            <section class="lg:col-span-2 space-y-4">
+                <div class="flex items-center justify-between border-b border-slate-900/10 pb-3">
+                    <h2 class="text-xl font-bold text-escola-secundaria flex items-center gap-2">
+                        <span>📰</span> Últimas Publicações
+                    </h2>
+                    <a href="noticia.html" class="text-xs font-bold text-escola-secundaria hover:underline">Ver todas</a>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <!-- Card Notícia 1 -->
+                    <article class="bg-escola-card rounded-2xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-md transition flex flex-col justify-between">
+                        <div>
+                            <div class="h-40 bg-slate-200 relative overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=500" alt="Robótica" class="w-full h-full object-cover">
+                                <span class="absolute top-3 left-3 bg-escola-mangue text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase">
+                                    NeaOnnim
+                                </span>
+                            </div>
+                            <div class="p-4 space-y-2">
+                                <span class="text-[11px] text-slate-400 font-semibold">18/08/2026 • Prof. Carlos</span>
+                                <h3 class="font-bold text-base text-escola-secundaria leading-snug hover:text-escola-primaria transition">
+                                    Projeto de Automação e Sustentabilidade avança para etapa regional
+                                </h3>
+                                <p class="text-xs text-slate-600 line-clamp-3">
+                                    Estudantes do NeaOnnim desenvolvem protótipo para monitoramento da água com sensores de baixo custo.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="p-4 pt-0">
+                            <a href="noticia.html" class="inline-block text-xs font-bold text-escola-primaria hover:underline">Ler matéria completa &rarr;</a>
+                        </div>
+                    </article>
+
+                    <!-- Card Notícia 2 -->
+                    <article class="bg-escola-card rounded-2xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-md transition flex flex-col justify-between">
+                        <div>
+                            <div class="h-40 bg-slate-200 relative overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=500" alt="Ser ONU" class="w-full h-full object-cover">
+                                <span class="absolute top-3 left-3 bg-escola-argila text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase">
+                                    Ser ONU
+                                </span>
+                            </div>
+                            <div class="p-4 space-y-2">
+                                <span class="text-[11px] text-slate-400 font-semibold">14/08/2026 • Aluno João</span>
+                                <h3 class="font-bold text-base text-escola-secundaria leading-snug hover:text-escola-primaria transition">
+                                    Delegação da escola simula Conselho de Segurança sobre clima
+                                </h3>
+                                <p class="text-xs text-slate-600 line-clamp-3">
+                                    Debate reuniu mais de 30 alunos representando diferentes países na biblioteca da escola.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="p-4 pt-0">
+                            <a href="noticia.html" class="inline-block text-xs font-bold text-escola-primaria hover:underline">Ler matéria completa &rarr;</a>
+                        </div>
+                    </article>
+                </div>
+            </section>
+
+            <!-- COLUNA DA AGENDA DE EVENTOS -->
+            <aside class="space-y-4">
+                <div class="flex items-center justify-between border-b border-slate-900/10 pb-3">
+                    <h2 class="text-xl font-bold text-escola-secundaria flex items-center gap-2">
+                        <span>📅</span> Próximos Eventos
+                    </h2>
+                    <a href="eventos.html" class="text-xs font-bold text-escola-secundaria hover:underline">Ver agenda</a>
+                </div>
+
+                <div class="bg-escola-card rounded-2xl border border-slate-200 p-4 space-y-4 shadow-sm">
+                    <div class="flex items-center gap-3 border-b border-slate-100 pb-3 last:border-0 last:pb-0">
+                        <div class="bg-escola-secundaria text-white rounded-xl p-2.5 text-center min-w-[55px]">
+                            <span class="block text-xs font-bold uppercase text-escola-primaria">SET</span>
+                            <span class="block text-lg font-extrabold leading-none">02</span>
+                        </div>
+                        <div>
+                            <h4 class="text-xs font-bold text-escola-secundaria">Feira de Inovação NeaOnnim</h4>
+                            <p class="text-[11px] text-slate-500">Pátio Central • 08:00h</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center gap-3 border-b border-slate-100 pb-3 last:border-0 last:pb-0">
+                        <div class="bg-escola-secundaria text-white rounded-xl p-2.5 text-center min-w-[55px]">
+                            <span class="block text-xs font-bold uppercase text-escola-primaria">SET</span>
+                            <span class="block text-lg font-extrabold leading-none">18</span>
+                        </div>
+                        <div>
+                            <h4 class="text-xs font-bold text-escola-secundaria">Interclasses de Vôlei</h4>
+                            <p class="text-[11px] text-slate-500">Quadra Esportiva • 13:30h</p>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+        </div>
 
     </main>
 
-    <!-- ==========================================
-         RODAPÉ DO SITE (FOOTER)
-         ========================================== -->
-    <footer class="bg-escola-secundaria text-white rounded-t-2xl p-6 md:p-8 mt-12 text-sm">
-        <div class="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
+    <!-- RODAPÉ INSTITUCIONAL -->
+    <footer class="bg-escola-secundaria text-white pt-10 pb-6 mt-16 text-xs">
+        <div class="max-w-7xl mx-auto px-4 md:px-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 pb-8 border-b border-slate-800">
             <div>
-                <h3 class="font-bold text-base mb-3 border-b border-gray-700 pb-2">Sobre</h3>
-                <p class="text-gray-400 text-xs leading-relaxed">Portal de notícias da Escola Elza, criado por alunos para manter a comunidade escolar informada sobre projetos e eventos.</p>
+                <h3 class="font-bold text-sm mb-3 text-white border-b border-slate-700 pb-2">EEEFM Elza Lemos Andreatta</h3>
+                <p class="text-slate-400 leading-relaxed">
+                    Comunidade escolar unida pela educação transformadora, inovação e valorização cultural na Ilha das Caieiras.
+                </p>
             </div>
             <div>
-                <h3 class="font-bold text-base mb-3 border-b border-gray-700 pb-2">Navegação</h3>
-                <ul class="space-y-2 text-gray-400 text-xs">
-                    <li><a href="index.html" class="hover:text-white transition">Início</a></li>
-                    <li><a href="noticia.html" class="hover:text-white transition">Notícias</a></li>
-                    <li><a href="eletiva.html" class="hover:text-white transition">Eletivas</a></li>
-                    <li><a href="eventos.html" class="hover:text-white transition">Agenda de Eventos</a></li>
+                <h3 class="font-bold text-sm mb-3 text-white border-b border-slate-700 pb-2">Navegação Rápida</h3>
+                <ul class="space-y-2 text-slate-400">
+                    <li><a href="index.html" class="hover:text-escola-primaria transition">Início</a></li>
+                    <li><a href="noticia.html" class="hover:text-escola-primaria transition">Mural de Notícias</a></li>
+                    <li><a href="eletiva.html" class="hover:text-escola-primaria transition">Inscrição em Eletivas</a></li>
+                    <li><a href="sugestao.html" class="hover:text-escola-primaria transition">Envie sua Sugestão</a></li>
                 </ul>
             </div>
             <div>
-                <h3 class="font-bold text-base mb-3 border-b border-gray-700 pb-2">Contato</h3>
-                <p class="text-gray-400 text-xs">Email: contato@escolaelza.edu.br</p>
-                <p class="text-gray-400 text-xs mt-1">Telefone: (00) 0000-0000</p>
+                <h3 class="font-bold text-sm mb-3 text-white border-b border-slate-700 pb-2">Projetos em Destaque</h3>
+                <ul class="space-y-2 text-slate-400">
+                    <li><a href="onu.html" class="hover:text-escola-primaria transition">Ser ONU Elza</a></li>
+                    <li><a href="vozes_negras.html" class="hover:text-escola-primaria transition">Vozes Negras</a></li>
+                    <li><a href="neaonnim.html" class="hover:text-escola-primaria transition">NeaOnnim Robótica</a></li>
+                </ul>
             </div>
             <div>
-                <h3 class="font-bold text-base mb-3 border-b border-gray-700 pb-2">Redes Sociais</h3>
-                <p class="text-gray-400 text-xs leading-relaxed">Siga nosso perfil oficial para acompanhar as fotos dos eventos da escola.</p>
+                <h3 class="font-bold text-sm mb-3 text-white border-b border-slate-700 pb-2">Área Restrita</h3>
+                <p class="text-slate-400 mb-3">Acesso exclusivo para professores e coordenação.</p>
+                <a href="admin.html" class="inline-block bg-slate-800 hover:bg-slate-700 text-amber-400 font-bold px-4 py-2 rounded-xl border border-slate-700 transition">
+                    Painel Administrativo
+                </a>
             </div>
         </div>
-        <div class="border-t border-gray-800 mt-8 pt-4 text-center text-xs text-gray-500">
-            &copy; 2026 Portal Escola Elza - Todos os direitos reservados.
+
+        <div class="max-w-7xl mx-auto px-4 md:px-6 pt-6 text-center text-slate-500">
+            &copy; 2026 Portal Escola Elza. Desenvolvido para e pelos estudantes da EEEFM Elza Lemos Andreatta.
         </div>
     </footer>
 
-    <!-- ==========================================
-         SCRIPT: INTERAÇÃO DO MENU MOBILE
-         ========================================== -->
+    <!-- SCRIPT DE ABRIR/FECHAR O MENU MOBILE -->
     <script>
-        const btnMenuMobile = document.getElementById('btn-menu-mobile');
+        const btnMenu = document.getElementById('btn-menu');
         const mobileMenu = document.getElementById('mobile-menu');
-        const iconHamb = document.getElementById('icon-hamb');
-        const iconClose = document.getElementById('icon-close');
 
-        // Evento de clique no botão hambúrguer
-        btnMenuMobile.addEventListener('click', () => {
-            const isHidden = mobileMenu.classList.contains('hidden');
-            
-            if (isHidden) {
-                // Abre o menu mobile e troca os ícones
-                mobileMenu.classList.remove('hidden');
-                mobileMenu.classList.add('flex');
-                iconHamb.classList.add('hidden');
-                iconClose.classList.remove('hidden');
-            } else {
-                // Fecha o menu mobile e restaura o ícone hambúrguer
-                mobileMenu.classList.add('hidden');
-                mobileMenu.classList.remove('flex');
-                iconHamb.classList.remove('hidden');
-                iconClose.classList.add('hidden');
-            }
+        btnMenu.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
         });
     </script>
 </body>
