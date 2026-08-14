@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mural Interativo (Padlet) - Portal Escola Elza</title>
+
+    <!-- TAILWIND CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- CONFIGURAÇÃO DA PALETA: INDIGO / SLATE / AMBER -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'elza-principal': '#4F46E5',  /* Indigo */
+                        'elza-escuro': '#1E1B4B',     /* Indigo Profundo */
+                        'elza-fundo': '#F8FAFC',      /* Slate Claro */
+                        'elza-destaque': '#F59E0B',   /* Amarelo Amber */
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- TIPOGRAFIA PLUS JAKARTA SANS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    </style>
+</head>
+<body class="bg-elza-fundo text-slate-800 min-h-screen flex flex-col justify-between">
+
+    <!-- CABEÇALHO / NAVBAR RESPONSIVA -->
+    <header class="bg-elza-escuro text-white sticky top-0 z-50 shadow-lg border-b border-indigo-900">
+        <div class="max-w-7xl mx-auto px-4 md:px-6 py-3 flex items-center justify-between">
+            
+            <a href="index.html" class="flex items-center gap-3 group">
+                <div class="bg-elza-principal p-2 rounded-xl text-white font-bold text-lg group-hover:scale-105 transition shadow-sm">
+                    ⚡
+                </div>
+                <div>
+                    <span class="block text-lg font-bold leading-none tracking-tight">PORTAL ELZA</span>
+                    <span class="text-[10px] text-amber-400 font-bold tracking-wide uppercase">Mural Interativo</span>
+                </div>
+            </a>
+
+            <!-- Botão Hambúrguer (Mobile) -->
+            <button id="btn-menu" type="button" aria-label="Abrir Menu" class="lg:hidden text-indigo-200 hover:text-white p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-elza-principal">
+                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+
+            <!-- Links Desktop -->
+            <nav class="hidden lg:flex items-center gap-1 text-xs font-semibold">
+                <a href="index.html" class="px-3 py-2 rounded-lg text-indigo-200 hover:bg-indigo-900 hover:text-white transition">Principal</a>
+                <a href="noticia.html" class="px-3 py-2 rounded-lg text-indigo-200 hover:bg-indigo-900 hover:text-white transition">Notícias</a>
+                <a href="onu.html" class="px-3 py-2 rounded-lg text-indigo-200 hover:bg-indigo-900 hover:text-white transition">Ser ONU</a>
+                <a href="vozes_negras.html" class="px-3 py-2 rounded-lg text-indigo-200 hover:bg-indigo-900 hover:text-white transition">Vozes Negras</a>
+                <a href="neaonnim.html" class="px-3 py-2 rounded-lg text-indigo-200 hover:bg-indigo-900 hover:text-white transition">NeaOnnim</a>
+                <a href="padlet.html" class="px-3 py-2 rounded-lg bg-elza-principal text-white shadow-sm border border-indigo-400/30">Padlet</a>
+                <a href="sugestao.html" class="px-3 py-2 rounded-lg text-indigo-200 hover:bg-indigo-900 hover:text-white transition">Sugestões</a>
+                <a href="admin.html" class="px-3 py-2 rounded-lg text-indigo-200 hover:bg-indigo-900 hover:text-white transition">Admin</a>
+            </nav>
+        </div>
+
+        <!-- Menu Mobile Dropdown -->
+        <div id="mobile-menu" class="hidden lg:hidden bg-elza-escuro border-t border-indigo-900 px-4 py-4 space-y-2 text-sm font-medium">
+            <a href="index.html" class="block px-3 py-2 rounded-lg text-indigo-200 hover:bg-indigo-950">Principal</a>
+            <a href="noticia.html" class="block px-3 py-2 rounded-lg text-indigo-200 hover:bg-indigo-950">Notícias</a>
+            <a href="onu.html" class="block px-3 py-2 rounded-lg text-indigo-200 hover:bg-indigo-950">Ser ONU</a>
+            <a href="vozes_negras.html" class="block px-3 py-2 rounded-lg text-indigo-200 hover:bg-indigo-950">Vozes Negras</a>
+            <a href="neaonnim.html" class="block px-3 py-2 rounded-lg text-indigo-200 hover:bg-indigo-950">NeaOnnim</a>
+            <a href="padlet.html" class="block px-3 py-2 rounded-lg bg-elza-principal text-white font-bold">Padlet</a>
+            <a href="sugestao.html" class="block px-3 py-2 rounded-lg text-indigo-200 hover:bg-indigo-950">Sugestões</a>
+            <a href="admin.html" class="block px-3 py-2 rounded-lg text-indigo-200 hover:bg-indigo-950">Painel Admin</a>
+        </div>
+    </header>
+
+    <!-- CONTEÚDO PRINCIPAL -->
+    <main class="max-w-4xl mx-auto px-4 md:px-6 my-10 space-y-8 flex-grow w-full flex flex-col items-center justify-center">
+
+        <!-- CARD PRINCIPAL DO QR CODE -->
+        <div class="bg-white rounded-3xl p-6 md:p-10 shadow-xl border border-slate-200 text-center space-y-6 w-full max-w-xl relative overflow-hidden">
+            
+            <span class="inline-block bg-amber-100 text-amber-800 text-[11px] font-extrabold px-4 py-1.5 rounded-full uppercase tracking-wider border border-amber-300">
+                📌 Mural Mulheres na Ciência
+            </span>
+
+            <div class="space-y-2">
+                <h1 class="text-2xl md:text-3xl font-extrabold text-elza-escuro">Acesse Nosso Padlet Mulheres na Ciência</h1>
+                <p class="text-xs md:text-sm text-slate-500 max-w-md mx-auto">
+                    Atividade Mulheres na Ciência, Leia o QrCode para acessar o padlet
+                </p>
+            </div>
+
+            <!-- EXIBIÇÃO DO QR CODE -->
+            <div class="flex justify-center my-4">
+                <div class="bg-slate-50 p-4 rounded-3xl border-2 border-indigo-100 shadow-md hover:scale-105 transition duration-300">
+                    <!-- ALTERAR O SRC CASO SEU ARQUIVO TENHA OUTRO NOME OU CAMINHO -->
+                    <img src="Padlet.jpeg" alt="QR Code do Padlet da Escola Elza" class="w-56 h-56 md:w-64 md:h-64 object-contain rounded-2xl mx-auto border border-slate-200 bg-white p-2">
+                </div>
+            </div>
+
+    </main>
+
+    <!-- RODAPÉ INSTITUCIONAL -->
+    <footer class="bg-elza-escuro text-white pt-10 pb-6 text-xs">
+        <div class="max-w-7xl mx-auto px-4 md:px-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 pb-8 border-b border-indigo-900">
+            <div>
+                <h3 class="font-bold text-sm mb-3 text-white border-b border-indigo-800/50 pb-2">EEEFM Elza Lemos Andreatta</h3>
+                <p class="text-indigo-200/70 leading-relaxed">
+                    Comunidade escolar unida pela educação transformadora, inovação e valorização cultural na Ilha das Caieiras.
+                </p>
+            </div>
+            <div>
+                <h3 class="font-bold text-sm mb-3 text-white border-b border-indigo-800/50 pb-2">Navegação Rápida</h3>
+                <ul class="space-y-2 text-indigo-200/70">
+                    <li><a href="index.html" class="hover:text-amber-400 transition">Início</a></li>
+                    <li><a href="noticia.html" class="hover:text-amber-400 transition">Mural de Notícias</a></li>
+                    <li><a href="padlet.html" class="hover:text-amber-400 transition">Mural Padlet</a></li>
+                    <li><a href="sugestao.html" class="hover:text-amber-400 transition">Envie sua Sugestão</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="font-bold text-sm mb-3 text-white border-b border-indigo-800/50 pb-2">Projetos em Destaque</h3>
+                <ul class="space-y-2 text-indigo-200/70">
+                    <li><a href="onu.html" class="hover:text-amber-400 transition">Ser ONU Elza</a></li>
+                    <li><a href="vozes_negras.html" class="hover:text-amber-400 transition">Vozes Negras</a></li>
+                    <li><a href="neaonnim.html" class="hover:text-amber-400 transition">NeaOnnim</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="font-bold text-sm mb-3 text-white border-b border-indigo-800/50 pb-2">Área Restrita</h3>
+                <p class="text-indigo-200/70 mb-3">Painel Administrativo.</p>
+                <a href="admin.html" class="inline-block bg-indigo-950 hover:bg-indigo-900 text-amber-400 font-bold px-4 py-2 rounded-xl border border-indigo-800/50 transition">
+                    Painel Administrativo
+                </a>
+            </div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 md:px-6 pt-6 text-center text-indigo-300/50">
+            &copy; 2026 Portal Escola Elza. Desenvolvido para e pelos estudantes da EEEFM Elza Lemos Andreatta.
+        </div>
+    </footer>
+
+    <!-- LÓGICA JAVASCRIPT DO MENU MOBILE -->
+    <script>
+        const btnMenu = document.getElementById('btn-menu');
+        const mobileMenu = document.getElementById('mobile-menu');
+        btnMenu.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+    </script>
+</body>
+</html>
