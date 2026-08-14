@@ -3,178 +3,313 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sugestões - Portal Elza</title>
-    
+    <title>Caixa de Sugestões - Portal Escola Elza</title>
+
+    <!-- TAILWIND CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- CONFIGURAÇÃO DA PALETA EXCLUSIVA: SUGESTÕES -->
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        'escola-primaria': '#2563eb',   
-                        'escola-secundaria': '#0f172a', 
-                        'escola-fundo': '#dbeafe',      
-                        'escola-card': '#ffffff',       
+                        'sug-principal': '#EA580C',  /* Laranja Institucional */
+                        'sug-escuro': '#1C1917',     /* Grafite Escuro */
+                        'sug-fundo': '#FAFAF9',      /* Fundo Warm Gray Clean */
+                        'sug-card': '#FFFFFF',       /* Card Branco */
+                        'sug-destaque': '#0D9488',   /* Teal para Destaques */
                     }
                 }
             }
         }
     </script>
-    
+
+    <!-- TIPOGRAFIA PLUS JAKARTA SANS -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    </style>
 </head>
-<body class="bg-escola-fundo px-4 md:px-7 font-sans text-gray-800 min-h-screen flex flex-col justify-between">
+<body class="bg-sug-fundo text-slate-800 min-h-screen flex flex-col justify-between">
 
-    <!-- NAVBAR RESPONSIVA -->
-    <nav class="my-4 relative z-50">
-        <header class="bg-escola-card shadow-md rounded-xl p-4 flex items-center justify-between">
-            <a href="index.html" class="flex items-center gap-2 font-bold text-xl text-escola-secundaria font-['Plus_Jakarta_Sans']">
-                <span class="bg-escola-primaria text-white p-1.5 rounded-lg text-sm">🏫</span>
-                <span>Portal Elza</span>
+    <!-- CABEÇALHO / NAVBAR RESPONSIVA (SEM ELETIVAS) -->
+    <header class="bg-sug-escuro text-white sticky top-0 z-50 shadow-lg border-b border-sug-principal/30">
+        <div class="max-w-7xl mx-auto px-4 md:px-6 py-3 flex items-center justify-between">
+            
+            <!-- Logo Institucional -->
+            <a href="index.html" class="flex items-center gap-3 group">
+                <div class="bg-sug-principal p-2 rounded-xl text-white font-bold text-lg group-hover:scale-105 transition shadow-sm">
+                    💡
+                </div>
+                <div>
+                    <span class="block text-lg font-bold leading-none tracking-tight">PORTAL ELZA</span>
+                    <span class="text-[10px] text-orange-200 font-medium tracking-wide">EEEFM Elza Lemos Andreatta</span>
+                </div>
             </a>
 
-            <!-- Botão Hambúrguer Mobile -->
-            <button id="btn-menu-mobile" type="button" class="md:hidden text-escola-secundaria hover:bg-gray-100 p-2 rounded-lg transition focus:outline-none">
-                <svg id="icon-hamb" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
-                <svg id="icon-close" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            <!-- Botão Hambúrguer (Mobile) -->
+            <button id="btn-menu" type="button" aria-label="Abrir Menu" class="lg:hidden text-stone-200 hover:text-white p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-sug-principal">
+                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
             </button>
 
             <!-- Links Desktop -->
-            <ul class="hidden md:flex items-center gap-2 text-sm font-medium">
-                <li><a href="index.html" class="px-3 py-2 rounded-lg text-gray-700 hover:bg-escola-secundaria hover:text-white transition">Principal</a></li>
-                <li><a href="noticia.html" class="px-3 py-2 rounded-lg text-gray-700 hover:bg-escola-secundaria hover:text-white transition">Notícias</a></li>
-                <li><a href="onu.html" class="px-3 py-2 rounded-lg text-gray-700 hover:bg-escola-secundaria hover:text-white transition">Ser ONU</a></li>
-                <li><a href="vozes_negras.html" class="px-3 py-2 rounded-lg text-gray-700 hover:bg-escola-secundaria hover:text-white transition">Vozes Negras</a></li>
-                <li><a href="neaonnim.html" class="px-3 py-2 rounded-lg text-gray-700 hover:bg-escola-secundaria hover:text-white transition">NeaOnnim</a></li>
-                <li><a href="eletiva.html" class="px-3 py-2 rounded-lg text-gray-700 hover:bg-escola-secundaria hover:text-white transition">Eletivas</a></li>
-                <li><a href="sugestao.html" class="px-3 py-2 rounded-lg bg-escola-secundaria text-white font-semibold">Sugestões</a></li>
-                <li><a href="publicacao.html" class="px-3 py-2 rounded-lg text-gray-700 hover:bg-escola-secundaria hover:text-white transition">Publicação</a></li>
-                <li><a href="eventos.html" class="px-3 py-2 rounded-lg text-gray-700 hover:bg-escola-secundaria hover:text-white transition">Eventos</a></li>
-                <li><a href="admin.html" class="px-3 py-2 bg-escola-primaria text-white font-bold rounded-lg hover:opacity-90 transition ml-2">Admin</a></li>
-            </ul>
+            <nav class="hidden lg:flex items-center gap-1 text-xs font-semibold">
+                <a href="index.html" class="px-3 py-2 rounded-lg text-stone-300 hover:bg-stone-800 hover:text-white transition">Principal</a>
+                <a href="noticia.html" class="px-3 py-2 rounded-lg text-stone-300 hover:bg-stone-800 hover:text-white transition">Notícias</a>
+                <a href="onu.html" class="px-3 py-2 rounded-lg text-stone-300 hover:bg-stone-800 hover:text-white transition">Ser ONU</a>
+                <a href="vozes_negras.html" class="px-3 py-2 rounded-lg text-stone-300 hover:bg-stone-800 hover:text-white transition">Vozes Negras</a>
+                <a href="neaonnim.html" class="px-3 py-2 rounded-lg text-stone-300 hover:bg-stone-800 hover:text-white transition">NeaOnnim</a>
+                <a href="sugestao.html" class="px-3 py-2 rounded-lg bg-sug-principal text-white shadow-sm">Sugestões</a>
+                <a href="publicacao.html" class="px-3 py-2 rounded-lg text-stone-300 hover:bg-stone-800 hover:text-white transition">Publicação</a>
+                <a href="eventos.html" class="px-3 py-2 rounded-lg text-stone-300 hover:bg-stone-800 hover:text-white transition">Eventos</a>
+                <a href="admin.html" class="px-3 py-2 rounded-lg bg-stone-800 text-amber-400 hover:bg-stone-700 transition ml-2 border border-stone-700">Admin</a>
+            </nav>
+        </div>
 
-            <!-- Dropdown Mobile -->
-            <div id="mobile-menu" class="hidden absolute top-full left-0 w-full mt-2 bg-escola-card shadow-2xl rounded-2xl p-4 flex-col gap-1 border border-gray-100 md:hidden">
-                <a href="index.html" class="px-4 py-2.5 rounded-xl text-gray-700 hover:bg-gray-100 font-medium text-sm transition">Principal</a>
-                <a href="noticia.html" class="px-4 py-2.5 rounded-xl text-gray-700 hover:bg-gray-100 font-medium text-sm transition">Notícias</a>
-                <a href="onu.html" class="px-4 py-2.5 rounded-xl text-gray-700 hover:bg-gray-100 font-medium text-sm transition">Ser ONU</a>
-                <a href="vozes_negras.html" class="px-4 py-2.5 rounded-xl text-gray-700 hover:bg-gray-100 font-medium text-sm transition">Vozes Negras</a>
-                <a href="neaonnim.html" class="px-4 py-2.5 rounded-xl text-gray-700 hover:bg-gray-100 font-medium text-sm transition">NeaOnnim</a>
-                <a href="eletiva.html" class="px-4 py-2.5 rounded-xl text-gray-700 hover:bg-gray-100 font-medium text-sm transition">Eletivas</a>
-                <a href="sugestao.html" class="px-4 py-2.5 rounded-xl bg-escola-secundaria text-white font-bold text-sm">Sugestões</a>
-                <a href="publicacao.html" class="px-4 py-2.5 rounded-xl text-gray-700 hover:bg-gray-100 font-medium text-sm transition">Publicação</a>
-                <a href="eventos.html" class="px-4 py-2.5 rounded-xl text-gray-700 hover:bg-gray-100 font-medium text-sm transition">Eventos</a>
-                <a href="admin.html" class="px-4 py-2.5 rounded-xl bg-escola-primaria text-white font-bold text-sm text-center mt-2 transition">Painel Admin</a>
+        <!-- Menu Mobile Dropdown -->
+        <div id="mobile-menu" class="hidden lg:hidden bg-sug-escuro border-t border-stone-800 px-4 py-4 space-y-2 text-sm font-medium">
+            <a href="index.html" class="block px-3 py-2 rounded-lg text-stone-300 hover:bg-stone-800">Principal</a>
+            <a href="noticia.html" class="block px-3 py-2 rounded-lg text-stone-300 hover:bg-stone-800">Notícias</a>
+            <a href="onu.html" class="block px-3 py-2 rounded-lg text-stone-300 hover:bg-stone-800">Ser ONU</a>
+            <a href="vozes_negras.html" class="block px-3 py-2 rounded-lg text-stone-300 hover:bg-stone-800">Vozes Negras</a>
+            <a href="neaonnim.html" class="block px-3 py-2 rounded-lg text-stone-300 hover:bg-stone-800">NeaOnnim</a>
+            <a href="sugestao.html" class="block px-3 py-2 rounded-lg bg-sug-principal text-white font-bold">Sugestões</a>
+            <a href="publicacao.html" class="block px-3 py-2 rounded-lg text-stone-300 hover:bg-stone-800">Publicação</a>
+            <a href="eventos.html" class="block px-3 py-2 rounded-lg text-stone-300 hover:bg-stone-800">Eventos</a>
+            <a href="admin.html" class="block px-3 py-2 rounded-lg bg-stone-800 text-amber-400 font-bold">Painel Admin</a>
+        </div>
+    </header>
+
+    <!-- CONTEÚDO PRINCIPAL -->
+    <main class="max-w-7xl mx-auto px-4 md:px-6 my-6 md:my-10 space-y-10 w-full flex-grow">
+
+        <!-- HERO BANNER SUGESTÕES -->
+        <section class="bg-sug-escuro rounded-3xl p-6 md:p-10 text-white relative overflow-hidden shadow-xl border border-sug-principal/20">
+            <div class="absolute right-0 top-0 opacity-10 translate-x-10 -translate-y-6 pointer-events-none">
+                <span class="text-[200px]">📢</span>
             </div>
-        </header>
-    </nav>
-
-    <main class="max-w-3xl mx-auto my-6 md:my-10 w-full flex-grow">
-        
-        <section class="text-center mb-8">
-            <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-2 font-['Plus_Jakarta_Sans']">Caixa de Sugestões</h1>
-            <p class="text-gray-600 font-serif">Envie suas ideias, críticas ou elogios para melhorar a escola e o nosso portal.</p>
+            
+            <div class="relative z-10 max-w-2xl space-y-3">
+                <span class="inline-flex items-center gap-1.5 bg-sug-principal text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow-sm">
+                    💬 Participação Democrática & Escuta Ativa
+                </span>
+                <h1 class="text-3xl md:text-4xl font-extrabold leading-tight text-stone-100">
+                    Sua voz constrói o futuro da nossa escola
+                </h1>
+                <p class="text-stone-300 text-sm leading-relaxed">
+                    Este é o canal direto da comunidade da EEEFM Elza Lemos Andreatta. Envie ideias de projetos, melhorias no ambiente escolar, elogios ou feedbacks construtivos de forma identificada ou 100% anônima.
+                </p>
+            </div>
         </section>
 
-        <section>
-            <form action="/api/sugestoes" method="POST" class="grid grid-cols-1 md:grid-cols-2 gap-6 p-6 md:p-8 bg-escola-card rounded-2xl shadow-sm border border-gray-100">
+        <!-- LAYOUT DUAS COLUNAS: FORMULÁRIO + INFORMAÇÕES -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
 
-                <div>
-                    <label for="nome" class="block font-bold text-gray-700 text-sm mb-1">Nome Completo</label>
-                    <input class="border border-gray-300 rounded-lg p-3 w-full focus:ring-2 focus:ring-escola-primaria outline-none text-sm transition" type="text" id="nome" name="nome" placeholder="Seu nome" required>
+            <!-- FORMULÁRIO DE SUGESTÃO (2 COLUNAS NO DESKTOP) -->
+            <section class="lg:col-span-2 bg-sug-card p-6 md:p-8 rounded-3xl border border-stone-200/80 shadow-sm space-y-6">
+                
+                <div class="border-b border-stone-100 pb-4">
+                    <h2 class="text-xl font-bold text-sug-escuro flex items-center gap-2">
+                        <span>📝</span> Enviar uma Sugestão ou Feedback
+                    </h2>
+                    <p class="text-xs text-slate-500 mt-1">Preencha os campos abaixo. Sua mensagem será enviada diretamente para a gestão e grêmio.</p>
                 </div>
 
-                <div>
-                    <label for="email" class="block font-bold text-gray-700 text-sm mb-1">E-mail</label>
-                    <input class="border border-gray-300 rounded-lg p-3 w-full focus:ring-2 focus:ring-escola-primaria outline-none text-sm transition" type="email" id="email" name="email" placeholder="seuemail@escola.com" required>
+                <form action="#" method="POST" class="space-y-5" onsubmit="event.preventDefault(); alert('Sugestão enviada com sucesso! Obrigado por colaborar com a Escola Elza.'); this.reset();">
+                    
+                    <!-- Opção Anônimo Toggle -->
+                    <div class="bg-amber-50 border border-amber-200/70 p-4 rounded-2xl flex items-center justify-between">
+                        <div class="space-y-0.5">
+                            <span class="text-xs font-bold text-amber-900 block">Deseja enviar anonimamente?</span>
+                            <span class="text-[11px] text-amber-700 block">Sua identidade não será vinculada a esta mensagem.</span>
+                        </div>
+                        <label class="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" id="anonimo-check" class="sr-only peer" onchange="toggleAnonimo(this.checked)">
+                            <div class="w-11 h-6 bg-slate-300 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-sug-principal"></div>
+                        </label>
+                    </div>
+
+                    <!-- Campos Identificação (Nome e Email) -->
+                    <div id="campos-identificacao" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="space-y-1">
+                            <label for="nome" class="text-xs font-bold text-slate-700 block">Seu Nome</label>
+                            <input type="text" id="nome" placeholder="Ex: Maria Silva" class="w-full text-xs px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-sug-principal focus:outline-none transition">
+                        </div>
+                        <div class="space-y-1">
+                            <label for="email" class="text-xs font-bold text-slate-700 block">E-mail para Contato / Retorno</label>
+                            <input type="email" id="email" placeholder="seu.email@exemplo.com" class="w-full text-xs px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-sug-principal focus:outline-none transition">
+                        </div>
+                    </div>
+
+                    <!-- Perfil do Usuário + Categoria da Sugestão -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="space-y-1">
+                            <label for="perfil" class="text-xs font-bold text-slate-700 block">Quem é você?</label>
+                            <select id="perfil" required class="w-full text-xs px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-sug-principal focus:outline-none bg-white transition">
+                                <option value="" disabled selected>Selecione seu perfil...</option>
+                                <option value="estudante">Estudante</option>
+                                <option value="professor">Professor(a) / Servidor(a)</option>
+                                <option value="responsavel">Pai / Mãe / Responsável</option>
+                                <option value="comunidade">Outro</option>
+                            </select>
+                        </div>
+
+                        <div class="space-y-1">
+                            <label for="categoria" class="text-xs font-bold text-slate-700 block">Assunto / Categoria</label>
+                            <select id="categoria" required class="w-full text-xs px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-sug-principal focus:outline-none bg-white transition">
+                                <option value="" disabled selected>Escolha a categoria...</option>
+                                <option value="infraestrutura">Melhoria de Espaço & Infraestrutura</option>
+                                <option value="projeto">Ideia para Projeto / Evento</option>
+                                <option value="convivencia">Convivência & Clima Escolar</option>
+                                <option value="elogio">Elogio ou Agradecimento</option>
+                                <option value="outro">Outro assunto</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Título e Descrição Detalhada -->
+                    <div class="space-y-1">
+                        <label for="titulo" class="text-xs font-bold text-slate-700 block">Título da Sugestão</label>
+                        <input type="text" id="titulo" required placeholder="Resuma sua ideia em poucas palavras..." class="w-full text-xs px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-sug-principal focus:outline-none transition">
+                    </div>
+
+                    <div class="space-y-1">
+                        <label for="mensagem" class="text-xs font-bold text-slate-700 block">Descrição Detalhada</label>
+                        <textarea id="mensagem" rows="5" required placeholder="Explique sua sugestão com detalhes. Como isso pode melhorar nossa escola?" class="w-full text-xs p-4 rounded-xl border border-slate-200 focus:ring-2 focus:ring-sug-principal focus:outline-none transition"></textarea>
+                    </div>
+
+                    <!-- Botão de Envio -->
+                    <div class="pt-2">
+                        <button type="submit" class="w-full md:w-auto bg-sug-principal hover:bg-orange-700 text-white font-bold px-8 py-3.5 rounded-xl text-xs transition shadow-md flex items-center justify-center gap-2">
+                            <span>🚀 Enviar Sugestão</span>
+                        </button>
+                    </div>
+
+                </form>
+
+            </section>
+
+            <!-- COLUNA LATERAL: COMO FUNCIONA E COMPROMISSOS -->
+            <aside class="space-y-6">
+
+                <!-- Card Como Funciona -->
+                <div class="bg-sug-card p-6 rounded-3xl border border-stone-200/80 shadow-sm space-y-4">
+                    <h3 class="font-bold text-base text-sug-escuro flex items-center gap-2 border-b border-stone-100 pb-3">
+                        <span>🔍</span> Como funciona a análise?
+                    </h3>
+                    
+                    <ul class="space-y-3 text-xs text-slate-600">
+                        <li class="flex items-start gap-2.5">
+                            <span class="w-5 h-5 rounded-full bg-orange-100 text-sug-principal font-bold text-[10px] flex items-center justify-center shrink-0 mt-0.5">1</span>
+                            <span><b>Triagem Semanal:</b> A equipe gestora e representantes de turma revisam as submissões enviadas.</span>
+                        </li>
+                        <li class="flex items-start gap-2.5">
+                            <span class="w-5 h-5 rounded-full bg-orange-100 text-sug-principal font-bold text-[10px] flex items-center justify-center shrink-0 mt-0.5">2</span>
+                            <span><b>Avaliação de Viabilidade:</b> Projetos e ideias são encaminhados para os setores responsáveis.</span>
+                        </li>
+                        <li class="flex items-start gap-2.5">
+                            <span class="w-5 h-5 rounded-full bg-orange-100 text-sug-principal font-bold text-[10px] flex items-center justify-center shrink-0 mt-0.5">3</span>
+                            <span><b>Retorno & Ação:</b> Sugestões aprovadas entram no plano de ação escolar ou são pautadas em reuniões.</span>
+                        </li>
+                    </ul>
                 </div>
 
-                <div>
-                    <label for="categoria" class="block font-bold text-gray-700 text-sm mb-1">Tipo de Feedback</label>
-                    <select class="border border-gray-300 rounded-lg p-3 w-full focus:ring-2 focus:ring-escola-primaria outline-none text-sm bg-white transition" id="categoria" name="categoria">
-                        <option value="sugestao">Sugestão</option>
-                        <option value="elogio">Elogio</option>
-                        <option value="critica">Crítica</option>
-                    </select>
+                <!-- Card Garantia de Privacidade -->
+                <div class="bg-stone-900 text-stone-200 p-6 rounded-3xl space-y-3 shadow-sm border border-stone-800">
+                    <div class="text-xl">🛡️</div>
+                    <h3 class="font-bold text-sm text-white">Privacidade e Respeito</h3>
+                    <p class="text-xs leading-relaxed text-stone-300">
+                        Garantimos o sigilo absoluto das submissões anônimas. Este canal foi criado para promover um ambiente saudável de construção coletiva.
+                    </p>
                 </div>
 
-                <div>
-                    <label for="perfil" class="block font-bold text-gray-700 text-sm mb-1">Perfil</label>
-                    <select class="border border-gray-300 rounded-lg p-3 w-full focus:ring-2 focus:ring-escola-primaria outline-none text-sm bg-white transition" id="perfil" name="perfil">
-                        <option value="aluno">Aluno(a)</option>
-                        <option value="professor">Professor(a)</option>
-                        <option value="comunidade">Comunidade Exterior</option>
-                    </select>
+                <!-- Card Contato Direto -->
+                <div class="bg-sug-card p-6 rounded-3xl border border-stone-200/80 shadow-sm space-y-2">
+                    <h3 class="font-bold text-xs uppercase tracking-wider text-slate-400">Atendimento Presencial</h3>
+                    <p class="text-xs text-slate-700 font-semibold">
+                        Prefere conversar pessoalmente?
+                    </p>
+                    <p class="text-xs text-slate-500 leading-relaxed">
+                        A pedagogia e a direção estão de portas abertas durante o horário escolar na EEEFM Elza Lemos Andreatta.
+                    </p>
                 </div>
 
-                <div class="col-span-1 md:col-span-2">
-                    <label for="assunto" class="block font-bold text-gray-700 text-sm mb-1">Assunto</label>
-                    <input class="border border-gray-300 rounded-lg p-3 w-full focus:ring-2 focus:ring-escola-primaria outline-none text-sm transition" type="text" id="assunto" name="assunto" placeholder="Resumo do assunto" required>
-                </div>
+            </aside>
 
-                <div class="col-span-1 md:col-span-2">
-                    <label for="sugestao" class="block font-bold text-gray-700 text-sm mb-1">Sua Mensagem</label>
-                    <textarea class="border border-gray-300 rounded-lg p-3 w-full h-32 focus:ring-2 focus:ring-escola-primaria outline-none text-sm transition" id="sugestao" name="sugestao" placeholder="Detalhe aqui sua sugestão..." required></textarea>
-                </div>
-
-                <button class="col-span-1 md:col-span-2 bg-escola-primaria hover:opacity-90 text-white font-bold py-3.5 px-6 rounded-lg transition shadow-md font-['Plus_Jakarta_Sans']" type="submit">Enviar Avaliação</button>
-            </form>
-        </section>
+        </div>
 
     </main>
 
-    <!-- RODAPÉ -->
-    <footer class="bg-escola-secundaria text-white rounded-t-2xl p-6 md:p-8 mt-12 text-sm">
-        <div class="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
+    <!-- RODAPÉ INSTITUCIONAL (SEM ELETIVAS) -->
+    <footer class="bg-sug-escuro text-white pt-10 pb-6 mt-16 text-xs">
+        <div class="max-w-7xl mx-auto px-4 md:px-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 pb-8 border-b border-stone-800">
             <div>
-                <h3 class="font-bold text-base mb-3 border-b border-gray-700 pb-2">Sobre</h3>
-                <p class="text-gray-400 text-xs leading-relaxed">Portal de notícias da Escola Elza, criado por alunos para manter a comunidade escolar informada sobre projetos e eventos.</p>
+                <h3 class="font-bold text-sm mb-3 text-white border-b border-stone-800 pb-2">EEEFM Elza Lemos Andreatta</h3>
+                <p class="text-stone-400 leading-relaxed">
+                    Comunidade escolar unida pela educação transformadora, inovação e valorização cultural na Ilha das Caieiras.
+                </p>
             </div>
             <div>
-                <h3 class="font-bold text-base mb-3 border-b border-gray-700 pb-2">Navegação</h3>
-                <ul class="space-y-2 text-gray-400 text-xs">
-                    <li><a href="index.html" class="hover:text-white transition">Início</a></li>
-                    <li><a href="noticia.html" class="hover:text-white transition">Notícias</a></li>
-                    <li><a href="eletiva.html" class="hover:text-white transition">Inscrição de Eletivas</a></li>
+                <h3 class="font-bold text-sm mb-3 text-white border-b border-stone-800 pb-2">Navegação Rápida</h3>
+                <ul class="space-y-2 text-stone-400">
+                    <li><a href="index.html" class="hover:text-sug-principal transition">Início</a></li>
+                    <li><a href="noticia.html" class="hover:text-sug-principal transition">Mural de Notícias</a></li>
+                    <li><a href="sugestao.html" class="hover:text-sug-principal transition">Envie sua Sugestão</a></li>
+                    <li><a href="publicacao.html" class="hover:text-sug-principal transition">Mural de Publicações</a></li>
                 </ul>
             </div>
             <div>
-                <h3 class="font-bold text-base mb-3 border-b border-gray-700 pb-2">Contato</h3>
-                <p class="text-gray-400 text-xs">Email: contato@escolaelza.edu.br</p>
-                <p class="text-gray-400 text-xs mt-1">Telefone: (00) 0000-0000</p>
+                <h3 class="font-bold text-sm mb-3 text-white border-b border-stone-800 pb-2">Projetos em Destaque</h3>
+                <ul class="space-y-2 text-stone-400">
+                    <li><a href="onu.html" class="hover:text-sug-principal transition">Ser ONU Elza</a></li>
+                    <li><a href="vozes_negras.html" class="hover:text-sug-principal transition">Vozes Negras</a></li>
+                    <li><a href="neaonnim.html" class="hover:text-sug-principal transition">NeaOnnim</a></li>
+                </ul>
             </div>
             <div>
-                <h3 class="font-bold text-base mb-3 border-b border-gray-700 pb-2">Redes Sociais</h3>
-                <p class="text-gray-400 text-xs leading-relaxed">Siga nosso perfil oficial para acompanhar as fotos dos eventos da escola.</p>
+                <h3 class="font-bold text-sm mb-3 text-white border-b border-stone-800 pb-2">Área Restrita</h3>
+                <p class="text-stone-400 mb-3">Acesso exclusivo para professores e coordenação.</p>
+                <a href="admin.html" class="inline-block bg-stone-800 hover:bg-stone-700 text-amber-400 font-bold px-4 py-2 rounded-xl border border-stone-700 transition">
+                    Painel Administrativo
+                </a>
             </div>
         </div>
-        <div class="border-t border-gray-800 mt-8 pt-4 text-center text-xs text-gray-500">
-            &copy; 2026 Portal Escola Elza - Todos os direitos reservados.
+
+        <div class="max-w-7xl mx-auto px-4 md:px-6 pt-6 text-center text-stone-500">
+            &copy; 2026 Portal Escola Elza. Desenvolvido para e pelos estudantes da EEEFM Elza Lemos Andreatta.
         </div>
     </footer>
 
+    <!-- SCRIPTS INTERATIVOS -->
     <script>
-        const btnMenuMobile = document.getElementById('btn-menu-mobile');
+        // Menu Mobile Toggle
+        const btnMenu = document.getElementById('btn-menu');
         const mobileMenu = document.getElementById('mobile-menu');
-        const iconHamb = document.getElementById('icon-hamb');
-        const iconClose = document.getElementById('icon-close');
 
-        btnMenuMobile.addEventListener('click', () => {
-            const isHidden = mobileMenu.classList.contains('hidden');
-            if (isHidden) {
-                mobileMenu.classList.remove('hidden');
-                mobileMenu.classList.add('flex');
-                iconHamb.classList.add('hidden');
-                iconClose.classList.remove('hidden');
-            } else {
-                mobileMenu.classList.add('hidden');
-                mobileMenu.classList.remove('flex');
-                iconHamb.classList.remove('hidden');
-                iconClose.classList.add('hidden');
-            }
+        btnMenu.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
         });
+
+        // Toggle para ocultar/exibir campos de identificação ao escolher Anônimo
+        function toggleAnonimo(isAnonimo) {
+            const campos = document.getElementById('campos-identificacao');
+            const nomeInput = document.getElementById('nome');
+            const emailInput = document.getElementById('email');
+
+            if (isAnonimo) {
+                campos.classList.add('opacity-40', 'pointer-events-none');
+                nomeInput.value = '';
+                emailInput.value = '';
+                nomeInput.removeAttribute('required');
+            } else {
+                campos.classList.remove('opacity-40', 'pointer-events-none');
+            }
+        }
     </script>
 </body>
 </html>

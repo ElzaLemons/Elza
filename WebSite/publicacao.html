@@ -3,170 +3,340 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Criar Publicação - Portal Elza</title>
-    
+    <title>Criar Publicação - Portal Escola Elza</title>
+
+    <!-- TAILWIND CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- CONFIGURAÇÃO DA PALETA: PUBLICAÇÕES & AUTORIA -->
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        'escola-primaria': '#2563eb',   
-                        'escola-secundaria': '#0f172a', 
-                        'escola-fundo': '#dbeafe',      
-                        'escola-card': '#ffffff',       
+                        'pub-principal': '#0D9488',  /* Teal Criador */
+                        'pub-escuro': '#134E4A',     /* Verde Petróleo */
+                        'pub-fundo': '#F0FDFA',      /* Fundo Menta Suave */
+                        'pub-card': '#FFFFFF',       /* Card Branco */
+                        'pub-destaque': '#F59E0B',   /* Amarelo Amber */
                     }
                 }
             }
         }
     </script>
 
+    <!-- TIPOGRAFIA PLUS JAKARTA SANS -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    </style>
 </head>
-<body class="bg-escola-fundo px-4 md:px-7 font-sans text-gray-800 min-h-screen flex flex-col justify-between">
+<body class="bg-pub-fundo text-slate-800 min-h-screen flex flex-col justify-between">
 
-    <!-- NAVBAR RESPONSIVA -->
-    <nav class="my-4 relative z-50">
-        <header class="bg-escola-card shadow-md rounded-xl p-4 flex items-center justify-between">
-            <a href="index.html" class="flex items-center gap-2 font-bold text-xl text-escola-secundaria font-['Plus_Jakarta_Sans']">
-                <span class="bg-escola-primaria text-white p-1.5 rounded-lg text-sm">🏫</span>
-                <span>Portal Elza</span>
+    <!-- CABEÇALHO / NAVBAR RESPONSIVA -->
+    <header class="bg-pub-escuro text-white sticky top-0 z-50 shadow-lg border-b border-pub-principal/30">
+        <div class="max-w-7xl mx-auto px-4 md:px-6 py-3 flex items-center justify-between">
+            
+            <a href="index.html" class="flex items-center gap-3 group">
+                <div class="bg-pub-principal p-2 rounded-xl text-white font-bold text-lg group-hover:scale-105 transition shadow-sm">
+                    ✍️
+                </div>
+                <div>
+                    <span class="block text-lg font-bold leading-none tracking-tight">PORTAL ELZA</span>
+                    <span class="text-[10px] text-teal-200 font-medium tracking-wide">EEEFM Elza Lemos Andreatta</span>
+                </div>
             </a>
 
-            <!-- Botão Hambúrguer Mobile -->
-            <button id="btn-menu-mobile" type="button" class="md:hidden text-escola-secundaria hover:bg-gray-100 p-2 rounded-lg transition focus:outline-none">
-                <svg id="icon-hamb" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
-                <svg id="icon-close" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            <!-- Botão Hambúrguer (Mobile) -->
+            <button id="btn-menu" type="button" aria-label="Abrir Menu" class="lg:hidden text-teal-100 hover:text-white p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-pub-principal">
+                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
             </button>
 
             <!-- Links Desktop -->
-            <ul class="hidden md:flex items-center gap-2 text-sm font-medium">
-                <li><a href="index.html" class="px-3 py-2 rounded-lg text-gray-700 hover:bg-escola-secundaria hover:text-white transition">Principal</a></li>
-                <li><a href="noticia.html" class="px-3 py-2 rounded-lg text-gray-700 hover:bg-escola-secundaria hover:text-white transition">Notícias</a></li>
-                <li><a href="onu.html" class="px-3 py-2 rounded-lg text-gray-700 hover:bg-escola-secundaria hover:text-white transition">Ser ONU</a></li>
-                <li><a href="vozes_negras.html" class="px-3 py-2 rounded-lg text-gray-700 hover:bg-escola-secundaria hover:text-white transition">Vozes Negras</a></li>
-                <li><a href="neaonnim.html" class="px-3 py-2 rounded-lg text-gray-700 hover:bg-escola-secundaria hover:text-white transition">NeaOnnim</a></li>
-                <li><a href="eletiva.html" class="px-3 py-2 rounded-lg text-gray-700 hover:bg-escola-secundaria hover:text-white transition">Eletivas</a></li>
-                <li><a href="sugestao.html" class="px-3 py-2 rounded-lg text-gray-700 hover:bg-escola-secundaria hover:text-white transition">Sugestões</a></li>
-                <li><a href="publicacao.html" class="px-3 py-2 rounded-lg bg-escola-secundaria text-white font-semibold">Publicação</a></li>
-                <li><a href="eventos.html" class="px-3 py-2 rounded-lg text-gray-700 hover:bg-escola-secundaria hover:text-white transition">Eventos</a></li>
-                <li><a href="admin.html" class="px-3 py-2 bg-escola-primaria text-white font-bold rounded-lg hover:opacity-90 transition ml-2">Admin</a></li>
-            </ul>
+            <nav class="hidden lg:flex items-center gap-1 text-xs font-semibold">
+                <a href="index.html" class="px-3 py-2 rounded-lg text-teal-100/80 hover:bg-teal-900 hover:text-white transition">Principal</a>
+                <a href="noticia.html" class="px-3 py-2 rounded-lg text-teal-100/80 hover:bg-teal-900 hover:text-white transition">Notícias</a>
+                <a href="onu.html" class="px-3 py-2 rounded-lg text-teal-100/80 hover:bg-teal-900 hover:text-white transition">Ser ONU</a>
+                <a href="vozes_negras.html" class="px-3 py-2 rounded-lg text-teal-100/80 hover:bg-teal-900 hover:text-white transition">Vozes Negras</a>
+                <a href="neaonnim.html" class="px-3 py-2 rounded-lg text-teal-100/80 hover:bg-teal-900 hover:text-white transition">NeaOnnim</a>
+                <a href="sugestao.html" class="px-3 py-2 rounded-lg text-teal-100/80 hover:bg-teal-900 hover:text-white transition">Sugestões</a>
+                <a href="publicacao.html" class="px-3 py-2 rounded-lg bg-pub-principal text-white shadow-sm">Nova Publicação</a>
+                <a href="eventos.html" class="px-3 py-2 rounded-lg text-teal-100/80 hover:bg-teal-900 hover:text-white transition">Eventos</a>
+                <a href="admin.html" class="px-3 py-2 rounded-lg bg-teal-950 text-amber-400 hover:bg-teal-900 transition ml-2 border border-teal-800/50">Admin</a>
+            </nav>
+        </div>
 
-            <!-- Dropdown Mobile -->
-            <div id="mobile-menu" class="hidden absolute top-full left-0 w-full mt-2 bg-escola-card shadow-2xl rounded-2xl p-4 flex-col gap-1 border border-gray-100 md:hidden">
-                <a href="index.html" class="px-4 py-2.5 rounded-xl text-gray-700 hover:bg-gray-100 font-medium text-sm transition">Principal</a>
-                <a href="noticia.html" class="px-4 py-2.5 rounded-xl text-gray-700 hover:bg-gray-100 font-medium text-sm transition">Notícias</a>
-                <a href="onu.html" class="px-4 py-2.5 rounded-xl text-gray-700 hover:bg-gray-100 font-medium text-sm transition">Ser ONU</a>
-                <a href="vozes_negras.html" class="px-4 py-2.5 rounded-xl text-gray-700 hover:bg-gray-100 font-medium text-sm transition">Vozes Negras</a>
-                <a href="neaonnim.html" class="px-4 py-2.5 rounded-xl text-gray-700 hover:bg-gray-100 font-medium text-sm transition">NeaOnnim</a>
-                <a href="eletiva.html" class="px-4 py-2.5 rounded-xl text-gray-700 hover:bg-gray-100 font-medium text-sm transition">Eletivas</a>
-                <a href="sugestao.html" class="px-4 py-2.5 rounded-xl text-gray-700 hover:bg-gray-100 font-medium text-sm transition">Sugestões</a>
-                <a href="publicacao.html" class="px-4 py-2.5 rounded-xl bg-escola-secundaria text-white font-bold text-sm">Publicação</a>
-                <a href="eventos.html" class="px-4 py-2.5 rounded-xl text-gray-700 hover:bg-gray-100 font-medium text-sm transition">Eventos</a>
-                <a href="admin.html" class="px-4 py-2.5 rounded-xl bg-escola-primaria text-white font-bold text-sm text-center mt-2 transition">Painel Admin</a>
+        <!-- Menu Mobile Dropdown -->
+        <div id="mobile-menu" class="hidden lg:hidden bg-pub-escuro border-t border-teal-900/50 px-4 py-4 space-y-2 text-sm font-medium">
+            <a href="index.html" class="block px-3 py-2 rounded-lg text-teal-100/80 hover:bg-teal-950">Principal</a>
+            <a href="noticia.html" class="block px-3 py-2 rounded-lg text-teal-100/80 hover:bg-teal-950">Notícias</a>
+            <a href="onu.html" class="block px-3 py-2 rounded-lg text-teal-100/80 hover:bg-teal-950">Ser ONU</a>
+            <a href="vozes_negras.html" class="block px-3 py-2 rounded-lg text-teal-100/80 hover:bg-teal-950">Vozes Negras</a>
+            <a href="neaonnim.html" class="block px-3 py-2 rounded-lg text-teal-100/80 hover:bg-teal-950">NeaOnnim</a>
+            <a href="sugestao.html" class="block px-3 py-2 rounded-lg text-teal-100/80 hover:bg-teal-950">Sugestões</a>
+            <a href="publicacao.html" class="block px-3 py-2 rounded-lg bg-pub-principal text-white font-bold">Nova Publicação</a>
+            <a href="eventos.html" class="block px-3 py-2 rounded-lg text-teal-100/80 hover:bg-teal-950">Eventos</a>
+            <a href="admin.html" class="block px-3 py-2 rounded-lg bg-teal-950 text-amber-400 font-bold">Painel Admin</a>
+        </div>
+    </header>
+
+    <!-- CONTEÚDO PRINCIPAL -->
+    <main class="max-w-5xl mx-auto px-4 md:px-6 my-8 space-y-8 flex-grow w-full">
+
+        <!-- BANNER ÁREA RESTRITA -->
+        <div class="bg-pub-escuro rounded-3xl p-6 text-white shadow-lg border border-pub-principal/30 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+            <div class="space-y-1">
+                <div class="flex items-center gap-2">
+                    <span class="bg-amber-400 text-slate-900 text-[10px] font-extrabold px-2.5 py-0.5 rounded-full uppercase tracking-wider">🔒 Acesso Autorizado</span>
+                    <span class="text-xs text-teal-200">Área de Redação & Postagens</span>
+                </div>
+                <h1 class="text-2xl font-bold text-teal-50">Editor de Conteúdo Autoral</h1>
+                <p class="text-xs text-teal-100/80">Espaço para alunos, professores e editores cadastrados publicarem materiais no portal.</p>
             </div>
-        </header>
-    </nav>
+            
+            <div class="bg-teal-950/80 border border-teal-800 px-4 py-2.5 rounded-2xl flex items-center gap-3 shrink-0">
+                <div class="w-8 h-8 rounded-full bg-pub-principal text-white flex items-center justify-center font-bold text-xs">
+                    EA
+                </div>
+                <div class="text-xs">
+                    <span class="block font-bold text-white">Autor Logado</span>
+                    <span class="block text-[10px] text-teal-300">Estudante / Colaborador</span>
+                </div>
+            </div>
+        </div>
 
-    <main class="max-w-4xl mx-auto my-6 md:my-10 w-full flex-grow">
-        <section class="text-center mb-8">
-            <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-2 font-['Plus_Jakarta_Sans']">Painel de Publicação</h1>
-            <p class="text-gray-600 font-serif">Área destinada aos professores e alunos autorizados para cadastro de notícias e artigos.</p>
-        </section>
+        <!-- MENSAGEM DE SUCESSO DA PUBLICAÇÃO -->
+        <div id="alerta-sucesso" class="hidden bg-emerald-100 border border-emerald-300 text-emerald-800 p-4 rounded-2xl text-xs font-semibold flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <span class="text-base">🎉</span>
+                <span>Publicação enviada e publicada com sucesso no portal!</span>
+            </div>
+            <button onclick="document.getElementById('alerta-sucesso').classList.add('hidden')" class="text-emerald-900 hover:text-emerald-700 font-bold text-sm">&times;</button>
+        </div>
 
-        <section class="bg-escola-card rounded-2xl shadow-sm p-6 md:p-8 border border-gray-100">
-            <form action="/api/publicacoes" method="POST" class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div class="col-span-2 md:col-span-1">
-                    <label for="titulo" class="block font-bold text-gray-700 text-sm mb-1">Título da Publicação</label>
-                    <input type="text" id="titulo" name="titulo" placeholder="Ex: Projeto NeaOnnim ganha prêmio" required class="border border-gray-300 rounded-lg p-3 w-full focus:ring-2 focus:ring-escola-primaria outline-none text-sm transition">
+        <!-- FORMULÁRIO DE PUBLICAÇÃO -->
+        <form id="form-publicacao" class="bg-pub-card rounded-3xl p-6 md:p-8 border border-teal-200/80 shadow-md space-y-6">
+            <h2 class="text-lg font-bold text-pub-escuro border-b border-teal-100 pb-3 flex items-center gap-2">
+                <span>📝</span> Dados da Publicação
+            </h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Nome do Autor -->
+                <div class="space-y-1.5">
+                    <label for="autor" class="block text-xs font-bold text-slate-700">Nome do Autor(a) *</label>
+                    <input type="text" id="autor" required placeholder="Ex: Maria Eduarda Silva" class="w-full px-4 py-2.5 rounded-xl border border-teal-200 text-xs focus:ring-2 focus:ring-pub-principal focus:outline-none bg-slate-50/50">
                 </div>
 
-                <div>
-                    <label for="categoria" class="block font-bold text-gray-700 text-sm mb-1">Seção / Categoria</label>
-                    <select id="categoria" name="categoria" required class="border border-gray-300 rounded-lg p-3 w-full focus:ring-2 focus:ring-escola-primaria outline-none text-sm bg-white transition">
-                        <option value="">Selecione uma categoria</option>
-                        <option value="noticias">Notícias Gerais</option>
-                        <option value="ser_onu">Ser ONU</option>
-                        <option value="vozes_negras">Vozes Negras</option>
-                        <option value="neaonnim">NeaOnnim</option>
-                        <option value="eventos">Eventos</option>
+                <!-- Categoria -->
+                <div class="space-y-1.5">
+                    <label for="categoria" class="block text-xs font-bold text-slate-700">Categoria do Conteúdo *</label>
+                    <select id="categoria" required class="w-full px-4 py-2.5 rounded-xl border border-teal-200 text-xs focus:ring-2 focus:ring-pub-principal focus:outline-none bg-slate-50/50">
+                        <option value="">Selecione uma opção</option>
+                        <option value="Notícia Geral">notícia Geral</option>
+                        <option value="Artigo Científico">Artigo Científico (NeaOnnim)</option>
+                        <option value="Diplomacia & Ser ONU">Diplomacia (Ser ONU)</option>
+                        <option value="Cultura Afro-Brasileira">Cultura (Vozes Negras)</option>
                     </select>
                 </div>
+            </div>
 
-                <div class="col-span-2 md:col-span-1">
-                    <label for="autor" class="block font-bold text-gray-700 text-sm mb-1">Autor / Responsável</label>
-                    <input type="text" id="autor" name="autor" placeholder="Seu nome ou equipe responsável" required class="border border-gray-300 rounded-lg p-3 w-full focus:ring-2 focus:ring-escola-primaria outline-none text-sm transition">
+            <!-- Título -->
+            <div class="space-y-1.5">
+                <label for="titulo" class="block text-xs font-bold text-slate-700">Título da Publicação *</label>
+                <input type="text" id="titulo" required placeholder="Digite um título claro e atrativo..." class="w-full px-4 py-2.5 rounded-xl border border-teal-200 text-xs focus:ring-2 focus:ring-pub-principal focus:outline-none bg-slate-50/50 font-semibold text-slate-800">
+            </div>
+
+            <!-- Resumo / Subtítulo -->
+            <div class="space-y-1.5">
+                <label for="resumo" class="block text-xs font-bold text-slate-700">Resumo / Introdução Curta *</label>
+                <input type="text" id="resumo" required placeholder="Uma breve frase explicando do que se trata o texto..." class="w-full px-4 py-2.5 rounded-xl border border-teal-200 text-xs focus:ring-2 focus:ring-pub-principal focus:outline-none bg-slate-50/50">
+            </div>
+
+            <!-- Conteúdo Principal -->
+            <div class="space-y-1.5">
+                <label for="conteudo" class="block text-xs font-bold text-slate-700">Texto Completo *</label>
+                <textarea id="conteudo" rows="8" required placeholder="Escreva seu artigo, ensaio ou poesia aqui..." class="w-full p-4 rounded-xl border border-teal-200 text-xs focus:ring-2 focus:ring-pub-principal focus:outline-none bg-slate-50/50 leading-relaxed"></textarea>
+            </div>
+
+            <!-- UPLOAD DE IMAGEM COM PREVIEW REAL -->
+            <div class="space-y-2">
+                <label class="block text-xs font-bold text-slate-700">Imagem de Capa ou Ilustração</label>
+                
+                <div class="border-2 border-dashed border-teal-200 hover:border-pub-principal rounded-2xl p-6 text-center transition bg-teal-50/30">
+                    <input type="file" id="input-imagem" accept="image/*" class="hidden" onchange="mostrarPreview(event)">
+                    
+                    <label for="input-imagem" class="cursor-pointer space-y-2 block">
+                        <div class="text-3xl">🖼️</div>
+                        <span class="block text-xs font-bold text-pub-escuro">Clique aqui para selecionar uma imagem</span>
+                        <span class="block text-[10px] text-slate-400">Formatos aceitos: JPG, PNG ou WEBP (Max: 5MB)</span>
+                    </label>
                 </div>
 
-                <div>
-                    <label for="imagem" class="block font-bold text-gray-700 text-sm mb-1">URL da Imagem de Capa</label>
-                    <input type="url" id="imagem" name="imagem" placeholder="https://exemplo.com/imagem.jpg" class="border border-gray-300 rounded-lg p-3 w-full focus:ring-2 focus:ring-escola-primaria outline-none text-sm transition">
+                <!-- Área do Preview da Imagem -->
+                <div id="container-preview" class="hidden mt-4 relative rounded-2xl overflow-hidden border border-teal-200 max-h-60 bg-slate-100">
+                    <img id="img-preview" src="" alt="Preview da Imagem" class="w-full h-60 object-cover">
+                    <button type="button" onclick="removerImagem()" class="absolute top-3 right-3 bg-red-600 text-white rounded-full p-1.5 text-xs shadow-md hover:bg-red-700 transition">
+                        ✕ Remover
+                    </button>
                 </div>
+            </div>
 
-                <div class="col-span-2">
-                    <label for="conteudo" class="block font-bold text-gray-700 text-sm mb-1">Conteúdo da Publicação</label>
-                    <textarea id="conteudo" name="conteudo" rows="6" placeholder="Escreva o texto completo da matéria aqui..." required class="border border-gray-300 rounded-lg p-3 w-full focus:ring-2 focus:ring-escola-primaria outline-none text-sm transition"></textarea>
-                </div>
-
-                <button type="submit" class="col-span-2 bg-escola-primaria hover:opacity-90 text-white font-bold py-3.5 px-6 rounded-lg transition shadow-md font-['Plus_Jakarta_Sans']">
-                    Publicar Matéria
+            <!-- Botões de Ação -->
+            <div class="pt-4 border-t border-teal-100 flex items-center justify-end gap-3">
+                <button type="reset" onclick="removerImagem()" class="px-5 py-2.5 rounded-xl border border-slate-300 text-slate-600 text-xs font-bold hover:bg-slate-100 transition">
+                    Limpar
                 </button>
-            </form>
+                <button type="submit" class="px-6 py-2.5 rounded-xl bg-pub-principal hover:bg-teal-700 text-white text-xs font-bold transition shadow-md flex items-center gap-2">
+                    <span>🚀</span> Publicar Agora
+                </button>
+            </div>
+        </form>
+
+        <!-- MINHAS PUBLICAÇÕES RECENTES (SIMULAÇÃO DE POSTS CRIADOS) -->
+        <section class="space-y-4">
+            <h2 class="text-lg font-bold text-pub-escuro flex items-center gap-2 border-b border-teal-200 pb-2">
+                <span>📚</span> Publicações Recentes na Plataforma
+            </h2>
+
+            <div id="lista-publicacoes" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                
+                <!-- Card Exemplo 1 -->
+                <div class="bg-pub-card rounded-2xl p-5 border border-teal-200/70 shadow-sm flex flex-col justify-between space-y-3">
+                    <div class="space-y-2">
+                        <div class="flex items-center justify-between">
+                            <span class="bg-teal-100 text-teal-800 text-[10px] font-bold px-2 py-0.5 rounded-md uppercase">Redação & Ensaio</span>
+                            <span class="text-[10px] text-slate-400">Hoje</span>
+                        </div>
+                        <h3 class="font-bold text-sm text-slate-800">A Preservação Cultural na Baía de Vitória</h3>
+                        <p class="text-xs text-slate-600 line-clamp-2">Um olhar detalhado sobre o trabalho das paneleiras e desfiadeiras de siri.</p>
+                    </div>
+                    <div class="text-[11px] text-slate-400 font-medium pt-2 border-t border-slate-100 flex justify-between">
+                        <span>Autor: Matheus Silva</span>
+                        <span class="text-emerald-600 font-bold">● Publicado</span>
+                    </div>
+                </div>
+
+            </div>
         </section>
+
     </main>
 
-    <!-- RODAPÉ -->
-    <footer class="bg-escola-secundaria text-white rounded-t-2xl p-6 md:p-8 mt-12 text-sm">
-        <div class="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
+    <!-- RODAPÉ INSTITUCIONAL -->
+    <footer class="bg-pub-escuro text-white pt-10 pb-6 mt-16 text-xs">
+        <div class="max-w-7xl mx-auto px-4 md:px-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 pb-8 border-b border-teal-900/50">
             <div>
-                <h3 class="font-bold text-base mb-3 border-b border-gray-700 pb-2">Sobre</h3>
-                <p class="text-gray-400 text-xs leading-relaxed">Portal de notícias da Escola Elza, criado por alunos para manter a comunidade escolar informada sobre projetos e eventos.</p>
+                <h3 class="font-bold text-sm mb-3 text-white border-b border-teal-800/50 pb-2">EEEFM Elza Lemos Andreatta</h3>
+                <p class="text-teal-100/70 leading-relaxed">
+                    Comunidade escolar unida pela educação transformadora, inovação e valorização cultural na Ilha das Caieiras.
+                </p>
             </div>
             <div>
-                <h3 class="font-bold text-base mb-3 border-b border-gray-700 pb-2">Navegação</h3>
-                <ul class="space-y-2 text-gray-400 text-xs">
-                    <li><a href="index.html" class="hover:text-white transition">Início</a></li>
-                    <li><a href="noticia.html" class="hover:text-white transition">Notícias</a></li>
-                    <li><a href="eletiva.html" class="hover:text-white transition">Inscrição de Eletivas</a></li>
+                <h3 class="font-bold text-sm mb-3 text-white border-b border-teal-800/50 pb-2">Navegação Rápida</h3>
+                <ul class="space-y-2 text-teal-100/70">
+                    <li><a href="index.html" class="hover:text-amber-400 transition">Início</a></li>
+                    <li><a href="noticia.html" class="hover:text-amber-400 transition">Mural de Notícias</a></li>
+                    <li><a href="sugestao.html" class="hover:text-amber-400 transition">Envie sua Sugestão</a></li>
+                    <li><a href="publicacao.html" class="hover:text-amber-400 transition">Nova Publicação</a></li>
                 </ul>
             </div>
             <div>
-                <h3 class="font-bold text-base mb-3 border-b border-gray-700 pb-2">Contato</h3>
-                <p class="text-gray-400 text-xs">Email: contato@escolaelza.edu.br</p>
-                <p class="text-gray-400 text-xs mt-1">Telefone: (00) 0000-0000</p>
+                <h3 class="font-bold text-sm mb-3 text-white border-b border-teal-800/50 pb-2">Projetos em Destaque</h3>
+                <ul class="space-y-2 text-teal-100/70">
+                    <li><a href="onu.html" class="hover:text-amber-400 transition">Ser ONU Elza</a></li>
+                    <li><a href="vozes_negras.html" class="hover:text-amber-400 transition">Vozes Negras</a></li>
+                    <li><a href="neaonnim.html" class="hover:text-amber-400 transition">NeaOnnim</a></li>
+                </ul>
             </div>
             <div>
-                <h3 class="font-bold text-base mb-3 border-b border-gray-700 pb-2">Redes Sociais</h3>
-                <p class="text-gray-400 text-xs leading-relaxed">Siga nosso perfil oficial para acompanhar as fotos dos eventos da escola.</p>
+                <h3 class="font-bold text-sm mb-3 text-white border-b border-teal-800/50 pb-2">Área Restrita</h3>
+                <p class="text-teal-100/70 mb-3">Acesso exclusivo para professores e coordenação.</p>
+                <a href="admin.html" class="inline-block bg-teal-950 hover:bg-teal-900 text-amber-400 font-bold px-4 py-2 rounded-xl border border-teal-800/50 transition">
+                    Painel Administrativo
+                </a>
             </div>
         </div>
-        <div class="border-t border-gray-800 mt-8 pt-4 text-center text-xs text-gray-500">
-            &copy; 2026 Portal Escola Elza - Todos os direitos reservados.
+
+        <div class="max-w-7xl mx-auto px-4 md:px-6 pt-6 text-center text-teal-200/50">
+            &copy; 2026 Portal Escola Elza. Desenvolvido para e pelos estudantes da EEEFM Elza Lemos Andreatta.
         </div>
     </footer>
 
+    <!-- SCRIPTS INTERATIVOS: MENU, PREVIEW DE IMAGEM E SUBMISSÃO -->
     <script>
-        const btnMenuMobile = document.getElementById('btn-menu-mobile');
+        // Menu Mobile
+        const btnMenu = document.getElementById('btn-menu');
         const mobileMenu = document.getElementById('mobile-menu');
-        const iconHamb = document.getElementById('icon-hamb');
-        const iconClose = document.getElementById('icon-close');
+        btnMenu.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
 
-        btnMenuMobile.addEventListener('click', () => {
-            const isHidden = mobileMenu.classList.contains('hidden');
-            if (isHidden) {
-                mobileMenu.classList.remove('hidden');
-                mobileMenu.classList.add('flex');
-                iconHamb.classList.add('hidden');
-                iconClose.classList.remove('hidden');
-            } else {
-                mobileMenu.classList.add('hidden');
-                mobileMenu.classList.remove('flex');
-                iconHamb.classList.remove('hidden');
-                iconClose.classList.add('hidden');
+        // Preview da Imagem Carregada
+        let imagemBase64 = '';
+
+        function mostrarPreview(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    imagemBase64 = e.target.result;
+                    document.getElementById('img-preview').src = imagemBase64;
+                    document.getElementById('container-preview').classList.remove('hidden');
+                }
+                reader.readAsDataURL(file);
             }
+        }
+
+        function removerImagem() {
+            document.getElementById('input-imagem').value = '';
+            document.getElementById('container-preview').classList.add('hidden');
+            document.getElementById('img-preview').src = '';
+            imagemBase64 = '';
+        }
+
+        // Simulação de Publicação em Tempo Real
+        document.getElementById('form-publicacao').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const autor = document.getElementById('autor').value;
+            const categoria = document.getElementById('categoria').value;
+            const titulo = document.getElementById('titulo').value;
+            const resumo = document.getElementById('resumo').value;
+
+            // Criar Card do novo post
+            const novoCard = document.createElement('div');
+            novoCard.className = 'bg-pub-card rounded-2xl p-5 border border-teal-200/70 shadow-sm flex flex-col justify-between space-y-3 animate-fade-in';
+
+            let tagImagem = imagemBase64 ? `<img src="${imagemBase64}" class="w-full h-32 object-cover rounded-xl mb-2">` : '';
+
+            novoCard.innerHTML = `
+                ${tagImagem}
+                <div class="space-y-2">
+                    <div class="flex items-center justify-between">
+                        <span class="bg-teal-100 text-teal-800 text-[10px] font-bold px-2 py-0.5 rounded-md uppercase">${categoria}</span>
+                        <span class="text-[10px] text-slate-400">Agora mesmo</span>
+                    </div>
+                    <h3 class="font-bold text-sm text-slate-800">${titulo}</h3>
+                    <p class="text-xs text-slate-600 line-clamp-2">${resumo}</p>
+                </div>
+                <div class="text-[11px] text-slate-400 font-medium pt-2 border-t border-slate-100 flex justify-between">
+                    <span>Autor: ${autor}</span>
+                    <span class="text-emerald-600 font-bold">● Publicado</span>
+                </div>
+            `;
+
+            // Adicionar no topo da lista
+            const lista = document.getElementById('lista-publicacoes');
+            lista.insertBefore(novoCard, lista.firstChild);
+
+            // Alerta e Reset
+            document.getElementById('alerta-sucesso').classList.remove('hidden');
+            this.reset();
+            removerImagem();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         });
     </script>
 </body>
