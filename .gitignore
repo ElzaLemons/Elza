@@ -1,0 +1,22 @@
+# Pastas de compilação do .NET
+**/bin/
+**/obj/
+
+# Arquivos de configurações locais / segredos
+**/appsettings.Development.json
+**/*.user
+**/*.userosscache
+**/*.sln.docstates
+
+# Banco de dados SQLite local (para não enviar o banco de testes para o Git)
+*.db
+*.db-shm
+*.db-wal
+
+# Pastas de IDEs (VS Code, Visual Studio, Rider)
+.vscode/
+.idea/
+*.suo
+
+# Logs
+*.log
