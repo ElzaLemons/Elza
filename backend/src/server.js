@@ -8,7 +8,7 @@ const { getDatabase } = require('./database');
 const { authMiddleware, requireProfiles, signToken } = require('./middleware/auth');
 
 const app = express();
-const port = Number(process.env.PORT || 3333);
+const port = Number(process.env.PORT || 5000);
 
 const configuredOrigins = (process.env.CORS_ORIGIN || '').split(',').map((origin) => origin.trim()).filter(Boolean);
 app.use(cors({
@@ -227,7 +227,10 @@ app.use((error, _req, res, _next) => {
 
 if (require.main === module) {
   getDatabase()
-    .then(() => app.listen(port, () => console.log(`API disponível em http://localhost:${port}`)))
+    .then(() => {
+      console.log('Usuários de teste prontos: admin@elza.com e redator@elza.com');
+      app.listen(port, () => console.log(`API disponível em http://localhost:${port}`));
+    })
     .catch((error) => {
       console.error(error);
       process.exitCode = 1;

@@ -1,5 +1,7 @@
 (function () {
-    const API_BASE = window.API_URL || (window.location.protocol === 'file:' ? 'http://localhost:3333' : window.location.origin);
+    const localHosts = ['localhost', '127.0.0.1', '[::1]'];
+    const isLocalDevelopment = window.location.protocol === 'file:' || localHosts.includes(window.location.hostname);
+    const API_BASE = window.API_URL || (isLocalDevelopment ? 'http://localhost:5000' : window.location.origin);
     window.API_BASE = API_BASE;
 
     function getUser() {

@@ -37,6 +37,12 @@ Transformar o protótipo visual atual (páginas HTML/JS/Tailwind na pasta `WebSi
 
     Upload de Arquivos: previsto para a próxima etapa; os metadados já estão em `media_files`
 
+### Acesso e configuração da API
+
+A porta padrão da API é `5000` (`PORT` no arquivo `backend/.env`). Em desenvolvimento local, o front-end usa essa porta automaticamente quando aberto em `localhost`, `127.0.0.1` ou como arquivo local. Em implantação, configure `window.API_URL` antes de carregar `js/auth.js` quando o endereço da API for diferente da origem do site, e inclua a origem autorizada do site em `CORS_ORIGIN`.
+
+O acesso em redes corporativas depende das regras de firewall e proxy do ambiente. Use apenas endereços e portas autorizados pela equipe de TI; esta configuração não contorna bloqueios de rede.
+
 🗄️ Esquema de Tabelas (SQLite)
 
 O esquema completo está implementado em `backend/src/database.js` e cobre autenticação, sugestões, publicações, moderação, mídia, eventos, eletivas, consentimentos e auditoria.

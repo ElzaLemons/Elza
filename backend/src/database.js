@@ -379,6 +379,21 @@ async function seed(db) {
     await db.run('INSERT OR IGNORE INTO roles (nome, descricao) VALUES (?, ?)', nome, descricao);
   }
 
+  await ensureTestUser(db, {
+    nome: 'Administrador de Teste',
+    email: 'admin@elza.com',
+    senha: 'admin123',
+    perfil: 'admin',
+    role: 'administrador',
+  });
+  await ensureTestUser(db, {
+    nome: 'Redator de Teste',
+    email: 'redator@elza.com',
+    senha: 'redator123',
+    perfil: 'estudante',
+    role: 'estudante_autor',
+  });
+
   await ensureBootstrapUser(db, {
     nome: process.env.ADMIN_NAME,
     email: process.env.ADMIN_EMAIL,
@@ -427,6 +442,24 @@ async function seed(db) {
   for (const [codigo, nome] of eventCategories) {
     await db.run('INSERT OR IGNORE INTO event_categories (codigo, nome) VALUES (?, ?)', codigo, nome);
   }
+}
+
+async function ensureTestUser(db, { nome, email, senha, perfil, role }) {
+  const existingUser = await db.get('SELECT id FROM users WHERE email = ?', email);
+  let userId = existingUser?.id;
+
+  if (!userId) {
+    const passwordHash = await bcrypt.hash(senha, 12);
+    const result = await db.run(
+      `INSERT OR IGNORE INTO users (nome, email, senha_hash, perfil, ativo, email_verificado)
+       VALUES (?, ?, ?, ?, 1, 1)`,
+      nome, email, passwordHash, perfil,
+    );
+    userId = result.lastID || (await db.get('SELECT id FROM users WHERE email = ?', email))?.id;
+  }
+
+  const roleRecord = await db.get('SELECT id FROM roles WHERE nome = ?', role);
+  if (userId && roleRecord) await db.run('INSERT OR IGNORE INTO user_roles (user_id, role_id) VALUES (?, ?)', userId, roleRecord.id);
 }
 
 async function ensureBootstrapUser(db, { nome, email, senha, perfil, role, defaultName }) {

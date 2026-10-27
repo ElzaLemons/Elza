@@ -291,7 +291,7 @@
             if (!campoAutor.value) campoAutor.value = usuarioLogado.nome;
         }
 
-        document.getElementById('form-publicacao').addEventListener('submit', function(e) {
+        document.getElementById('form-publicacao').addEventListener('submit', async function(e) {
             e.preventDefault();
 
             const autor = document.getElementById('autor').value;
@@ -299,26 +299,31 @@
             const titulo = document.getElementById('titulo').value;
             const resumo = document.getElementById('resumo').value;
             const conteudo = document.getElementById('conteudo').value;
+            const token = localStorage.getItem('token');
 
-            window.auth.apiFetch('/api/artigos', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ autor_nome: autor, categoria, titulo, resumo, conteudo }),
-            })
-                .then(async (response) => {
-                    const data = await response.json();
-                    if (!response.ok) throw new Error(data.error || 'Não foi possível enviar a publicação.');
-                    return data;
-                })
-                .then(() => {
-                    window.auth.showToast('Publicação enviada para revisão.', 'success');
-                    document.getElementById('alerta-sucesso').classList.remove('hidden');
-                    this.reset();
-                    removerImagem();
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
-                    carregarMinhasPublicacoes();
-                })
-                .catch((error) => window.auth.showToast(error.message, 'error'));
+            if (!token) {
+                window.location.href = 'login.html';
+                return;
+            }
+
+            try {
+                const response = await window.auth.apiFetch('/api/artigos', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: `Bearer ${token}`,
+                    },
+                    body: JSON.stringify({ autor_nome: autor, categoria, titulo, resumo, conteudo }),
+                });
+                const data = await response.json();
+                if (!response.ok) throw new Error(data.error || 'Não foi possível enviar a publicação.');
+
+                window.auth.showToast('Publicação enviada para revisão.', 'success');
+                document.getElementById('alerta-sucesso').classList.remove('hidden');
+                window.setTimeout(() => { window.location.href = 'noticia.html'; }, 1200);
+            } catch (error) {
+                window.auth.showToast(error.message, 'error');
+            }
         });
 
         function escaparHtml(value) {
