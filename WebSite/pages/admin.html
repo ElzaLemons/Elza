@@ -7,6 +7,7 @@
 
     <!-- TAILWIND CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="../js/auth.js"></script>
 
     <!-- CONFIGURAÇÃO DA PALETA: ADMIN (INDIGO / SLATE / AMBER) -->
     <script>
@@ -58,7 +59,7 @@
 
             <!-- Links Desktop -->
             <nav class="hidden lg:flex items-center gap-1 text-xs font-semibold">
-                <a href="/WebSite/index.html" class="px-3 py-2 rounded-lg text-indigo-200 hover:bg-indigo-900 hover:text-white transition">Principal</a>
+                <a href="../index.html" class="px-3 py-2 rounded-lg text-indigo-200 hover:bg-indigo-900 hover:text-white transition">Principal</a>
                 <a href="noticia.html" class="px-3 py-2 rounded-lg text-indigo-200 hover:bg-indigo-900 hover:text-white transition">Notícias</a>
                 <a href="onu.html" class="px-3 py-2 rounded-lg text-indigo-200 hover:bg-indigo-900 hover:text-white transition">Ser ONU</a>
                 <a href="vozes_negras.html" class="px-3 py-2 rounded-lg text-indigo-200 hover:bg-indigo-900 hover:text-white transition">Vozes Negras</a>
@@ -66,7 +67,7 @@
                 <a href="sugestao.html" class="px-3 py-2 rounded-lg text-indigo-200 hover:bg-indigo-900 hover:text-white transition">Sugestões</a>
                 <a href="publicacao.html" class="px-3 py-2 rounded-lg text-indigo-200 hover:bg-indigo-900 hover:text-white transition">Publicação</a>
                 <a href="eventos.html" class="px-3 py-2 rounded-lg text-indigo-200 hover:bg-indigo-900 hover:text-white transition">Eventos</a>
-                <a href="admin.html" class="px-3 py-2 rounded-lg bg-adm-principal text-white shadow-sm border border-indigo-400/30">Admin</a>
+                <a href="admin.html" class="px-3 py-2 rounded-lg bg-adm-principal text-white shadow-sm border border-indigo-400/30">Login</a>
             </nav>
         </div>
 
@@ -80,7 +81,7 @@
             <a href="sugestao.html" class="block px-3 py-2 rounded-lg text-indigo-200 hover:bg-indigo-950">Sugestões</a>
             <a href="publicacao.html" class="block px-3 py-2 rounded-lg text-indigo-200 hover:bg-indigo-950">Publicação</a>
             <a href="eventos.html" class="block px-3 py-2 rounded-lg text-indigo-200 hover:bg-indigo-950">Eventos</a>
-            <a href="admin.html" class="block px-3 py-2 rounded-lg bg-adm-principal text-white font-bold">Painel Admin</a>
+            <a href="admin.html" class="block px-3 py-2 rounded-lg bg-adm-principal text-white font-bold">Login</a>
         </div>
     </header>
 
@@ -370,8 +371,9 @@
 
     <!-- LÓGICA JAVASCRIPT DO PAINEL ADMIN -->
     <script>
-        const apiToken = localStorage.getItem('portal_token');
-        if (!apiToken) {
+        const apiToken = localStorage.getItem('token');
+        const currentUser = JSON.parse(localStorage.getItem('user') || 'null');
+        if (!apiToken || !currentUser || currentUser.perfil !== 'admin') {
             window.location.href = 'login.html?redirect=admin.html';
         }
 

@@ -5,11 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Portal Escola Elza</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="../js/auth.js"></script>
 </head>
 <body class="min-h-screen bg-slate-950 flex items-center justify-center p-4">
     <main class="w-full max-w-md bg-white rounded-3xl p-8 shadow-xl">
-        <h1 class="text-2xl font-extrabold text-slate-900">Acesso administrativo</h1>
-        <p class="text-sm text-slate-500 mt-2">Entre com sua conta autorizada para acessar o painel.</p>
+        <h1 class="text-2xl font-extrabold text-slate-900">Acesso ao Portal</h1>
+        <p class="text-sm text-slate-500 mt-2">Entre com sua senha de publicador ou administrador para acessar as áreas autorizadas.</p>
         <form id="form-login" class="space-y-4 mt-6">
             <label class="block text-sm font-semibold text-slate-700">E-mail
                 <input id="email" type="email" required autocomplete="email" class="mt-1 w-full rounded-xl border border-slate-300 px-3 py-2">
@@ -26,7 +27,7 @@
             event.preventDefault();
             const errorElement = document.getElementById('login-error');
             try {
-                const response = await fetch(`${window.API_URL || 'http://localhost:3333'}/api/auth/login`, {
+                const response = await window.auth.apiFetch('/api/auth/login', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
@@ -36,12 +37,18 @@
                 });
                 const data = await response.json();
                 if (!response.ok) throw new Error(data.error || 'Não foi possível entrar.');
-                localStorage.setItem('portal_token', data.token);
-                const redirect = new URLSearchParams(window.location.search).get('redirect') || 'admin.html';
+                localStorage.setItem('token', data.token);
+                localStorage.setItem('user', JSON.stringify(data.user));
+                window.auth.showToast(`Bem-vindo(a), ${data.user.nome}!`, 'success');
+                const defaultRedirect = data.user.perfil === 'admin' ? 'admin.html' : 'publicacao.html';
+                const requestedRedirect = new URLSearchParams(window.location.search).get('redirect') || '';
+                const allowedRedirects = ['admin.html', 'publicacao.html'];
+                const redirect = allowedRedirects.includes(requestedRedirect) ? requestedRedirect : defaultRedirect;
                 window.location.href = redirect;
             } catch (error) {
                 errorElement.textContent = error.message;
                 errorElement.classList.remove('hidden');
+                window.auth.showToast(error.message, 'error');
             }
         });
     </script>

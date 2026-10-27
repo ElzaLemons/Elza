@@ -7,6 +7,7 @@
 
     <!-- TAILWIND CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="../js/auth.js"></script>
 
     <!-- CONFIGURAÇÃO DA PALETA EXCLUSIVA: SUGESTÕES -->
     <script>
@@ -59,7 +60,7 @@
 
             <!-- Links Desktop -->
             <nav class="hidden lg:flex items-center gap-1 text-xs font-semibold">
-                <a href="/WebSite/index.html" class="px-3 py-2 rounded-lg text-stone-300 hover:bg-stone-800 hover:text-white transition">Principal</a>
+                <a href="../index.html" class="px-3 py-2 rounded-lg text-stone-300 hover:bg-stone-800 hover:text-white transition">Principal</a>
                 <a href="noticia.html" class="px-3 py-2 rounded-lg text-stone-300 hover:bg-stone-800 hover:text-white transition">Notícias</a>
                 <a href="onu.html" class="px-3 py-2 rounded-lg text-stone-300 hover:bg-stone-800 hover:text-white transition">Ser ONU</a>
                 <a href="vozes_negras.html" class="px-3 py-2 rounded-lg text-stone-300 hover:bg-stone-800 hover:text-white transition">Vozes Negras</a>
@@ -67,13 +68,13 @@
                 <a href="sugestao.html" class="px-3 py-2 rounded-lg bg-sug-principal text-white shadow-sm">Sugestões</a>
                 <a href="publicacao.html" class="px-3 py-2 rounded-lg text-stone-300 hover:bg-stone-800 hover:text-white transition">Publicação</a>
                 <a href="eventos.html" class="px-3 py-2 rounded-lg text-stone-300 hover:bg-stone-800 hover:text-white transition">Eventos</a>
-                <a href="admin.html" class="px-3 py-2 rounded-lg bg-stone-800 text-amber-400 hover:bg-stone-700 transition ml-2 border border-stone-700">Admin</a>
+                <a href="admin.html" class="px-3 py-2 rounded-lg bg-stone-800 text-amber-400 hover:bg-stone-700 transition ml-2 border border-stone-700">Login</a>
             </nav>
         </div>
 
         <!-- Menu Mobile Dropdown -->
         <div id="mobile-menu" class="hidden lg:hidden bg-sug-escuro border-t border-stone-800 px-4 py-4 space-y-2 text-sm font-medium">
-            <a href="/WebSite/index.html" class="block px-3 py-2 rounded-lg text-stone-300 hover:bg-stone-800">Principal</a>
+            <a href="../index.html" class="block px-3 py-2 rounded-lg text-stone-300 hover:bg-stone-800">Principal</a>
             <a href="noticia.html" class="block px-3 py-2 rounded-lg text-stone-300 hover:bg-stone-800">Notícias</a>
             <a href="onu.html" class="block px-3 py-2 rounded-lg text-stone-300 hover:bg-stone-800">Ser ONU</a>
             <a href="vozes_negras.html" class="block px-3 py-2 rounded-lg text-stone-300 hover:bg-stone-800">Vozes Negras</a>
@@ -81,7 +82,7 @@
             <a href="sugestao.html" class="block px-3 py-2 rounded-lg bg-sug-principal text-white font-bold">Sugestões</a>
             <a href="publicacao.html" class="block px-3 py-2 rounded-lg text-stone-300 hover:bg-stone-800">Publicação</a>
             <a href="eventos.html" class="block px-3 py-2 rounded-lg text-stone-300 hover:bg-stone-800">Eventos</a>
-            <a href="admin.html" class="block px-3 py-2 rounded-lg bg-stone-800 text-amber-400 font-bold">Painel Admin</a>
+            <a href="admin.html" class="block px-3 py-2 rounded-lg bg-stone-800 text-amber-400 font-bold">Login</a>
         </div>
     </header>
 
@@ -327,18 +328,18 @@
             };
 
             try {
-                const response = await fetch(`${window.API_URL || 'http://localhost:3333'}/api/sugestoes`, {
+                const response = await window.auth.apiFetch('/api/sugestoes', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(payload),
                 });
                 const data = await response.json();
                 if (!response.ok) throw new Error(data.error || 'Não foi possível enviar a sugestão.');
-                alert('Sugestão enviada com sucesso. Obrigado por colaborar com a escola!');
+                window.auth.showToast('Sugestão enviada com sucesso. Obrigado por colaborar com a escola!', 'success');
                 form.reset();
                 toggleAnonimo(false);
             } catch (error) {
-                alert(error.message);
+                window.auth.showToast(error.message, 'error');
             }
         });
     </script>

@@ -10,7 +10,13 @@ const { authMiddleware, requireProfiles, signToken } = require('./middleware/aut
 const app = express();
 const port = Number(process.env.PORT || 3333);
 
-app.use(cors({ origin: process.env.CORS_ORIGIN || true }));
+const configuredOrigins = (process.env.CORS_ORIGIN || '').split(',').map((origin) => origin.trim()).filter(Boolean);
+app.use(cors({
+  origin(origin, callback) {
+    if (!origin || !configuredOrigins.length || configuredOrigins.includes(origin) || origin === `http://localhost:${port}`) return callback(null, true);
+    return callback(new Error('Origem não autorizada pelo CORS'));
+  },
+}));
 app.use(express.json({ limit: '1mb' }));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.resolve(__dirname, '../../WebSite')));
@@ -103,8 +109,10 @@ app.get('/api/artigos', async (req, res, next) => {
   try {
     const db = await getDatabase();
     const articles = await db.all(
-      `SELECT a.*, c.codigo AS categoria_codigo, c.nome AS categoria_nome
+      `SELECT a.*, c.codigo AS categoria_codigo, c.nome AS categoria_nome, mf.public_url AS imagem_url
        FROM articles a LEFT JOIN article_categories c ON c.id = a.category_id
+       LEFT JOIN article_media am ON am.article_id = a.id AND am.is_cover = 1
+       LEFT JOIN media_files mf ON mf.id = am.media_id
        WHERE a.deleted_at IS NULL AND a.status = 'publicado'
        ORDER BY a.published_at DESC, a.created_at DESC`,
     );
@@ -114,7 +122,25 @@ app.get('/api/artigos', async (req, res, next) => {
   }
 });
 
-app.post('/api/artigos', async (req, res, next) => {
+app.get('/api/artigos/:id', async (req, res, next) => {
+  try {
+    const db = await getDatabase();
+    const article = await db.get(
+      `SELECT a.*, c.codigo AS categoria_codigo, c.nome AS categoria_nome, mf.public_url AS imagem_url
+       FROM articles a LEFT JOIN article_categories c ON c.id = a.category_id
+       LEFT JOIN article_media am ON am.article_id = a.id AND am.is_cover = 1
+       LEFT JOIN media_files mf ON mf.id = am.media_id
+       WHERE a.id = ? AND a.deleted_at IS NULL AND a.status = 'publicado'`,
+      req.params.id,
+    );
+    if (!article) return res.status(404).json({ error: 'Notícia não encontrada' });
+    res.json(article);
+  } catch (error) {
+    next(error);
+  }
+});
+
+app.post('/api/artigos', authMiddleware, requireProfiles('estudante', 'professor', 'coordenador', 'diretor', 'admin'), async (req, res, next) => {
   try {
     const { autor_nome, categoria, titulo, resumo, conteudo } = req.body;
     if (!autor_nome || !categoria || !titulo || !resumo || !conteudo) {
@@ -124,11 +150,29 @@ app.post('/api/artigos', async (req, res, next) => {
     const category = await db.get('SELECT id FROM article_categories WHERE codigo = ? AND ativo = 1', categoria);
     if (!category) return res.status(400).json({ error: 'Categoria de artigo inválida' });
     const result = await db.run(
-      `INSERT INTO articles (autor_nome, category_id, titulo, resumo, conteudo, status)
-       VALUES (?, ?, ?, ?, ?, 'aguardando_coordenacao')`,
-      autor_nome.trim(), category.id, titulo.trim(), resumo.trim(), conteudo.trim(),
+      `INSERT INTO articles (author_id, autor_nome, category_id, titulo, resumo, conteudo, status)
+       VALUES (?, ?, ?, ?, ?, ?, 'aguardando_coordenacao')`,
+      req.user.sub, autor_nome.trim(), category.id, titulo.trim(), resumo.trim(), conteudo.trim(),
     );
     res.status(201).json({ id: result.lastID, status: 'aguardando_coordenacao' });
+  } catch (error) {
+    next(error);
+  }
+});
+
+app.get('/api/minhas-publicacoes', authMiddleware, requireProfiles('estudante', 'professor', 'coordenador', 'diretor', 'admin'), async (req, res, next) => {
+  try {
+    const db = await getDatabase();
+    const articles = await db.all(
+      `SELECT a.id, a.autor_nome, a.titulo, a.resumo, a.status, a.motivo_recusa,
+              a.created_at, a.updated_at, a.published_at,
+              c.codigo AS categoria_codigo, c.nome AS categoria_nome
+       FROM articles a LEFT JOIN article_categories c ON c.id = a.category_id
+       WHERE a.author_id = ? AND a.deleted_at IS NULL
+       ORDER BY a.created_at DESC`,
+      req.user.sub,
+    );
+    res.json(articles);
   } catch (error) {
     next(error);
   }

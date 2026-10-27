@@ -7,6 +7,7 @@
 
     <!-- TAILWIND CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="../js/auth.js"></script>
 
     <!-- CONFIGURAÇÃO DA PALETA DE CORES DA ESCOLA -->
     <script>
@@ -60,7 +61,7 @@
 
             <!-- Links Desktop -->
             <nav class="hidden lg:flex items-center gap-1 text-xs font-semibold">
-                <a href="/WebSite/index.html" class="px-3 py-2 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white transition">Principal</a>
+                <a href="../index.html" class="px-3 py-2 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white transition">Principal</a>
                 <a href="noticia.html" class="px-3 py-2 rounded-lg bg-escola-primaria text-white">Notícias</a>
                 <a href="onu.html" class="px-3 py-2 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white transition">Ser ONU</a>
                 <a href="vozes_negras.html" class="px-3 py-2 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white transition">Vozes Negras</a>
@@ -68,7 +69,7 @@
                 <a href="sugestao.html" class="px-3 py-2 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white transition">Sugestões</a>
                 <a href="publicacao.html" class="px-3 py-2 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white transition">Publicação</a>
                 <a href="eventos.html" class="px-3 py-2 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white transition">Eventos</a>
-                <a href="admin.html" class="px-3 py-2 rounded-lg bg-slate-800 text-amber-400 hover:bg-slate-700 transition ml-2 border border-slate-700">Admin</a>
+                <a href="admin.html" class="px-3 py-2 rounded-lg bg-slate-800 text-amber-400 hover:bg-slate-700 transition ml-2 border border-slate-700">Login</a>
             </nav>
         </div>
 
@@ -82,7 +83,7 @@
             <a href="sugestao.html" class="block px-3 py-2 rounded-lg text-slate-300 hover:bg-slate-800">Sugestões</a>
             <a href="publicacao.html" class="block px-3 py-2 rounded-lg text-slate-300 hover:bg-slate-800">Publicação</a>
             <a href="eventos.html" class="block px-3 py-2 rounded-lg text-slate-300 hover:bg-slate-800">Eventos</a>
-            <a href="admin.html" class="block px-3 py-2 rounded-lg bg-slate-800 text-amber-400 font-bold">Painel Admin</a>
+            <a href="admin.html" class="block px-3 py-2 rounded-lg bg-slate-800 text-amber-400 font-bold">Login</a>
         </div>
     </header>
 
@@ -102,13 +103,13 @@
             <!-- HEADER DA NOTÍCIA -->
             <header class="space-y-3 border-b border-slate-100 pb-6">
                 <div class="flex items-center gap-2">
-                    <span class="bg-escola-mangue text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+                    <span id="article-category" class="bg-escola-mangue text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
                         NeaOnnim
                     </span>
-                    <span class="text-xs text-slate-400 font-medium">• 18 de Agosto de 2026</span>
+                    <span id="article-date" class="text-xs text-slate-400 font-medium"></span>
                 </div>
 
-                <h1 class="text-2xl md:text-4xl font-extrabold text-escola-secundaria leading-tight">
+                <h1 id="article-title" class="text-2xl md:text-4xl font-extrabold text-escola-secundaria leading-tight">
                     Projeto de Automação e Sustentabilidade avança para a etapa regional de Ciência
                 </h1>
 
@@ -118,22 +119,20 @@
                         PC
                     </div>
                     <div>
-                        <p class="text-xs font-bold text-escola-secundaria">Prof. Carlos Eduardo</p>
-                        <p class="text-[11px] text-slate-500">Coordenador do Projeto NeaOnnim</p>
+                        <p id="article-author" class="text-xs font-bold text-escola-secundaria"></p>
+                        <p class="text-[11px] text-slate-500">Autor da publicação</p>
                     </div>
                 </div>
             </header>
 
             <!-- MÍDIA EM DESTAQUE -->
             <div class="rounded-2xl overflow-hidden shadow-sm bg-slate-100">
-                <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=1000" alt="Imagem da notícia" class="w-full h-80 md:h-[420px] object-cover">
-                <p class="text-[11px] text-slate-500 italic p-3 text-center bg-slate-50 border-t border-slate-100">
-                    Estudantes ajustando os sensores de monitoramento de água no laboratório da escola.
-                </p>
+                <img id="article-image" src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=1000" alt="Imagem da notícia" class="w-full h-80 md:h-[420px] object-cover">
+                <p id="article-caption" class="text-[11px] text-slate-500 italic p-3 text-center bg-slate-50 border-t border-slate-100"></p>
             </div>
 
             <!-- CORPO DO TEXTO -->
-            <div class="text-slate-700 text-sm md:text-base leading-relaxed space-y-4 pt-2">
+            <div id="article-content" class="text-slate-700 text-sm md:text-base leading-relaxed space-y-4 pt-2">
                 <p class="font-semibold text-slate-900 text-base md:text-lg">
                     Os alunos integrantes do projeto de extensão científica NeaOnnim alcançaram uma importante conquista para a EEEFM Elza Lemos Andreatta ao garantir vaga na fase regional da Feira de Ciência e Tecnologia.
                 </p>
@@ -154,7 +153,7 @@
             <!-- RODAPÉ DA MATÉRIA (Sem o botão público de criação) -->
             <footer class="pt-6 border-t border-slate-100">
                 <span class="text-xs text-slate-500 font-medium">
-                    Categoria: <strong class="text-escola-secundaria">NeaOnnim / Iniciação Científica</strong>
+                    Categoria: <strong id="article-category-footer" class="text-escola-secundaria"></strong>
                 </span>
             </footer>
 
@@ -210,6 +209,29 @@
         btnMenu.addEventListener('click', () => {
             mobileMenu.classList.toggle('hidden');
         });
+    </script>
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const articleId = params.get('id');
+        const content = document.getElementById('article-content');
+        const article = { title: document.getElementById('article-title'), author: document.getElementById('article-author'), category: document.getElementById('article-category'), categoryFooter: document.getElementById('article-category-footer'), date: document.getElementById('article-date'), image: document.getElementById('article-image'), caption: document.getElementById('article-caption') };
+        const friendlyError = (message) => { content.innerHTML = `<div class="rounded-2xl bg-red-50 p-6 text-center text-red-700"><p class="font-bold">${message}</p><a href="noticia.html" class="inline-block mt-4 rounded-xl bg-escola-secundaria px-4 py-2 text-white">Voltar para notícias</a></div>`; };
+        article.title.textContent = 'Carregando notícia...';
+        content.innerHTML = '<p class="text-slate-500">Carregando o conteúdo completo...</p>';
+        if (!articleId) friendlyError('Notícia não encontrada.');
+        else window.auth.apiFetch(`/api/artigos/${encodeURIComponent(articleId)}`).then(async (response) => {
+            const data = await response.json();
+            if (!response.ok) throw new Error(data.error || 'Não foi possível carregar esta notícia.');
+            article.title.textContent = data.titulo;
+            article.author.textContent = data.autor_nome;
+            article.category.textContent = data.categoria_nome || data.categoria_codigo || 'Notícia';
+            article.categoryFooter.textContent = article.category.textContent;
+            article.date.textContent = `• ${new Date((data.published_at || data.created_at).replace(' ', 'T')).toLocaleDateString('pt-BR')}`;
+            if (data.imagem_url) article.image.src = data.imagem_url;
+            article.caption.textContent = data.resumo || '';
+            content.innerHTML = '';
+            String(data.conteudo || '').split(/\n{2,}|\n/).filter(Boolean).forEach((paragraph) => { const p = document.createElement('p'); p.textContent = paragraph; content.appendChild(p); });
+        }).catch((error) => friendlyError(error.message));
     </script>
 </body>
 </html>

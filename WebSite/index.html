@@ -7,6 +7,7 @@
 
     <!-- TAILWIND CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="js/auth.js"></script>
 
     <!-- CONFIGURAÇÃO DA PALETA DE CORES (ALTERE AQUI O FUNDO E DEMAIS CORES) -->
     <script>
@@ -68,7 +69,7 @@
                 <a href="pages/sugestao.html" class="px-3 py-2 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white transition">Sugestões</a>
                 <a href="pages/publicacao.html" class="px-3 py-2 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white transition">Publicação</a>
                 <a href="pages/eventos.html" class="px-3 py-2 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white transition">Eventos</a>
-                <a href="pages/admin.html" class="px-3 py-2 rounded-lg bg-slate-800 text-amber-400 hover:bg-slate-700 transition ml-2 border border-slate-700">Admin</a>
+                <a href="pages/admin.html" class="px-3 py-2 rounded-lg bg-slate-800 text-amber-400 hover:bg-slate-700 transition ml-2 border border-slate-700">Login</a>
             </nav>
         </div>
 
@@ -82,7 +83,7 @@
             <a href="pages/sugestao.html" class="block px-3 py-2 rounded-lg text-slate-300 hover:bg-slate-800">Sugestões</a>
             <a href="pages/publicacao.html" class="block px-3 py-2 rounded-lg text-slate-300 hover:bg-slate-800">Publicação</a>
             <a href="pages/eventos.html" class="block px-3 py-2 rounded-lg text-slate-300 hover:bg-slate-800">Eventos</a>
-            <a href="pages/admin.html" class="block px-3 py-2 rounded-lg bg-slate-800 text-amber-400 font-bold">Painel Admin</a>
+            <a href="pages/admin.html" class="block px-3 py-2 rounded-lg bg-slate-800 text-amber-400 font-bold">Login</a>
         </div>
     </header>
 
@@ -165,7 +166,7 @@
                     <a href="pages/noticia.html" class="text-xs font-bold text-escola-secundaria hover:underline">Ver todas</a>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                <div id="home-noticias" class="grid grid-cols-1 md:grid-cols-2 gap-5">
                     <!-- Card Notícia 1 -->
                     <article class="bg-escola-card rounded-2xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-md transition flex flex-col justify-between">
                         <div>
@@ -302,6 +303,17 @@
         btnMenu.addEventListener('click', () => {
             mobileMenu.classList.toggle('hidden');
         });
+    </script>
+    <script>
+        const homeNews = document.getElementById('home-noticias');
+        const homeEscape = (value) => String(value || '').replace(/[&<>'"]/g, (char) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' })[char]);
+        window.auth.apiFetch('/api/artigos').then((response) => { if (!response.ok) throw new Error(); return response.json(); }).then((articles) => {
+            homeNews.innerHTML = '';
+            articles.slice(0, 2).forEach((article) => {
+                homeNews.innerHTML += `<article class="bg-escola-card rounded-2xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-md transition flex flex-col justify-between"><div><a href="pages/noticia-detalhe.html?id=${encodeURIComponent(article.id)}" class="block h-40 bg-slate-200 relative overflow-hidden"><img src="${homeEscape(article.imagem_url || 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=500')}" alt="" class="w-full h-full object-cover"></a><div class="p-4 space-y-2"><span class="text-[11px] text-slate-400 font-semibold">${homeEscape(article.autor_nome)}</span><h3 class="font-bold text-base text-escola-secundaria leading-snug">${homeEscape(article.titulo)}</h3><p class="text-xs text-slate-600 line-clamp-3">${homeEscape(article.resumo)}</p></div></div><div class="p-4 pt-0"><a href="pages/noticia-detalhe.html?id=${encodeURIComponent(article.id)}" class="inline-block text-xs font-bold text-escola-primaria hover:underline">Ler matéria completa &rarr;</a></div></article>`;
+            });
+            if (!articles.length) homeNews.innerHTML = '<p class="text-sm text-slate-500">Ainda não há publicações aprovadas.</p>';
+        }).catch(() => { /* Mantém a apresentação estática quando a API ainda estiver indisponível. */ });
     </script>
 </body>
 </html>

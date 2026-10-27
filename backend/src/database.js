@@ -1,6 +1,7 @@
 const fs = require('node:fs');
 const path = require('node:path');
 const sqlite3 = require('sqlite3');
+const bcrypt = require('bcryptjs');
 const { open } = require('sqlite');
 
 const dataDir = path.resolve(__dirname, '..');
@@ -378,6 +379,23 @@ async function seed(db) {
     await db.run('INSERT OR IGNORE INTO roles (nome, descricao) VALUES (?, ?)', nome, descricao);
   }
 
+  await ensureBootstrapUser(db, {
+    nome: process.env.ADMIN_NAME,
+    email: process.env.ADMIN_EMAIL,
+    senha: process.env.ADMIN_PASSWORD,
+    perfil: 'admin',
+    role: 'administrador',
+    defaultName: 'Administrador do Portal',
+  });
+  await ensureBootstrapUser(db, {
+    nome: process.env.PUBLISHER_NAME,
+    email: process.env.PUBLISHER_EMAIL,
+    senha: process.env.PUBLISHER_PASSWORD,
+    perfil: 'estudante',
+    role: 'estudante_autor',
+    defaultName: 'Publicador do Portal',
+  });
+
   const suggestions = [
     ['infraestrutura', 'Melhoria de Espaço & Infraestrutura'],
     ['projeto', 'Ideia para Projeto / Evento'],
@@ -409,6 +427,26 @@ async function seed(db) {
   for (const [codigo, nome] of eventCategories) {
     await db.run('INSERT OR IGNORE INTO event_categories (codigo, nome) VALUES (?, ?)', codigo, nome);
   }
+}
+
+async function ensureBootstrapUser(db, { nome, email, senha, perfil, role, defaultName }) {
+  if (!email || !senha) return;
+  const normalizedEmail = email.trim().toLowerCase();
+  const passwordHash = await bcrypt.hash(senha, 12);
+  await db.run(
+    `INSERT OR IGNORE INTO users (nome, email, senha_hash, perfil, ativo, email_verificado)
+     VALUES (?, ?, ?, ?, 1, 1)`,
+    nome || defaultName, normalizedEmail, passwordHash, perfil,
+  );
+  // Mantém o usuário de teste utilizável mesmo quando o banco já existe.
+  await db.run(
+    `UPDATE users SET nome = ?, senha_hash = ?, perfil = ?, ativo = 1, email_verificado = 1,
+     updated_at = CURRENT_TIMESTAMP WHERE email = ?`,
+    nome || defaultName, passwordHash, perfil, normalizedEmail,
+  );
+  const user = await db.get('SELECT id FROM users WHERE email = ?', normalizedEmail);
+  const roleRecord = await db.get('SELECT id FROM roles WHERE nome = ?', role);
+  if (user && roleRecord) await db.run('INSERT OR IGNORE INTO user_roles (user_id, role_id) VALUES (?, ?)', user.id, roleRecord.id);
 }
 
 module.exports = { getDatabase, databasePath };
