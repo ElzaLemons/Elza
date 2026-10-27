@@ -20,3 +20,8 @@
 
 # Logs
 *.log
+
+# Node.js
+node_modules/
+backend/uploads/
+backend/.env

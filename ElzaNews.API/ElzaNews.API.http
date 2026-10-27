@@ -1,6 +1,0 @@
-@ElzaNews.API_HostAddress = http://localhost:5234
-
-GET {{ElzaNews.API_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###

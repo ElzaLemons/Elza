@@ -40,7 +40,7 @@
         <div class="max-w-7xl mx-auto px-4 md:px-6 py-3 flex items-center justify-between">
             
             <!-- Logo Institucional -->
-            <a href="index.html" class="flex items-center gap-3 group">
+            <a href="../index.html" class="flex items-center gap-3 group">
                 <div class="bg-sug-principal p-2 rounded-xl text-white font-bold text-lg group-hover:scale-105 transition shadow-sm">
                     💡
                 </div>
@@ -120,7 +120,7 @@
                     <p class="text-xs text-slate-500 mt-1">Preencha os campos abaixo. Sua mensagem será enviada diretamente para a gestão e grêmio.</p>
                 </div>
 
-                <form action="#" method="POST" class="space-y-5" onsubmit="event.preventDefault(); alert('Sugestão enviada com sucesso! Obrigado por colaborar com a Escola Elza.'); this.reset();">
+                <form id="form-sugestao" class="space-y-5">
                     
                     <!-- Opção Anônimo Toggle -->
                     <div class="bg-amber-50 border border-amber-200/70 p-4 rounded-2xl flex items-center justify-between">
@@ -257,7 +257,7 @@
             <div>
                 <h3 class="font-bold text-sm mb-3 text-white border-b border-stone-800 pb-2">Navegação Rápida</h3>
                 <ul class="space-y-2 text-stone-400">
-                    <li><a href="index.html" class="hover:text-sug-principal transition">Início</a></li>
+                    <li><a href="../index.html" class="hover:text-sug-principal transition">Início</a></li>
                     <li><a href="noticia.html" class="hover:text-sug-principal transition">Mural de Notícias</a></li>
                     <li><a href="sugestao.html" class="hover:text-sug-principal transition">Envie sua Sugestão</a></li>
                     <li><a href="publicacao.html" class="hover:text-sug-principal transition">Mural de Publicações</a></li>
@@ -306,10 +306,41 @@
                 nomeInput.value = '';
                 emailInput.value = '';
                 nomeInput.removeAttribute('required');
+                emailInput.removeAttribute('required');
             } else {
                 campos.classList.remove('opacity-40', 'pointer-events-none');
             }
         }
+
+        document.getElementById('form-sugestao').addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const form = event.currentTarget;
+            const anonimo = document.getElementById('anonimo-check').checked;
+            const payload = {
+                anonimo,
+                nome: anonimo ? null : document.getElementById('nome').value,
+                email: anonimo ? null : document.getElementById('email').value,
+                perfil: document.getElementById('perfil').value,
+                categoria: document.getElementById('categoria').value,
+                titulo: document.getElementById('titulo').value,
+                mensagem: document.getElementById('mensagem').value,
+            };
+
+            try {
+                const response = await fetch(`${window.API_URL || 'http://localhost:3333'}/api/sugestoes`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload),
+                });
+                const data = await response.json();
+                if (!response.ok) throw new Error(data.error || 'Não foi possível enviar a sugestão.');
+                alert('Sugestão enviada com sucesso. Obrigado por colaborar com a escola!');
+                form.reset();
+                toggleAnonimo(false);
+            } catch (error) {
+                alert(error.message);
+            }
+        });
     </script>
 </body>
 </html>

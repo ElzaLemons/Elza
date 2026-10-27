@@ -79,6 +79,17 @@ Espaço de utilidade pública para integração de processos escolares:
 * **Otimização de Mídias:** Imagens no formato WebP para baixo consumo de dados móveis.
 * **Incorporação de Serviços:** Suporte a links diretos e iFrames para preenchimento simples de formulários.
 
+### Back-end
+
+O back-end está em `backend/`, utiliza Node.js, Express e SQLite e inicializa o esquema completo automaticamente em `backend/database.db`. As rotas principais são:
+
+* `POST /api/auth/register` e `POST /api/auth/login`;
+* `POST /api/sugestoes` e `GET /api/eventos`;
+* `GET /api/artigos` e `POST /api/artigos`;
+* `POST /api/admin/eventos` e `PATCH /api/admin/artigos/:id/moderacao`.
+
+O antigo mural do Padlet foi removido do projeto. Conteúdos externos devem ser cadastrados futuramente pela tabela `external_links`.
+
 ---
 
 ## 🔄 5. Governança & Fluxo Editorial

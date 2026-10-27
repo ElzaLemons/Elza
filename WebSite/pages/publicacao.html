@@ -39,7 +39,7 @@
     <header class="bg-pub-escuro text-white sticky top-0 z-50 shadow-lg border-b border-pub-principal/30">
         <div class="max-w-7xl mx-auto px-4 md:px-6 py-3 flex items-center justify-between">
             
-            <a href="index.html" class="flex items-center gap-3 group">
+            <a href="../index.html" class="flex items-center gap-3 group">
                 <div class="bg-pub-principal p-2 rounded-xl text-white font-bold text-lg group-hover:scale-105 transition shadow-sm">
                     ✍️
                 </div>
@@ -136,10 +136,10 @@
                     <label for="categoria" class="block text-xs font-bold text-slate-700">Categoria do Conteúdo *</label>
                     <select id="categoria" required class="w-full px-4 py-2.5 rounded-xl border border-teal-200 text-xs focus:ring-2 focus:ring-pub-principal focus:outline-none bg-slate-50/50">
                         <option value="">Selecione uma opção</option>
-                        <option value="Notícia Geral">notícia Geral</option>
-                        <option value="Artigo Científico">Artigo Científico (NeaOnnim)</option>
-                        <option value="Diplomacia & Ser ONU">Diplomacia (Ser ONU)</option>
-                        <option value="Cultura Afro-Brasileira">Cultura (Vozes Negras)</option>
+                        <option value="noticia_geral">Notícia Geral</option>
+                        <option value="artigo_cientifico">Artigo Científico (NeaOnnim)</option>
+                        <option value="ser_onu">Diplomacia (Ser ONU)</option>
+                        <option value="cultura_afro">Cultura (Vozes Negras)</option>
                     </select>
                 </div>
             </div>
@@ -237,7 +237,7 @@
             <div>
                 <h3 class="font-bold text-sm mb-3 text-white border-b border-teal-800/50 pb-2">Navegação Rápida</h3>
                 <ul class="space-y-2 text-teal-100/70">
-                    <li><a href="index.html" class="hover:text-amber-400 transition">Início</a></li>
+                    <li><a href="../index.html" class="hover:text-amber-400 transition">Início</a></li>
                     <li><a href="noticia.html" class="hover:text-amber-400 transition">Mural de Notícias</a></li>
                     <li><a href="sugestao.html" class="hover:text-amber-400 transition">Envie sua Sugestão</a></li>
                     <li><a href="publicacao.html" class="hover:text-amber-400 transition">Nova Publicação</a></li>
@@ -297,7 +297,6 @@
             imagemBase64 = '';
         }
 
-        // Simulação de Publicação em Tempo Real
         document.getElementById('form-publicacao').addEventListener('submit', function(e) {
             e.preventDefault();
 
@@ -305,38 +304,25 @@
             const categoria = document.getElementById('categoria').value;
             const titulo = document.getElementById('titulo').value;
             const resumo = document.getElementById('resumo').value;
+            const conteudo = document.getElementById('conteudo').value;
 
-            // Criar Card do novo post
-            const novoCard = document.createElement('div');
-            novoCard.className = 'bg-pub-card rounded-2xl p-5 border border-teal-200/70 shadow-sm flex flex-col justify-between space-y-3 animate-fade-in';
-
-            let tagImagem = imagemBase64 ? `<img src="${imagemBase64}" class="w-full h-32 object-cover rounded-xl mb-2">` : '';
-
-            novoCard.innerHTML = `
-                ${tagImagem}
-                <div class="space-y-2">
-                    <div class="flex items-center justify-between">
-                        <span class="bg-teal-100 text-teal-800 text-[10px] font-bold px-2 py-0.5 rounded-md uppercase">${categoria}</span>
-                        <span class="text-[10px] text-slate-400">Agora mesmo</span>
-                    </div>
-                    <h3 class="font-bold text-sm text-slate-800">${titulo}</h3>
-                    <p class="text-xs text-slate-600 line-clamp-2">${resumo}</p>
-                </div>
-                <div class="text-[11px] text-slate-400 font-medium pt-2 border-t border-slate-100 flex justify-between">
-                    <span>Autor: ${autor}</span>
-                    <span class="text-emerald-600 font-bold">● Publicado</span>
-                </div>
-            `;
-
-            // Adicionar no topo da lista
-            const lista = document.getElementById('lista-publicacoes');
-            lista.insertBefore(novoCard, lista.firstChild);
-
-            // Alerta e Reset
-            document.getElementById('alerta-sucesso').classList.remove('hidden');
-            this.reset();
-            removerImagem();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            fetch(`${window.API_URL || 'http://localhost:3333'}/api/artigos`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ autor_nome: autor, categoria, titulo, resumo, conteudo }),
+            })
+                .then(async (response) => {
+                    const data = await response.json();
+                    if (!response.ok) throw new Error(data.error || 'Não foi possível enviar a publicação.');
+                    return data;
+                })
+                .then(() => {
+                    document.getElementById('alerta-sucesso').classList.remove('hidden');
+                    this.reset();
+                    removerImagem();
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                })
+                .catch((error) => alert(error.message));
         });
     </script>
 </body>
