@@ -7,7 +7,7 @@
 
     <!-- TAILWIND CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="../js/auth.js"></script>
+    <script src="../src/legacy-entry.js"></script>
 
     <!-- CONFIGURAÇÃO DA PALETA DE CORES DA ESCOLA -->
     <script>
@@ -215,7 +215,7 @@
         const articleId = params.get('id');
         const content = document.getElementById('article-content');
         const article = { title: document.getElementById('article-title'), author: document.getElementById('article-author'), category: document.getElementById('article-category'), categoryFooter: document.getElementById('article-category-footer'), date: document.getElementById('article-date'), image: document.getElementById('article-image'), caption: document.getElementById('article-caption') };
-        const friendlyError = (message) => { content.innerHTML = `<div class="rounded-2xl bg-red-50 p-6 text-center text-red-700"><p class="font-bold">${message}</p><a href="noticia.html" class="inline-block mt-4 rounded-xl bg-escola-secundaria px-4 py-2 text-white">Voltar para notícias</a></div>`; };
+        const friendlyError = (message) => { content.innerHTML = ''; const box = document.createElement('div'); box.className = 'rounded-2xl bg-red-50 p-6 text-center text-red-700'; const text = document.createElement('p'); text.className = 'font-bold'; text.textContent = message; const link = document.createElement('a'); link.href = 'noticia.html'; link.className = 'inline-block mt-4 rounded-xl bg-escola-secundaria px-4 py-2 text-white'; link.textContent = 'Voltar para notícias'; box.append(text, link); content.appendChild(box); };
         article.title.textContent = 'Carregando notícia...';
         content.innerHTML = '<p class="text-slate-500">Carregando o conteúdo completo...</p>';
         if (!articleId) friendlyError('Notícia não encontrada.');

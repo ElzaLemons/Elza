@@ -1,161 +1,169 @@
-🔐 1. Estrutura de Autenticação e Perfis
+# 🔐 Fluxos de Navegação, Autenticação e Regras de Acesso — Portal Escola Elza
 
-O sistema utilizará JWT (JSON Web Token) armazenado no localStorage do navegador para controle de sessão, alinhado às tabelas do banco de dados (users e articles):
-Tipos de Usuários:
+Este documento especifica as regras de negócio para a gestão de sessões, perfis de utilizador, navegação dinâmica na Navbar e a estrutura em **MVC com JavaScript Vanilla**.
 
-    Visitante (Usuário Normal): Alunos, pais ou visitantes sem login.
+---
 
-    Redator / Editor (perfil: 'estudante' ou 'professor'): Usuário com autorização de criação de notícias.
+## 👥 1. Estrutura de Autenticação e Perfis
 
-    Administrador (perfil: 'admin'): Controle total da plataforma, moderação, eventos e usuários.
+A sessão do utilizador é gerida no `localStorage` do navegador (gravando o token de autenticação e os dados do utilizador no objeto `elza_user` e `elza_token`).
 
-    🔄 2. Fluxos de Navegação por Perfil
-A. Fluxo do Usuário Normal (Visitante)
-[Acessa o Site] ──► [Home / Notícias / Eventos / Projetos]
+### Perfis de Acesso:
+- **Visitante (Sem Login):** Estudantes, encarregados de educação ou leitores normais. Podem visualizar notícias, agenda de eventos e enviar sugestões públicas.
+- **Redator / Editor (`estudante` ou `professor`):** Acesso à criação e submissão de matérias/artigos.
+- **Administrador (`admin`):** Controlo total da plataforma, moderação de publicações, gestão de eventos e utilizadores.
+
+---
+
+## 🔄 2. Fluxos de Navegação por Perfil
+
+```text
+A. VISITANTE
+[Acessa o Portal] ──► [Home / Notícias / Eventos / Sugestões]
        │
-       ├──► Lê Notícias e Visualiza Agenda de Eventos
-       ├──► Envia Sugestão / Feedback em sugestao.html (público / anônimo)
-       └──► Clica em "Login" na Navbar ──► [Modal/Página de Login]
+       ├──► Lê Notícias e Visualiza Eventos
+       ├──► Envia Sugestão/Feedback em sugestao.html (público / anónimo)
+       └──► Clica em "Login" ──► [login.html]
 
-B. Fluxo do Redator (Responsável por Publicar Notícias)
-[Clica em "Login"] ──► [Digita Credenciais] ──► [POST /api/auth/login]
-                                                        │
-                                                        ▼
-                                       [Sucesso: Salva Token e Perfil]
-                                                        │
-┌───────────────────────────────────────────────────────┴───────────────────────────────────────────────────────┐
-▼                                                                                                               ▼
-[Oculta botão "Login"]                                                      [Exibe Botões Restritos na Navbar]
-[Exibe o nome do usuário e "Sair"]                                            ├──► "Criar Publicação" (publicacao.html)
-                                                                             └──► "Minhas Publicações" (status do envio)
+B. REDATOR (Estudante / Professor)
+[Login Válido] ──► [Grava elza_token e elza_user no localStorage]
+                        │
+                        ▼
+┌───────────────────────┴────────────────────────────────────────┐
+▼                                                                ▼
+[Oculta botão "Login"]                        [Exibe na Navbar]
+[Exibe Nome do Utilizador + "Sair"]           └──► "+ Nova Publicação" (publicacao.html)
 
-                                                                             Ação de Publicação (publicacao.html):
+Ação de Publicação:
+- Preenche o formulário e envia via `NoticiaController` -> `NoticiaModel.salvar()`.
+- O artigo é gravado com o estado `'aguardando_coordenacao'`.
+- O redator não tem acesso ao painel `admin.html`.
 
-    O redator preenche o formulário com título, resumo, conteúdo, categoria e imagem.
+C. ADMINISTRADOR (Admin)
+[Login Válido (perfil: 'admin')] ──► [Exibe botão "Painel Admin" (admin.html)]
+                                          │
+       ┌──────────────────────────────────┼──────────────────────────────────┐
+       ▼                                  ▼                                  ▼
+[Aprova / Recusa Notícias]       [Gerencia Eventos]                 [Gerencia Utilizadores]
 
-    Envia via POST /api/artigos com o token no cabeçalho (Authorization: Bearer <token>).
 
-    O artigo entra com status = 'aguardando_coordenacao'.
-
-    O redator visualiza o status da sua submissão, mas não possui acesso ao painel admin.html.
-
-    C. Fluxo do Administrador
-    [Acessa Login] ──► [Autentica como 'admin'] ──► [Liberado acesso a "Painel Admin" (admin.html)]
-                                                              │
-    ┌─────────────────────────────────────────────────────────┼─────────────────────────────────────────────────────────┐
-    ▼                                                         ▼                                                         ▼
-[Aprova / Recusa Notícias]                          [Gerencia Eventos]                                        [Gerencia Usuários]
-(PATCH /api/admin/artigos/:id/moderacao)            (POST /api/admin/eventos)                                 (Aprova / Remove contas)
-
-🎨 3. Alteração Visual da Interface (Navbar & Visibilidade)
-Mudança na Barra de Navegação:
-
-    Antes: Botão fixo de "Admin".
-
-    Depois (Deslogado): Apenas o botão "Login". O botão de "Criar Publicação" permanece completamente invisível/oculto via CSS (display: none).
-
-    Depois (Logado como Redator): O botão "Login" é substituído pelo nome/perfil do usuário + botão "Sair", e o botão "Nova Publicação" passa a ser visível.
-
-    Depois (Logado como Admin): Aparecem os botões "Painel Admin" e "Nova Publicação".
-
-    # 🛠️ Especificação de Autenticação e Controle de Acesso Front-end / Back-end
-
-## 1. Alteração da Navbar em todas as páginas HTML (`WebSite/`)
-
-Substituir o link atual de "Admin" pela seguinte estrutura dinâmica:
-
-```html
+🎨 3. Alteração Visual e Dinâmica da Navbar
+Estrutura HTML da Navbar nas Páginas (WebSite/ e WebSite/pages/)
 <nav class="flex items-center gap-4">
-  <!-- Botão visível apenas quando logado como Redator ou Admin -->
-  <a id="btn-publicar" href="publicacao.html" class="hidden bg-blue-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-blue-700">
+  <!-- Visível para qualquer utilizador autenticado (Redator ou Admin) -->
+  <a id="btn-publicar" href="publicacao.html" class="hidden bg-blue-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-blue-700 transition-all">
     + Nova Publicação
   </a>
 
-  <!-- Botão visível apenas para perfil Admin -->
-  <a id="btn-admin" href="admin.html" class="hidden bg-purple-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-purple-700">
+  <!-- Visível apenas para perfil Admin -->
+  <a id="btn-admin" href="admin.html" class="hidden bg-purple-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-purple-700 transition-all">
     Painel Admin
   </a>
 
   <!-- Estado Deslogado -->
-  <a id="btn-login" href="login.html" class="bg-slate-800 text-white px-4 py-2 rounded-lg font-medium hover:bg-slate-900">
+  <a id="btn-login" href="login.html" class="bg-slate-800 text-white px-4 py-2 rounded-lg font-medium hover:bg-slate-900 transition-all">
     Login
   </a>
 
   <!-- Estado Logado (Nome + Sair) -->
-  <div id="user-session" class="hidden flex items-center gap-2">
-    <span id="user-name" class="text-sm font-semibold text-gray-700"></span>
-    <button id="btn-logout" class="text-sm text-red-600 hover:underline">Sair</button>
+  <div id="user-session" class="hidden flex items-center gap-3">
+    <span id="user-name" class="text-sm font-semibold text-slate-200"></span>
+    <button id="btn-logout" class="text-sm text-red-400 hover:text-red-300 transition-colors">Sair</button>
   </div>
 </nav>
 
-2. Script do Front-end (WebSite/js/auth.js)
+🛠️ 4. Implementação MVC para Autenticação no Front-end
 
-Criar o gerenciador de sessão que será importado em todas as páginas:
+A gestão de sessão e atualização do DOM é coordenada pelos módulos organizados em src/:
+1. src/models/auth.model.js (Regras de Negócio e LocalStorage)
 
-document.addEventListener("DOMContentLoaded", () => {
-  const token = localStorage.getItem("token");
-  const user = JSON.parse(localStorage.getItem("user") || "null");
-
-  const btnLogin = document.getElementById("btn-login");
-  const btnPublicar = document.getElementById("btn-publicar");
-  const btnAdmin = document.getElementById("btn-admin");
-  const userSession = document.getElementById("user-session");
-  const userName = document.getElementById("user-name");
-  const btnLogout = document.getElementById("btn-logout");
-
-  if (token && user) {
-    if (btnLogin) btnLogin.classList.add("hidden");
-    if (userSession) userSession.classList.remove("hidden");
-    if (userName) userName.textContent = user.nome;
-
-    // Exibe o botão de publicação para qualquer usuário logado (redator ou admin)
-    if (btnPublicar) btnPublicar.classList.remove("hidden");
-
-    // Exibe o botão de admin apenas se o perfil for 'admin'
-    if (btnAdmin && user.perfil === "admin") {
-      btnAdmin.classList.remove("hidden");
-    }
+export class AuthModel {
+  static obterSessao() {
+    const token = localStorage.getItem('elza_token');
+    const user = JSON.parse(localStorage.getItem('elza_user') || 'null');
+    return { token, user };
   }
 
+  static async login(email, senha) {
+    // Na fase de testes locais, valida contra o array de utilizadores do localStorage
+    const users = JSON.parse(localStorage.getItem('elza_users') || '[]');
+    const usuarioEncontrado = users.find(u => u.email === email && u.senha === senha);
+
+    if (!usuarioEncontrado) {
+      throw new Error("Credenciais inválidas.");
+    }
+
+    const mockToken = "mock_jwt_token_" + Date.now();
+    localStorage.setItem('elza_token', mockToken);
+    localStorage.setItem('elza_user', JSON.stringify(usuarioEncontrado));
+
+    return { token: mockToken, user: usuarioEncontrado };
+  }
+
+  static logout() {
+    localStorage.removeItem('elza_token');
+    localStorage.removeItem('elza_user');
+  }
+}
+
+2. src/views/auth.view.js (Atualização da Interface)
+export class AuthView {
+  static renderizarNavbar(sessao) {
+    const btnLogin = document.getElementById("btn-login");
+    const btnPublicar = document.getElementById("btn-publicar");
+    const btnAdmin = document.getElementById("btn-admin");
+    const userSession = document.getElementById("user-session");
+    const userName = document.getElementById("user-name");
+
+    if (sessao.token && sessao.user) {
+      if (btnLogin) btnLogin.classList.add("hidden");
+      if (userSession) userSession.classList.remove("hidden");
+      if (userName) userName.textContent = sessao.user.nome;
+
+      if (btnPublicar) btnPublicar.classList.remove("hidden");
+
+      if (btnAdmin && sessao.user.perfil === "admin") {
+        btnAdmin.classList.remove("hidden");
+      }
+    }
+  }
+}
+
+3. src/controllers/auth.controller.js (Inicialização e Proteção de Páginas)
+import { AuthModel } from '../models/auth.model.js';
+import { AuthView } from '../views/auth.view.js';
+
+export function initAuth() {
+  const sessao = AuthModel.obterSessao();
+  AuthView.renderizarNavbar(sessao);
+
+  const btnLogout = document.getElementById("btn-logout");
   if (btnLogout) {
     btnLogout.addEventListener("click", () => {
-      localStorage.removeItem("token");
-      localStorage.removeItem("user");
+      AuthModel.logout();
       window.location.href = "index.html";
     });
   }
-});
-
-3. Proteção de Rotas no Back-end (backend/src/middleware/authMiddleware.js)
-
-Middlewares JWT para validar requisições e níveis de permissão:
-
-const jwt = require("jsonwebtoken");
-
-function authenticateToken(req, res, next) {
-  const authHeader = req.headers["authorization"];
-  const token = authHeader && authHeader.split(" ")[1];
-
-  if (!token) return res.status(401).json({ error: "Acesso negado. Faça login." });
-
-  jwt.verify(token, process.env.JWT_SECRET || "secreta_elza", (err, user) => {
-    if (err) return res.status(403).json({ error: "Token inválido ou expirado." });
-    req.user = user;
-    next();
-  });
 }
 
-function requireAdmin(req, res, next) {
-  if (req.user.perfil !== "admin") {
-    return res.status(403).json({ error: "Acesso restrito a administradores." });
+// Proteção de Páginas Privadas
+export function protegerPaginaRestrita(requerAdmin = false) {
+  const { token, user } = AuthModel.obterSessao();
+
+  if (!token || !user) {
+    window.location.href = "login.html";
+    return;
   }
-  next();
+
+  if (requerAdmin && user.perfil !== 'admin') {
+    window.location.href = "index.html";
+  }
 }
 
-module.exports = { authenticateToken, requireAdmin };
+document.addEventListener("DOMContentLoaded", initAuth);
 
-4. Proteção de Páginas (publicacao.html e admin.html)
+🛡️ 5. Proteção de Páginas Privadas
 
-    Em publicacao.html: Se o visitante tentar acessar sem o token, redireciona imediatamente para login.html.
+    Em publicacao.html: O controller executa protegerPaginaRestrita(false). Redireciona imediatamente para login.html se não houver sessão ativa.
 
-    Em admin.html: Se o usuário tentar acessar sem token ou com perfil !== 'admin', redireciona para index.html.
+    Em admin.html: O controller executa protegerPaginaRestrita(true). Redireciona para index.html caso o utilizador logado não possua perfil admin.

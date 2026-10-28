@@ -7,7 +7,7 @@
 
     <!-- TAILWIND CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="../js/auth.js"></script>
+    <script src="../src/legacy-entry.js"></script>
 
     <!-- CONFIGURAÇÃO DA PALETA EXCLUSIVA: EVENTOS (ROXO / AMBER / VIOLETA) -->
     <script>
@@ -161,7 +161,7 @@
                 <span class="text-xs text-slate-500 font-medium">Ano Letivo 2026</span>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div id="lista-eventos" class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
                 <!-- Evento Card 1 -->
                 <div class="bg-evt-card rounded-2xl p-5 border border-purple-200/70 shadow-sm hover:shadow-md transition flex gap-4 items-start">
@@ -312,6 +312,14 @@
         btnMenu.addEventListener('click', () => {
             mobileMenu.classList.toggle('hidden');
         });
+
+        const eventosEscape = (value) => String(value || '').replace(/[&<>"']/g, (char) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' })[char]);
+        window.auth.apiFetch('/api/eventos').then(async (response) => {
+            if (!response.ok) throw new Error('Não foi possível carregar os eventos.');
+            const eventos = await response.json();
+            if (!eventos.length) return;
+            document.getElementById('lista-eventos').innerHTML = eventos.map((evento) => `<article class="bg-evt-card rounded-2xl p-5 border border-purple-200/70 shadow-sm flex gap-4 items-start"><div class="bg-purple-100 text-evt-principal rounded-xl p-3 text-center min-w-[65px] font-extrabold shrink-0 border border-purple-200"><span class="block text-xl leading-none">${eventosEscape(new Date(`${evento.data_inicio}T00:00:00`).toLocaleDateString('pt-BR', { day: '2-digit' }))}</span><span class="text-[9px] uppercase font-bold tracking-wider">${eventosEscape(new Date(`${evento.data_inicio}T00:00:00`).toLocaleDateString('pt-BR', { month: 'short' }))}</span></div><div class="space-y-2 flex-grow"><div class="flex items-center justify-between"><span class="bg-indigo-100 text-indigo-700 text-[10px] font-bold px-2 py-0.5 rounded-md uppercase">${eventosEscape(evento.categoria_nome || evento.categoria_codigo || 'Evento')}</span></div><h3 class="font-bold text-sm text-evt-escuro leading-snug">${eventosEscape(evento.titulo)}</h3><p class="text-xs text-slate-600 line-clamp-2">${eventosEscape(evento.descricao || '')}</p><div class="pt-1 text-[11px] text-slate-500 flex items-center gap-1 font-medium">📍 ${eventosEscape(evento.local)}</div></div></article>`).join('');
+        }).catch(() => { /* Mantém os eventos estáticos como fallback visual. */ });
     </script>
 </body>
 </html>

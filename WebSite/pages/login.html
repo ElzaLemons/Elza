@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Portal Escola Elza</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="../js/auth.js"></script>
+    <script src="../src/legacy-entry.js"></script>
 </head>
 <body class="min-h-screen bg-slate-950 flex items-center justify-center p-4">
     <main class="w-full max-w-md bg-white rounded-3xl p-8 shadow-xl">
@@ -59,7 +59,10 @@
                 localStorage.setItem('token', data.token);
                 localStorage.setItem('user', JSON.stringify(data.user));
                 window.auth.showToast(`Bem-vindo(a), ${data.user.nome}!`, 'success');
-                const redirect = data.user.perfil === 'admin' ? 'admin.html' : 'publicacao.html';
+                const requestedRedirect = new URLSearchParams(window.location.search).get('redirect');
+                const redirect = requestedRedirect === 'admin.html' && data.user.perfil === 'admin'
+                    ? 'admin.html'
+                    : (data.user.perfil === 'admin' ? 'admin.html' : 'publicacao.html');
                 window.location.href = redirect;
             } catch (error) {
                 const message = error instanceof TypeError
