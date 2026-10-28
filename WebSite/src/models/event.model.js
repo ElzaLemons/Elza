@@ -5,5 +5,5 @@ export class EventModel {
   static async salvar(data, user) {
     return getDatabase().insert('events', { ...data, status: 'publicado', created_by: user?.id, created_at: new Date().toISOString() });
   }
-  static async deletar(id) { return getDatabase().remove('events', (item) => String(item.id) === String(id)); }
+  static async deletar(id) { return getDatabase().remove('events', id); }
 }

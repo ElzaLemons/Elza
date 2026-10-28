@@ -1,8 +1,10 @@
 import { STORAGE_KEYS, read, write } from './storage.js';
+import { isSupabaseConfigured } from './supabaseClient.js';
 
 const now = new Date().toISOString();
 
 export function seedLocalStorage() {
+  if (isSupabaseConfigured) return {};
   if (!localStorage.getItem(STORAGE_KEYS.users)) write(STORAGE_KEYS.users, [
     { id: 1, nome: 'Administrador Local', email: 'admin@elza.com', senha: '123', perfil: 'admin', ativo: true, created_at: now },
     { id: 2, nome: 'Publicador Local', email: 'publicador@elza.com', senha: '123', perfil: 'estudante', ativo: true, created_at: now },

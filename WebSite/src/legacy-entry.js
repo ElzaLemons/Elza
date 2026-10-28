@@ -16,10 +16,18 @@
     import('./models/suggestion.model.js'),
     import('./models/user.model.js'),
   ]).then(([auth, article, event, suggestion, user]) => ({ AuthModel: auth.AuthModel, ArticleModel: article.ArticleModel, EventModel: event.EventModel, SuggestionModel: suggestion.SuggestionModel, UserModel: user.UserModel }));
+  const sessionReady = modelsReady.then(async (models) => {
+    const activeSession = await models.AuthModel.obterSessaoAsync();
+    if (activeSession.token && activeSession.user) {
+      localStorage.setItem('token', activeSession.token);
+      localStorage.setItem('user', JSON.stringify(activeSession.user));
+    }
+    return models;
+  });
   const session = () => ({ token: localStorage.getItem(keys.token), user: read(keys.user, null) });
   const currentUser = () => session().user;
   const apiFetch = async (path, options = {}) => {
-    const { AuthModel, ArticleModel, EventModel, SuggestionModel, UserModel } = await modelsReady;
+    const { AuthModel, ArticleModel, EventModel, SuggestionModel, UserModel } = await sessionReady;
     const method = options.method || 'GET';
     let body = options.body;
     if (body instanceof FormData) body = Object.fromEntries(body.entries());
@@ -27,6 +35,9 @@
     const users = read(keys.users, []);
     if (path === '/api/auth/login' && method === 'POST') {
       try { const result = await AuthModel.login(String(body.email || ''), String(body.senha || '')); localStorage.setItem('token', result.token); localStorage.setItem('user', JSON.stringify(result.user)); return response(result); } catch { return response({ error: 'Credenciais inválidas' }, 401); }
+    }
+    if (path === '/api/auth/signup' && method === 'POST') {
+      try { return response(await AuthModel.signup({ email: String(body.email || ''), senha: String(body.senha || ''), nome: String(body.nome || ''), perfil: String(body.perfil || 'estudante') }), 201); } catch (error) { return response({ error: error.message }, 400); }
     }
     if (path === '/api/sugestoes' && method === 'POST') { const item = await SuggestionModel.salvar(body); return response({ id: item.id, status: item.status }, 201); }
     if (path === '/api/eventos' && method === 'GET') return response(await EventModel.obterTodos());

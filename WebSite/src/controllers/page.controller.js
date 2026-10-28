@@ -1,7 +1,7 @@
 import { protegerPaginaRestrita } from './auth.controller.js';
 
-export function initPageController() {
+export async function initPageController() {
   const page = location.pathname.split('/').pop();
-  if (page === 'publicacao.html') protegerPaginaRestrita(false);
-  if (page === 'admin.html') protegerPaginaRestrita(true);
+  if (page === 'publicacao.html') await protegerPaginaRestrita(false);
+  if (page === 'admin.html') await protegerPaginaRestrita(true);
 }
