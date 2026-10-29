@@ -88,8 +88,9 @@
       if (user && !hasAdminProfile && !nav.querySelector('#user-session')) { const sessionNode = document.createElement('span'); sessionNode.id = 'user-session'; sessionNode.className = 'inline-flex items-center gap-2 text-xs font-semibold'; const name = document.createElement('span'); name.id = 'user-name'; name.textContent = user.nome; const logout = document.createElement('button'); logout.id = 'btn-logout'; logout.type = 'button'; logout.textContent = 'Sair'; logout.className = 'text-red-300'; sessionNode.append(name, logout); nav.appendChild(sessionNode); }
       if (user) document.querySelectorAll('#btn-login').forEach((link) => link.classList.add('hidden'));
     });
-    if (page === 'publicacao.html' && !user) location.href = 'login.html';
-    if (page === 'admin.html' && (!user || user.perfil !== 'admin')) location.href = 'login.html?redirect=admin.html';
+    // Admin e Publicador ficam acessíveis sem login enquanto o layout é ajustado.
+    // O login continua sendo exigido no envio de publicações e nas operações
+    // administrativas que dependem de uma sessão válida.
   });
   import('./controllers/bootstrap.controller.js').catch((error) => console.error('Falha ao iniciar MVC:', error));
 }());

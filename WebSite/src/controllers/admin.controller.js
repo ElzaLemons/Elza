@@ -2,6 +2,7 @@ import { AuthModel } from '../models/auth.model.js';
 import { AdminView } from '../views/admin.view.js';
 
 const api = () => window.auth.apiFetch;
+let adminSessionAvailable = false;
 
 async function request(path, options) {
   const response = await api()(path, options);
@@ -41,14 +42,34 @@ async function carregarPendentes() {
 }
 
 function mudarAba(nomeAba) {
-  ['usuarios', 'eventos', 'materias', 'moderacao'].forEach((aba) => {
-    document.getElementById(`conteudo-${aba}`).classList.toggle('hidden', aba !== nomeAba);
-    document.getElementById(`tab-${aba}`).classList.toggle('bg-adm-principal', aba === nomeAba);
-    document.getElementById(`tab-${aba}`).classList.toggle('text-white', aba === nomeAba);
+  ['visao', 'usuarios', 'materias', 'eventos', 'moderacao'].forEach((aba) => {
+    document.getElementById(`conteudo-${aba}`)?.classList.toggle('hidden', aba !== nomeAba);
+    document.getElementById(`tab-${aba}`)?.classList.toggle('tab-active', aba === nomeAba);
+    document.getElementById(`tab-${aba}`)?.classList.toggle('text-slate-500', aba !== nomeAba);
   });
-  if (nomeAba === 'usuarios') carregarUsuarios().catch((error) => AdminView.mostrarAlerta(error.message));
-  if (nomeAba === 'eventos') carregarEventos().catch((error) => AdminView.mostrarAlerta(error.message));
-  if (nomeAba === 'moderacao') carregarPendentes().catch((error) => AdminView.mostrarAlerta(error.message));
+  if (nomeAba === 'usuarios' && adminSessionAvailable) carregarUsuarios().catch((error) => AdminView.mostrarAlerta(error.message));
+  if (nomeAba === 'eventos' && adminSessionAvailable) carregarEventos().catch((error) => AdminView.mostrarAlerta(error.message));
+  if (nomeAba === 'moderacao' && adminSessionAvailable) carregarPendentes().catch((error) => AdminView.mostrarAlerta(error.message));
+}
+
+function inicializarModalUsuario() {
+  const modal = document.getElementById('user-modal');
+  if (!modal) return;
+  const abrir = () => {
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+    document.body.classList.add('modal-open');
+    document.getElementById('usr-nome')?.focus();
+  };
+  const fechar = () => {
+    modal.classList.add('hidden');
+    modal.classList.remove('flex');
+    document.body.classList.remove('modal-open');
+  };
+  document.querySelectorAll('[data-open-user-modal]').forEach((button) => button.addEventListener('click', abrir));
+  document.querySelectorAll('[data-close-user-modal]').forEach((button) => button.addEventListener('click', fechar));
+  modal.addEventListener('click', (event) => { if (event.target === modal) fechar(); });
+  document.addEventListener('keydown', (event) => { if (event.key === 'Escape') fechar(); });
 }
 
 function inicializarPerfil(user) {
@@ -113,14 +134,19 @@ function inicializarPerfil(user) {
 
 export async function initAdminPage() {
   const session = await AuthModel.obterSessaoAsync();
-  if (!session.token || session.user?.perfil !== 'admin') {
-    window.location.href = 'login.html?redirect=admin.html';
-    return;
-  }
+  const hasAdminSession = Boolean(session.token && session.user?.perfil === 'admin');
+  adminSessionAvailable = hasAdminSession;
+  const previewUser = { nome: 'Administrador', email: 'Modo de visualização', perfil: 'admin' };
 
-  inicializarPerfil(session.user);
+  inicializarPerfil(hasAdminSession ? session.user : previewUser);
+  document.getElementById('overview-name').textContent = (hasAdminSession ? session.user.nome : previewUser.nome).split(' ')[0];
   document.getElementById('btn-menu')?.addEventListener('click', () => document.getElementById('mobile-menu').classList.toggle('hidden'));
-  document.querySelectorAll('.aba-btn').forEach((button) => button.addEventListener('click', () => mudarAba(button.id.replace('tab-', ''))));
+  document.querySelectorAll('.tab-btn').forEach((button) => button.addEventListener('click', () => mudarAba(button.id.replace('tab-', ''))));
+  inicializarModalUsuario();
+  document.getElementById('user-search')?.addEventListener('input', (event) => {
+    const term = event.target.value.trim().toLowerCase();
+    document.querySelectorAll('#tabela-usuarios tr').forEach((row) => { row.classList.toggle('hidden', term && !row.textContent.toLowerCase().includes(term)); });
+  });
   document.getElementById('form-add-usuario').addEventListener('submit', async (event) => {
     event.preventDefault();
     try {
@@ -139,7 +165,13 @@ export async function initAdminPage() {
       await carregarEventos();
     } catch (error) { AdminView.mostrarAlerta(error.message); }
   });
-  await carregarUsuarios();
+  if (hasAdminSession) {
+    await carregarUsuarios();
+  } else {
+    // Mantém a página navegável para o trabalho visual sem disparar chamadas
+    // protegidas enquanto não houver uma sessão administrativa.
+    AdminView.renderizarUsuarios([]);
+  }
 }
 
 if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', () => initAdminPage().catch((error) => AdminView.mostrarAlerta(error.message)));
