@@ -14,6 +14,11 @@ export class AuthModel {
     if (!session?.user) return { token: null, user: null };
     const { data: profile, error } = await client.from('users').select('*').eq('id', session.user.id).single();
     if (error) throw error;
+    return this.persistSession(session, profile);
+  }
+
+  static persistSession(session, profile) {
+    if (!session?.access_token || !profile) return { token: null, user: null };
     write(STORAGE_KEYS.user, profile);
     localStorage.setItem(STORAGE_KEYS.token, session.access_token);
     return { token: session.access_token, user: profile };
@@ -24,15 +29,14 @@ export class AuthModel {
       const client = await getSupabaseClient();
       const { data, error } = await client.auth.signInWithPassword({ email: email.trim(), password: senha });
       if (error) throw new Error(error.message || 'Credenciais inválidas.');
+      if (!data.session || !data.user) throw new Error('O Supabase não retornou uma sessão válida.');
       const { data: profile, error: profileError } = await client.from('users').select('*').eq('id', data.user.id).single();
       if (profileError) throw profileError;
       if (profile.ativo === false) {
         await client.auth.signOut();
         throw new Error('Usuário inativo.');
       }
-      write(STORAGE_KEYS.user, profile);
-      localStorage.setItem(STORAGE_KEYS.token, data.session.access_token);
-      return { token: data.session.access_token, user: profile };
+      return this.persistSession(data.session, profile);
     }
     const user = (await getDatabase().all('users')).find((item) => item.email.toLowerCase() === email.trim().toLowerCase() && item.senha === senha && item.ativo !== false);
     if (!user) throw new Error('Credenciais inválidas.');

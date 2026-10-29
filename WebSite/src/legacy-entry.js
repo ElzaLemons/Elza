@@ -27,18 +27,28 @@
   const session = () => ({ token: localStorage.getItem(keys.token), user: read(keys.user, null) });
   const currentUser = () => session().user;
   const apiFetch = async (path, options = {}) => {
-    const { AuthModel, ArticleModel, EventModel, SuggestionModel, UserModel } = await sessionReady;
     const method = options.method || 'GET';
     let body = options.body;
     if (body instanceof FormData) body = Object.fromEntries(body.entries());
     else if (typeof body === 'string') { try { body = JSON.parse(body); } catch { body = {}; } }
-    const users = read(keys.users, []);
     if (path === '/api/auth/login' && method === 'POST') {
-      try { const result = await AuthModel.login(String(body.email || ''), String(body.senha || '')); localStorage.setItem('token', result.token); localStorage.setItem('user', JSON.stringify(result.user)); return response(result); } catch { return response({ error: 'Credenciais inválidas' }, 401); }
+      const { AuthModel } = await modelsReady;
+      try {
+        const result = await AuthModel.login(String(body.email || ''), String(body.senha || ''));
+        localStorage.setItem('token', result.token);
+        localStorage.setItem('user', JSON.stringify(result.user));
+        return response(result);
+      } catch (error) {
+        const message = error?.message || 'Não foi possível autenticar no Supabase.';
+        const invalidCredentials = /invalid login credentials|invalid password|email not confirmed|credenciais inválidas/i.test(message);
+        return response({ error: invalidCredentials ? 'Credenciais inválidas.' : message }, invalidCredentials ? 401 : 502);
+      }
     }
     if (path === '/api/auth/signup' && method === 'POST') {
+      const { AuthModel } = await modelsReady;
       try { return response(await AuthModel.signup({ email: String(body.email || ''), senha: String(body.senha || ''), nome: String(body.nome || ''), perfil: String(body.perfil || 'estudante') }), 201); } catch (error) { return response({ error: error.message }, 400); }
     }
+    const { ArticleModel, EventModel, SuggestionModel, UserModel } = await sessionReady;
     if (path === '/api/sugestoes' && method === 'POST') { const item = await SuggestionModel.salvar(body); return response({ id: item.id, status: item.status }, 201); }
     if (path === '/api/eventos' && method === 'GET') return response(await EventModel.obterTodos());
     if (path === '/api/artigos' && method === 'GET') return response(await ArticleModel.obterTodas());
@@ -58,15 +68,24 @@
   const showToast = (message, type) => { let toast = document.getElementById('app-toast'); if (!toast) { toast = document.createElement('div'); toast.id = 'app-toast'; document.body.appendChild(toast); } toast.className = `fixed right-4 top-4 z-[100] rounded-xl px-4 py-3 text-sm font-semibold shadow-lg ${type === 'error' ? 'bg-red-600 text-white' : 'bg-slate-900 text-white'}`; toast.textContent = message; setTimeout(() => toast.remove(), 4000); };
   window.auth = { apiFetch, getUser: currentUser, clearSession: () => { [keys.token, 'token'].forEach((key) => localStorage.removeItem(key)); [keys.user, 'user'].forEach((key) => localStorage.removeItem(key)); }, showToast, API_BASE: 'localStorage://elza' };
   document.addEventListener('DOMContentLoaded', () => {
-    const page = location.pathname.split('/').pop();
+    const page = location.pathname.split('/').pop() || 'index.html';
     const user = currentUser();
+    const hasAdminProfile = document.body.dataset.adminShell === 'true';
     document.querySelectorAll('nav, #mobile-menu').forEach((nav) => {
       const adminLink = [...nav.querySelectorAll('a')].find((link) => /admin\.html/.test(link.getAttribute('href') || ''));
       const publishLink = [...nav.querySelectorAll('a')].find((link) => /publicacao\.html/.test(link.getAttribute('href') || ''));
       if (publishLink) { publishLink.id = 'btn-publicar'; publishLink.textContent = '+ Nova Publicação'; publishLink.classList.toggle('hidden', !user); }
-      if (adminLink) { adminLink.id = 'btn-admin'; adminLink.textContent = 'Painel Admin'; adminLink.classList.toggle('hidden', !user || user.perfil !== 'admin'); }
+      if (adminLink) {
+        const loginHref = page === 'index.html' ? 'pages/login.html' : 'login.html';
+        const adminHref = page === 'index.html' ? 'pages/admin.html' : 'admin.html';
+        const isAdmin = Boolean(user && user.perfil === 'admin');
+        adminLink.id = isAdmin ? 'btn-admin' : 'btn-login';
+        adminLink.href = isAdmin ? adminHref : loginHref;
+        adminLink.textContent = isAdmin ? 'Painel Admin' : 'Login';
+        adminLink.classList.remove('hidden');
+      }
       if (!nav.querySelector('#btn-login')) { const login = document.createElement('a'); login.id = 'btn-login'; login.href = page === 'index.html' ? 'pages/login.html' : 'login.html'; login.textContent = 'Login'; login.className = 'px-3 py-2 rounded-lg bg-slate-800 text-white'; login.classList.toggle('hidden', Boolean(user)); nav.appendChild(login); }
-      if (user && !nav.querySelector('#user-session')) { const sessionNode = document.createElement('span'); sessionNode.id = 'user-session'; sessionNode.className = 'inline-flex items-center gap-2 text-xs font-semibold'; const name = document.createElement('span'); name.id = 'user-name'; name.textContent = user.nome; const logout = document.createElement('button'); logout.id = 'btn-logout'; logout.type = 'button'; logout.textContent = 'Sair'; logout.className = 'text-red-300'; sessionNode.append(name, logout); nav.appendChild(sessionNode); }
+      if (user && !hasAdminProfile && !nav.querySelector('#user-session')) { const sessionNode = document.createElement('span'); sessionNode.id = 'user-session'; sessionNode.className = 'inline-flex items-center gap-2 text-xs font-semibold'; const name = document.createElement('span'); name.id = 'user-name'; name.textContent = user.nome; const logout = document.createElement('button'); logout.id = 'btn-logout'; logout.type = 'button'; logout.textContent = 'Sair'; logout.className = 'text-red-300'; sessionNode.append(name, logout); nav.appendChild(sessionNode); }
       if (user) document.querySelectorAll('#btn-login').forEach((link) => link.classList.add('hidden'));
     });
     if (page === 'publicacao.html' && !user) location.href = 'login.html';

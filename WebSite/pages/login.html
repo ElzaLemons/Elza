@@ -25,52 +25,29 @@
             <button class="w-full rounded-xl bg-indigo-700 px-4 py-3 font-bold text-white hover:bg-indigo-800">Entrar</button>
         </form>
     </main>
-    <script>
+    <script type="module">
+        import { AuthModel } from '../src/models/auth.model.js';
+
         document.getElementById('form-login').addEventListener('submit', async (event) => {
             event.preventDefault();
             const errorElement = document.getElementById('login-error');
             try {
-                const response = await window.auth.apiFetch('/api/auth/login', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        email: document.getElementById('email').value,
-                        senha: document.getElementById('senha').value,
-                    }),
-                });
-                const responseText = await response.text();
-                let data = {};
-                if (responseText.trim()) {
-                    try {
-                        data = JSON.parse(responseText);
-                    } catch {
-                        throw new Error(`A API em ${window.auth.API_BASE} retornou uma resposta inválida.`);
-                    }
-                }
-                if (!response.ok) {
-                    const message = response.status === 401
-                        ? 'E-mail ou senha incorretos'
-                        : data.error || `Não foi possível entrar (erro ${response.status}).`;
-                    throw new Error(message);
-                }
-                if (!data.token || !data.user) {
-                    throw new Error('A API respondeu sem os dados de acesso. Verifique se o backend está atualizado.');
-                }
-                localStorage.setItem('token', data.token);
-                localStorage.setItem('user', JSON.stringify(data.user));
-                window.auth.showToast(`Bem-vindo(a), ${data.user.nome}!`, 'success');
+                const session = await AuthModel.login(
+                    document.getElementById('email').value,
+                    document.getElementById('senha').value,
+                );
+                if (!session.token || !session.user) throw new Error('O Supabase não retornou uma sessão válida.');
+                window.auth?.showToast(`Bem-vindo(a), ${session.user.nome}!`, 'success');
                 const requestedRedirect = new URLSearchParams(window.location.search).get('redirect');
-                const redirect = requestedRedirect === 'admin.html' && data.user.perfil === 'admin'
+                const redirect = requestedRedirect === 'admin.html' && session.user.perfil === 'admin'
                     ? 'admin.html'
-                    : (data.user.perfil === 'admin' ? 'admin.html' : 'publicacao.html');
+                    : (session.user.perfil === 'admin' ? 'admin.html' : 'publicacao.html');
                 window.location.href = redirect;
             } catch (error) {
-                const message = error instanceof TypeError
-                    ? `Não foi possível conectar à API em ${window.auth.API_BASE}. Verifique se o servidor está rodando e se essa rota está acessível nesta rede.`
-                    : error.message;
+                const message = error?.message || 'Não foi possível realizar o login.';
                 errorElement.textContent = message;
                 errorElement.classList.remove('hidden');
-                window.auth.showToast(message, 'error');
+                window.auth?.showToast(message, 'error');
             }
         });
     </script>
