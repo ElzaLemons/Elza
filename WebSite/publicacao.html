@@ -66,7 +66,7 @@
                 <a href="sugestao.html" class="px-3 py-2 rounded-lg text-teal-100/80 hover:bg-teal-900 hover:text-white transition">Sugestões</a>
                 <a href="publicacao.html" class="px-3 py-2 rounded-lg bg-pub-principal text-white shadow-sm">Nova Publicação</a>
                 <a href="eventos.html" class="px-3 py-2 rounded-lg text-teal-100/80 hover:bg-teal-900 hover:text-white transition">Eventos</a>
-                <a href="admin.html" class="px-3 py-2 rounded-lg bg-teal-950 text-amber-400 hover:bg-teal-900 transition ml-2 border border-teal-800/50">Admin</a>
+                <a href="#perfil" data-profile-modal class="px-3 py-2 rounded-lg bg-teal-950 text-amber-400 hover:bg-teal-900 transition ml-2 border border-teal-800/50">Admin</a>
             </nav>
         </div>
 
@@ -80,7 +80,7 @@
             <a href="sugestao.html" class="block px-3 py-2 rounded-lg text-teal-100/80 hover:bg-teal-950">Sugestões</a>
             <a href="publicacao.html" class="block px-3 py-2 rounded-lg bg-pub-principal text-white font-bold">Nova Publicação</a>
             <a href="eventos.html" class="block px-3 py-2 rounded-lg text-teal-100/80 hover:bg-teal-950">Eventos</a>
-            <a href="admin.html" class="block px-3 py-2 rounded-lg bg-teal-950 text-amber-400 font-bold">Painel Admin</a>
+            <a href="#perfil" data-profile-modal class="block px-3 py-2 rounded-lg bg-teal-950 text-amber-400 font-bold">Painel Admin</a>
         </div>
     </header>
 
@@ -103,8 +103,8 @@
                     EA
                 </div>
                 <div class="text-xs">
-                    <span class="block font-bold text-white">Autor Logado</span>
-                    <span class="block text-[10px] text-teal-300">Estudante / Colaborador</span>
+                    <span data-publication-username class="block font-bold text-white">Autor Logado</span>
+                    <span data-publication-role class="block text-[10px] text-teal-300">Estudante / Colaborador</span>
                 </div>
             </div>
         </div>
@@ -339,5 +339,6 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
     </script>
+    <script src="profile-modal.js"></script>
 </body>
 </html>

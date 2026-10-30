@@ -31,12 +31,18 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .status-badge[data-status="Ativo"] { background-color: #d1fae5; color: #065f46; }
+        .status-badge[data-status="Pendente"] { background-color: #fef3c7; color: #92400e; }
+        .status-badge[data-status="Recusado"] { background-color: #fee2e2; color: #991b1b; }
+        html[data-theme="dark"] body .status-badge[data-status="Ativo"] { background-color: #022c22 !important; color: #6ee7b7 !important; }
+        html[data-theme="dark"] body .status-badge[data-status="Pendente"] { background-color: #451a03 !important; color: #fcd34d !important; }
+        html[data-theme="dark"] body .status-badge[data-status="Recusado"] { background-color: #450a0a !important; color: #fca5a5 !important; }
     </style>
 </head>
 <body class="bg-adm-fundo text-slate-800 min-h-screen flex flex-col justify-between">
 
     <!-- CABEÇALHO / NAVBAR RESPONSIVA -->
-    <header class="bg-adm-escuro text-white sticky top-0 z-50 shadow-lg border-b border-indigo-900">
+    <header class="bg-adm-escuro text-white sticky top-0 z-50 shadow-lg border-b border-white/10">
         <div class="max-w-7xl mx-auto px-4 md:px-6 py-3 flex items-center justify-between">
             
             <a href="index.html" class="flex items-center gap-3 group">
@@ -57,7 +63,7 @@
             </button>
 
             <!-- Links Desktop -->
-            <nav class="hidden lg:flex items-center gap-1 text-xs font-semibold">
+            <nav class="hidden lg:flex items-center gap-6 text-xs font-semibold">
                 <a href="index.html" class="px-3 py-2 rounded-lg text-indigo-200 hover:bg-indigo-900 hover:text-white transition">Principal</a>
                 <a href="noticia.html" class="px-3 py-2 rounded-lg text-indigo-200 hover:bg-indigo-900 hover:text-white transition">Notícias</a>
                 <a href="onu.html" class="px-3 py-2 rounded-lg text-indigo-200 hover:bg-indigo-900 hover:text-white transition">Ser ONU</a>
@@ -66,7 +72,7 @@
                 <a href="sugestao.html" class="px-3 py-2 rounded-lg text-indigo-200 hover:bg-indigo-900 hover:text-white transition">Sugestões</a>
                 <a href="publicacao.html" class="px-3 py-2 rounded-lg text-indigo-200 hover:bg-indigo-900 hover:text-white transition">Publicação</a>
                 <a href="eventos.html" class="px-3 py-2 rounded-lg text-indigo-200 hover:bg-indigo-900 hover:text-white transition">Eventos</a>
-                <a href="admin.html" class="px-3 py-2 rounded-lg bg-adm-principal text-white shadow-sm border border-indigo-400/30">Admin</a>
+                <a href="#perfil" data-profile-modal class="px-3 py-2 rounded-lg bg-adm-principal text-white shadow-sm border border-indigo-400/30">Admin</a>
             </nav>
         </div>
 
@@ -80,7 +86,7 @@
             <a href="sugestao.html" class="block px-3 py-2 rounded-lg text-indigo-200 hover:bg-indigo-950">Sugestões</a>
             <a href="publicacao.html" class="block px-3 py-2 rounded-lg text-indigo-200 hover:bg-indigo-950">Publicação</a>
             <a href="eventos.html" class="block px-3 py-2 rounded-lg text-indigo-200 hover:bg-indigo-950">Eventos</a>
-            <a href="admin.html" class="block px-3 py-2 rounded-lg bg-adm-principal text-white font-bold">Painel Admin</a>
+            <a href="#perfil" data-profile-modal class="block px-3 py-2 rounded-lg bg-adm-principal text-white font-bold">Painel Admin</a>
         </div>
     </header>
 
@@ -88,7 +94,7 @@
     <main class="max-w-7xl mx-auto px-4 md:px-6 my-8 space-y-8 flex-grow w-full">
 
         <!-- DASHBOARD STATS HEADER -->
-        <section class="bg-adm-escuro text-white rounded-3xl p-6 md:p-8 shadow-xl border border-indigo-900 relative overflow-hidden">
+        <section class="bg-adm-escuro text-white rounded-3xl py-6 px-6 md:px-8 shadow-xl border border-indigo-900 relative overflow-hidden">
             <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 relative z-10">
                 <div class="space-y-1">
                     <span class="bg-amber-400 text-slate-950 text-[10px] font-extrabold px-3 py-1 rounded-full uppercase tracking-wider">👑 Acesso Master</span>
@@ -104,19 +110,19 @@
 
             <!-- CARDS DE ESTATÍSTICAS RÁPIDAS -->
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4 pt-6 mt-6 border-t border-indigo-900/80">
-                <div class="bg-indigo-950/60 p-4 rounded-2xl border border-indigo-800/50">
+                <div class="bg-white/5 p-4 rounded-2xl border border-indigo-800/50">
                     <span class="block text-[10px] text-indigo-300 font-bold uppercase">Usuários Ativos</span>
                     <span id="stat-usuarios" class="text-2xl font-extrabold text-amber-400">24</span>
                 </div>
-                <div class="bg-indigo-950/60 p-4 rounded-2xl border border-indigo-800/50">
+                <div class="bg-white/5 p-4 rounded-2xl border border-indigo-800/50">
                     <span class="block text-[10px] text-indigo-300 font-bold uppercase">Eventos Marcados</span>
                     <span id="stat-eventos" class="text-2xl font-extrabold text-white">12</span>
                 </div>
-                <div class="bg-indigo-950/60 p-4 rounded-2xl border border-indigo-800/50">
+                <div class="bg-white/5 p-4 rounded-2xl border border-indigo-800/50">
                     <span class="block text-[10px] text-indigo-300 font-bold uppercase">Matérias / Áreas</span>
                     <span id="stat-materias" class="text-2xl font-extrabold text-white">8</span>
                 </div>
-                <div class="bg-indigo-950/60 p-4 rounded-2xl border border-indigo-800/50">
+                <div class="bg-white/5 p-4 rounded-2xl border border-indigo-800/50">
                     <span class="block text-[10px] text-indigo-300 font-bold uppercase">Publicações</span>
                     <span id="stat-posts" class="text-2xl font-extrabold text-white">45</span>
                 </div>
@@ -151,7 +157,7 @@
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
                     
                     <!-- Formulário Cadastrar Usuário -->
-                    <form id="form-add-usuario" class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-4">
+                    <form id="form-add-usuario" class="bg-white p-6 rounded-3xl border border-slate-300 dark:border-slate-700 shadow-sm space-y-4">
                         <h2 class="text-sm font-bold text-adm-escuro border-b border-slate-100 pb-2">➕ Cadastrar Novo Usuário</h2>
                         
                         <div class="space-y-1">
@@ -165,6 +171,15 @@
                         </div>
 
                         <div class="space-y-1">
+                            <label for="usr-senha" class="block text-[11px] font-bold text-slate-700">Senha Inicial</label>
+                            <div class="flex overflow-hidden rounded-xl border border-slate-200 focus-within:ring-2 focus-within:ring-adm-principal">
+                                <input type="password" id="usr-senha" autocomplete="new-password" placeholder="Defina uma senha inicial" class="min-w-0 flex-1 px-3.5 py-2 text-xs focus:outline-none">
+                                <button type="button" id="btn-toggle-senha" aria-label="Mostrar senha" aria-pressed="false" class="px-3 text-slate-500 transition hover:bg-slate-100 hover:text-slate-800">👁️</button>
+                            </div>
+                            <p class="text-[10px] leading-relaxed text-slate-500">Opcional: se vazio, um link para definição de senha será enviado por e-mail.</p>
+                        </div>
+
+                        <div class="space-y-1">
                             <label class="block text-[11px] font-bold text-slate-700">Nível de Permissão</label>
                             <select id="usr-cargo" required class="w-full px-3.5 py-2 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-adm-principal focus:outline-none bg-white">
                                 <option value="Estudante Autor">Estudante Autor</option>
@@ -173,13 +188,18 @@
                             </select>
                         </div>
 
+                        <label class="flex cursor-pointer items-start gap-2 rounded-xl border border-slate-200 bg-slate-50 px-3 py-2.5 text-[11px] font-semibold leading-relaxed text-slate-700">
+                            <input type="checkbox" id="usr-autorizar" class="mt-0.5 h-4 w-4 shrink-0 accent-indigo-600">
+                            <span>Autorizar conta imediatamente (sem pendência de e-mail)</span>
+                        </label>
+
                         <button type="submit" class="w-full bg-adm-principal hover:bg-indigo-700 text-white font-bold py-2.5 rounded-xl text-xs transition shadow-sm">
-                            Cadastrar e Autorizar
+                            Cadastrar e Enviar Convite
                         </button>
                     </form>
 
                     <!-- Tabela de Usuários Cadastrados -->
-                    <div class="lg:col-span-2 bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-4">
+                    <div class="lg:col-span-2 bg-white p-6 rounded-3xl border border-slate-300 dark:border-slate-700 shadow-sm space-y-4">
                         <h2 class="text-sm font-bold text-adm-escuro border-b border-slate-100 pb-2">📋 Usuários Cadastrados</h2>
                         
                         <div class="overflow-x-auto">
@@ -188,26 +208,29 @@
                                     <tr class="border-b border-slate-200 text-slate-400 font-bold uppercase text-[10px]">
                                         <th class="py-2">Usuário</th>
                                         <th class="py-2">Cargo</th>
+                                        <th class="py-2">Status</th>
                                         <th class="py-2 text-right">Ações</th>
                                     </tr>
                                 </thead>
                                 <tbody id="tabela-usuarios" class="divide-y divide-slate-100 font-medium">
-                                    <tr>
+                                    <tr data-status="Ativo" class="border-b border-slate-100">
                                         <td class="py-3">
                                             <span class="block font-bold text-slate-800">Helena Rodrigues</span>
                                             <span class="block text-[10px] text-slate-400">helena@escola.es.gov.br</span>
                                         </td>
                                         <td class="py-3"><span class="bg-purple-100 text-purple-800 text-[10px] font-bold px-2 py-0.5 rounded-md">Professor</span></td>
+                                        <td class="py-3"><span data-status="Ativo" class="status-badge inline-flex rounded-full bg-emerald-100 px-2.5 py-1 text-[10px] font-bold text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">Ativo</span></td>
                                         <td class="py-3 text-right">
                                             <button onclick="removerLinha(this, 'usuario')" class="text-red-600 hover:text-red-800 font-bold text-xs bg-red-50 hover:bg-red-100 px-2.5 py-1 rounded-lg transition">Remover</button>
                                         </td>
                                     </tr>
-                                    <tr>
+                                    <tr data-status="Pendente" class="border-b border-slate-100">
                                         <td class="py-3">
                                             <span class="block font-bold text-slate-800">Matheus Silva</span>
                                             <span class="block text-[10px] text-slate-400">matheus.aluno@escola.es.gov.br</span>
                                         </td>
                                         <td class="py-3"><span class="bg-teal-100 text-teal-800 text-[10px] font-bold px-2 py-0.5 rounded-md">Estudante Autor</span></td>
+                                        <td class="py-3"><span data-status="Pendente" class="status-badge inline-flex rounded-full bg-amber-100 px-2.5 py-1 text-[10px] font-bold text-amber-800 dark:bg-amber-950 dark:text-amber-300">Pendente</span></td>
                                         <td class="py-3 text-right">
                                             <button onclick="removerLinha(this, 'usuario')" class="text-red-600 hover:text-red-800 font-bold text-xs bg-red-50 hover:bg-red-100 px-2.5 py-1 rounded-lg transition">Remover</button>
                                         </td>
@@ -225,7 +248,7 @@
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
                     
                     <!-- Formulário Novo Evento -->
-                    <form id="form-add-evento" class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-4">
+                    <form id="form-add-evento" class="bg-white p-6 rounded-3xl border border-slate-700 shadow-sm space-y-4">
                         <h2 class="text-sm font-bold text-adm-escuro border-b border-slate-100 pb-2">🗓️ Novo Evento na Agenda</h2>
                         
                         <div class="space-y-1">
@@ -250,7 +273,7 @@
                     </form>
 
                     <!-- Lista de Eventos Gerenciáveis -->
-                    <div class="lg:col-span-2 bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-4">
+                    <div class="lg:col-span-2 bg-white p-6 rounded-3xl border border-slate-700 shadow-sm space-y-4">
                         <h2 class="text-sm font-bold text-adm-escuro border-b border-slate-100 pb-2">📌 Eventos Ativos</h2>
                         
                         <div class="space-y-3" id="lista-eventos-admin">
@@ -271,7 +294,7 @@
             <div id="conteudo-materias" class="hidden space-y-6">
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
                     
-                    <form id="form-add-materia" class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-4">
+                    <form id="form-add-materia" class="bg-white p-6 rounded-3xl border border-slate-700 shadow-sm space-y-4">
                         <h2 class="text-sm font-bold text-adm-escuro border-b border-slate-100 pb-2">📖 Cadastrar Nova Matéria</h2>
                         
                         <div class="space-y-1">
@@ -289,7 +312,7 @@
                         </button>
                     </form>
 
-                    <div class="lg:col-span-2 bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-4">
+                    <div class="lg:col-span-2 bg-white p-6 rounded-3xl border border-slate-700 shadow-sm space-y-4">
                         <h2 class="text-sm font-bold text-adm-escuro border-b border-slate-100 pb-2">📚 Matérias Registradas</h2>
                         <div id="lista-materias-admin" class="grid grid-cols-1 md:grid-cols-2 gap-3">
                             <div class="p-3 rounded-2xl border border-slate-200 bg-slate-50 flex items-center justify-between">
@@ -306,7 +329,7 @@
             </div>
 
             <!-- CONTEÚDO DA ABA 4: MODERAÇÃO DE CONTEÚDO -->
-            <div id="conteudo-moderacao" class="hidden bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-4">
+            <div id="conteudo-moderacao" class="hidden bg-white p-6 rounded-3xl border border-slate-700 shadow-sm space-y-4">
                 <h2 class="text-sm font-bold text-adm-escuro border-b border-slate-100 pb-2">🛡️ Publicações Pendentes de Aprovação</h2>
                 
                 <div class="space-y-3">
@@ -399,21 +422,57 @@
         }
 
         // Adicionar Usuário Dinamicamente
+        const inputSenha = document.getElementById('usr-senha');
+        const btnToggleSenha = document.getElementById('btn-toggle-senha');
+        btnToggleSenha.addEventListener('click', () => {
+            const mostrar = inputSenha.type === 'password';
+            inputSenha.type = mostrar ? 'text' : 'password';
+            btnToggleSenha.setAttribute('aria-label', mostrar ? 'Ocultar senha' : 'Mostrar senha');
+            btnToggleSenha.setAttribute('aria-pressed', String(mostrar));
+        });
+
+        function criarBadgeStatus(status) {
+            const rotulos = {
+                ativo: 'Ativo', active: 'Ativo',
+                pendente: 'Pendente', pending: 'Pendente',
+                recusado: 'Recusado', rejected: 'Recusado', denied: 'Recusado'
+            };
+            const estilos = {
+                Ativo: 'bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300',
+                Pendente: 'bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-300',
+                Recusado: 'bg-red-100 text-red-800 dark:bg-red-950 dark:text-red-300'
+            };
+            const valorNormalizado = String(status || '').trim().toLowerCase();
+            const statusSeguro = rotulos[valorNormalizado] || (estilos[status] ? status : 'Pendente');
+            return `<span data-status="${statusSeguro}" class="status-badge inline-flex rounded-full px-2.5 py-1 text-[10px] font-bold ${estilos[statusSeguro]}">${statusSeguro}</span>`;
+        }
+
+        function escaparHTML(valor) {
+            return String(valor).replace(/[&<>"']/g, caractere => ({
+                '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+            })[caractere]);
+        }
+
         document.getElementById('form-add-usuario').addEventListener('submit', function(e) {
             e.preventDefault();
-            const nome = document.getElementById('usr-nome').value;
-            const email = document.getElementById('usr-email').value;
-            const cargo = document.getElementById('usr-cargo').value;
+            const nome = escaparHTML(document.getElementById('usr-nome').value.trim());
+            const email = escaparHTML(document.getElementById('usr-email').value.trim());
+            const cargo = escaparHTML(document.getElementById('usr-cargo').value);
+            const senhaInicial = inputSenha.value;
+            const autorizadoDiretamente = document.getElementById('usr-autorizar').checked;
+            const status = autorizadoDiretamente ? 'Ativo' : 'Pendente';
 
             const tabela = document.getElementById('tabela-usuarios');
             const tr = document.createElement('tr');
-            tr.className = "border-t border-slate-100 font-medium";
+            tr.dataset.status = status;
+            tr.className = "border-b border-slate-100 font-medium";
             tr.innerHTML = `
                 <td class="py-3">
                     <span class="block font-bold text-slate-800">${nome}</span>
                     <span class="block text-[10px] text-slate-400">${email}</span>
                 </td>
                 <td class="py-3"><span class="bg-indigo-100 text-indigo-800 text-[10px] font-bold px-2 py-0.5 rounded-md">${cargo}</span></td>
+                <td class="py-3">${criarBadgeStatus(status)}</td>
                 <td class="py-3 text-right">
                     <button onclick="removerLinha(this, 'usuario')" class="text-red-600 hover:text-red-800 font-bold text-xs bg-red-50 hover:bg-red-100 px-2.5 py-1 rounded-lg transition">Remover</button>
                 </td>
@@ -424,8 +483,15 @@
             let stat = document.getElementById('stat-usuarios');
             stat.innerText = parseInt(stat.innerText) + 1;
 
-            mostrarAlerta(`Usuário ${nome} cadastrado com sucesso!`);
+            mostrarAlerta(autorizadoDiretamente
+                ? `Usuário ${nome} cadastrado e autorizado. A integração de envio de e-mail será conectada ao back-end.`
+                : `Convite preparado para ${email}. A integração de envio de e-mail será conectada ao back-end.`);
+            // O valor fica disponível para o futuro endpoint; não é enviado nem persistido nesta versão de demonstração.
+            void senhaInicial;
             this.reset();
+            inputSenha.type = 'password';
+            btnToggleSenha.setAttribute('aria-label', 'Mostrar senha');
+            btnToggleSenha.setAttribute('aria-pressed', 'false');
         });
 
         // Adicionar Evento Dinamicamente
@@ -495,5 +561,6 @@
             mostrarAlerta('Publicação aprovada e lançada no mural dos estudantes!');
         }
     </script>
+    <script src="profile-modal.js"></script>
 </body>
 </html>

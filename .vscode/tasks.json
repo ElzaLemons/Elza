@@ -1,0 +1,19 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Iniciar Portal Elza",
+			"type": "shell",
+			"command": "npm --prefix WebSite run dev -- --host 0.0.0.0",
+			"isBackground": true,
+			"problemMatcher": []
+		},
+		{
+			"label": "Validar build do Portal Elza",
+			"type": "shell",
+			"command": "npm --prefix WebSite run build",
+			"isBackground": false,
+			"problemMatcher": []
+		}
+	]
+}
